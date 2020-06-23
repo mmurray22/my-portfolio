@@ -1,0 +1,9 @@
+Current Testing Method:
+
+Click all buttons on the website. There should be 5 as of right now. 
+For all but the "RESUME" button, a square box should appear below the 
+buttons with text inside. For the "RESUME" button, a pdf of my resume
+should be loaded. 
+
+
+~END of "Test Suite"~

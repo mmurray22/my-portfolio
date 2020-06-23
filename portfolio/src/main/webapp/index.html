@@ -2,18 +2,68 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+
+    <!-- Imported Libraries: Google's Material Design Library and Google's Fonts Library -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <title>MM Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
   <body>
-    <div id="content">
+    <div id="intro-content">
       <img src="/images/PROFILE_PIC.JPG">
       <h1>Michaela Murray's Portfolio</h1>
-      <p id="intro"> Welcome! My name is Michaela. I am currently a rising junior at Stanford University!</p>
-      <p>Click here to get a random message:</p>
+      <p id="intro">
+        <br>Rising Junior @ Stanford University</br> 
+        <br>Major: Computer Science</br>
+        <br>STEP Intern @ Google</br>
+      </p>
+      <div id="intro-button">
+      <div class="mdc-touch-target-wrapper">
+          <button class="mdc-button mdc-button--touch mdc-button--raised" onclick="intro()">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Intro to me!</span>
+            <div class="mdc-button__touch"></div>
+          </button>
+      </div>
+      <div class="mdc-touch-target-wrapper">
+          <button class="mdc-button mdc-button--touch mdc-button--raised" onclick="tech()">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Tech Skills</span>
+            <div class="mdc-button__touch"></div>
+          </button>
+      </div>
+      <div class="mdc-touch-target-wrapper">
+          <button class="mdc-button mdc-button--touch mdc-button--raised" onclick="interests()">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Interests</span>
+            <div class="mdc-button__touch"></div>
+          </button>
+      </div>
+      <div class="mdc-touch-target-wrapper">
+        <a href="/pdf/Michaela_Murray_Resume.pdf">
+          <button class="mdc-button mdc-button--touch mdc-button--raised">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Resume</span>
+            <div class="mdc-button__touch"></div>
+          </button>
+        </a>
+      </div> 
+      <div class="mdc-touch-target-wrapper">
+          <button class="mdc-button mdc-button--touch mdc-button--raised" onclick="contact()">
+            <div :q!class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Contact me!</span>
+            <div class="mdc-button__touch"></div>
+          </button>
+      </div>
+      <!-- <p>Click here to get a random message:</p>
       <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+      <div id="greeting-container"></div> --> 
+    </div>
+    <div id="inner-content" style="display:none">
+	  <p id="para"></p>
     </div>
   </body>
 </html>

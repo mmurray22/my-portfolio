@@ -1,16 +1,38 @@
+@use "@material/button";
+@include button.core-styles;
+@use "@material/card";
+@include card.core-styles;
+
 body {
-  background: #202020;
+  background-color: #8EC5FC;
+  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
   color: white;
+  margin: auto;
+  padding-top: 8%;
 }
 
-#content {
+#intro-content {
   margin-left: auto;
   margin-right: auto;
+  text-align:center;
   width: 650px;
 }
 
+#inner-content {
+    border: 1px solid black;
+   /* background: #808080; */
+}
+
+#intro-buttons {
+  display: inline-block;
+  padding: 1%;
+}
+
 #intro {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  width: 300px;
+  margin: auto;
+  /* padding: 1px; */
 }
 
 img {
