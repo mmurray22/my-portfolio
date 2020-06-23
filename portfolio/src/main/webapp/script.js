@@ -12,38 +12,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function intro() {
-   document.getElementById("inner-content").style.display = "block";
-   document.getElementById("para").innerHTML = `Hi everyone! My name is Michaela Murray, and I’m currently a rising junior at Stanford University. 
-	  I am majoring in Computer Science with a concentration in Systems, and I plan to minor in mathematics 
-	  and music. So far, my favorite CS class is Operating Systems, which was taught in C. I’ve also enjoyed 
-	  my Networking class taught in C++ and a distributed systems paper-reading class where I did the final 
-	  project in Rust. Last summer, I did research in video analytics, and throughout this past year I have 
-	  continued to engage in research, the most of which was developing a sensor peripheral driver for TockOS.
-	  When I am not taking classes or doing research, my main activities are being Vice President of our school’s 
-	  security club and taking violin lessons. A fun fact about me is that I am 5’, which you might not be able to 
-	  tell over GVC.`;
-   console.log('Intro!');
-};
+function intro() { 
+	document.getElementById("inner-content").style.display = "block"; 
+	document.getElementById("para").innerHTML = `Hi everyone! My name is
+	Michaela Murray, and I’m currently a rising junior at Stanford
+	University.  I am majoring in Computer Science with a concentration in
+	Systems, and I plan to minor in mathematics and music. So far, my
+	favorite CS class is Operating Systems, which was taught in C. I’ve also
+	enjoyed my Networking class taught in C++ and a distributed systems
+	paper-reading class where I did the final project in Rust. Last summer,
+	I did research in video analytics, and throughout this past year I have
+	continued to engage in research, the most of which was developing a
+	sensor peripheral driver for TockOS.  When I am not taking classes or
+	doing research, my main activities are being Vice President of our
+	school’s security club and taking violin lessons. A fun fact about me is
+	that I am 5’, which you might not be able to tell over GVC.`;
+	console.log('Intro!'); 
+}
 
-function tech() {
-   document.getElementById("inner-content").style.display = "block";
-   document.getElementById("para").innerHTML = `Rust, C++, C, JS`;
-   console.log('Tech!');
-};
+function tech() { 
+	document.getElementById("inner-content").style.display = "block"; 
+	document.getElementById("para").innerHTML = `Rust, C++, C, JS`;
+	console.log('Tech!'); 
+}
 
-function interests() {
-   document.getElementById("inner-content").style.display = "block";
-   document.getElementById("para").innerHTML = `Violin, Piano, AppliedCyber`;
-   console.log('Interests!');   
-};
+function interests() { 
+	document.getElementById("inner-content").style.display = "block"; 
+	document.getElementById("para").innerHTML = `Violin, Piano, 
+						     AppliedCyber`; 
+	console.log('Interests!');   
+}
 
-function contact() {
-   document.getElementById("inner-content").style.display = "block";
-   document.getElementById("para").innerHTML = `<ul  style="list-style-type:none;">
-						<li>Email: <a href="mailto:murray22@stanford.edu"> murray22@stanford.edu </a></li>
-						<li>Linkedin:<a href="https://www.linkedin.com/in/murray22/" target="_blank">My LinkedIn</a></li>
-						<li>Github: <a href="https://github.com/mmurray22" target="_blank">My Github</a></li>
-						</ul>`;
-   console.log('Contact!');
-};
+function contact() { 
+	document.getElementById("inner-content").style.display = "block"; 
+	document.getElementById("para").innerHTML = 
+		`<ul style="list-style-type:none;"> 
+		<li>Email: 
+		<a href="mailto:murray22@stanford.edu"> 
+		murray22@stanford.edu 
+		</a></li>
+		<li>Linkedin:
+		<a href="https://www.linkedin.com/in/murray22/" target="_blank">
+		My LinkedIn
+		</a></li> 
+		<li>Github: 
+		<a href="https://github.com/mmurray22" target="_blank">
+		My Github
+		</a></li> 
+		</ul>`; 
+	console.log('Contact!'); 
+}
