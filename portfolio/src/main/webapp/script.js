@@ -34,27 +34,16 @@ function tech() {
 
 function interests() {
    document.getElementById("inner-content").style.display = "block";
-   document.getElementById("para").innerHTML = ` Violin, Piano, AppliedCyber`;
+   document.getElementById("para").innerHTML = `Violin, Piano, AppliedCyber`;
    console.log('Interests!');   
 };
 
 function contact() {
    document.getElementById("inner-content").style.display = "block";
-   document.getElementById("para").innerHTML = `My email is: murray22@stanford.edu`;
+   document.getElementById("para").innerHTML = `<ul>
+						<li>Email: <a href="mailto:murray22@stanford.edu"> murray22@stanford.edu </a></li>
+						<li>Linkedin:<a href="https://www.linkedin.com/in/murray22/" target="_blank">My LinkedIn</a></li>
+						<li>Github: <a href="https://github.com/mmurray22" target="_blank">My Github</a></li>
+						</ul>`;
    console.log('Contact!');
-};
-
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hope is the thing with feathers!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
-
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
 };
