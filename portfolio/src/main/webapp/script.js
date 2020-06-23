@@ -40,7 +40,7 @@ function interests() {
 
 function contact() {
    document.getElementById("inner-content").style.display = "block";
-   document.getElementById("para").innerHTML = `<ul>
+   document.getElementById("para").innerHTML = `<ul  style="list-style-type:none;">
 						<li>Email: <a href="mailto:murray22@stanford.edu"> murray22@stanford.edu </a></li>
 						<li>Linkedin:<a href="https://www.linkedin.com/in/murray22/" target="_blank">My LinkedIn</a></li>
 						<li>Github: <a href="https://github.com/mmurray22" target="_blank">My Github</a></li>
