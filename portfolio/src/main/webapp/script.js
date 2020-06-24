@@ -14,7 +14,7 @@
 
 function intro() { 
 	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("para").innerHTML = `Hi everyone! My name is
+	document.getElementById("my-info").innerHTML = `Hi everyone! My name is
 	Michaela Murray, and I’m currently a rising junior at Stanford
 	University.  I am majoring in Computer Science with a concentration in
 	Systems, and I plan to minor in mathematics and music. So far, my
@@ -32,20 +32,20 @@ function intro() {
 
 function tech() { 
 	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("para").innerHTML = `Rust, C++, C, JS`;
+	document.getElementById("my -info").innerHTML = `Rust, C++, C, JS`;
 	console.log('Tech!'); 
 }
 
 function interests() { 
 	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("para").innerHTML = `Violin, Piano, 
+	document.getElementById("my-info").innerHTML = `Violin, Piano, 
 						     AppliedCyber`; 
 	console.log('Interests!');   
 }
 
 function contact() { 
 	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("para").innerHTML = 
+	document.getElementById("my-info").innerHTML = 
 		`<ul style="list-style-type:none;"> 
 		<li>Email: 
 		<a href="mailto:murray22@stanford.edu"> 
