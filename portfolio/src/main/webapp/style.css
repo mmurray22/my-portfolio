@@ -16,13 +16,30 @@ body {
 #intro-content {
   margin-left: auto;
   margin-right: auto;
-  text-align:center;
+  text-align: center;
   width: 100%;
+}
+
+#intro-button-one {
+  margin: auto;
+  padding-bottom: 25%;
+  padding-right: -10px;
+}
+
+#profile-wrapper {
+   margin: auto;
+   padding-top: 15%
 }
 
 #basic-profile {
    border: 1px solid black;
-   padding: 10px;
+   padding-top: 10px;
+}
+
+#intro-button-two {
+   margin: auto;
+   padding-bottom: 25%;
+   padding-left: -100px;
 }
 
 #inner-content {
@@ -43,6 +60,5 @@ img {
 }
 
 button {
- /* border-radius: 25px;*/
-   border: 1px solid black;
+   padding-bottom: 15px;
 }
