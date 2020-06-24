@@ -3,9 +3,11 @@
 @use "@material/card";
 @include card.core-styles;
 
+html {
+   background-size: cover;
+}
+
 body {
-  background-color: #8EC5FC;
-  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
   color: white;
   margin: auto;
   padding: 1%;
@@ -15,7 +17,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align:center;
-  width: 650px;
+  width: 100%;
 }
 
 #basic-profile {
@@ -26,11 +28,6 @@ body {
 #inner-content {
    border: 1px solid black;
    text-align: center;
-}
-
-#intro-buttons {
-  display: inline-block;
-  padding: 1%;
 }
 
 #intro {
@@ -45,6 +42,7 @@ img {
   width: 350px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+button {
+ /* border-radius: 25px;*/
+   border: 1px solid black;
 }
