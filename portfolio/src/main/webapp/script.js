@@ -13,8 +13,7 @@
 // limitations under the License.
 
 function intro() {
-   document.getElementById("inner-content").style.display = "block"; 
-   document.getElementById("para").innerHTML = `Hi everyone! My name is
+   document.getElementById("para-one").innerHTML = `Hi everyone! My name is
 	Michaela Murray, and I’m currently a rising junior at Stanford
 	University.  I am majoring in Computer Science with a concentration in
 	Systems, and I plan to minor in mathematics and music. So far, my
@@ -31,14 +30,12 @@ function intro() {
 }
 
 function tech() { 
-   document.getElementById("inner-content").style.display = "block"; 
-   document.getElementById("para").innerHTML = `Rust, C++, C, JS`;
+   document.getElementById("para-one").innerHTML = `Rust, C++, C, JS`;
    console.log('Tech!'); 
 }
 
 function interests() { 
-   document.getElementById("inner-content").style.display = "block"; 
-   document.getElementById("para").innerHTML = `Violin, Piano, AppliedCyber`; 
+   document.getElementById("para-one").innerHTML = `Violin, Piano, AppliedCyber`; 
    console.log('Interests!');   
 }
 
@@ -48,22 +45,7 @@ function blog() {
 }
 
 function contact() { 
-   document.getElementById("inner-content").style.display = "block"; 
-   document.getElementById("para").innerHTML = 
-		`<ul style="list-style-type:none;"> 
-		<li>Email: 
-		<a href="mailto:murray22@stanford.edu"> 
-		murray22@stanford.edu 
-		</a></li>
-		<li>Linkedin:
-		<a href="https://www.linkedin.com/in/murray22/" target="_blank">
-		My LinkedIn
-		</a></li> 
-		<li>Github: 
-		<a href="https://github.com/mmurray22" target="_blank">
-		My Github
-		</a></li> 
-		</ul>`; 
+   document.getElementById("para-two").style.display = "block";
    console.log('Contact!'); 
 }
 
@@ -83,4 +65,14 @@ function background() {
 	            no-repeat center center fixed`;
    }
    console.log(`Background`);
+}
+
+/*
+ * TODO: FINISH PARALLAX
+ */
+function mouseparallax(image) {
+  let followX, followY, x, y = 0;
+  let friction = 1/10;
+  i
+  console.log(`Mouse parallax`); 
 }

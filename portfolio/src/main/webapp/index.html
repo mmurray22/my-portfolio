@@ -11,59 +11,75 @@
     <script src="script.js"></script>
   </head>
   <body onload="background()">
-    <div id="intro-content" style="display:block;">
+  <div id="intro-content" style="display:block;">
+      <div id="info-one" style="display:inline-block;">
+         <div id="para-one">
+	 </div>
+      </div>
       <div id="intro-button-one" style="display:inline-block">
          <div class="mdc-touch-target-wrapper" style="display:block;">
              <button class="mdc-button mdc-button--outlined" onclick="intro()" style="color:white;">  
-	       <span class="mdc-button__ripple"> Intro </span>
+	       <span class="mdc-button__ripple">Intro</span>
 	     </button>
          </div>
          <div class="mdc-touch-target-wrapper" style="display:block;">
 	     <button class="mdc-button mdc-button--outlined" onclick="tech()" style="color:white;">  
-	       <span class="mdc-button__ripple"> Tech Skills </span>
+	       <span class="mdc-button__ripple">Tech Skills</span>
 	     </button>
          </div>
          <div class="mdc-touch-target-wrapper" style="display:block;">
 	     <button class="mdc-button mdc-button--outlined" onclick="interests()" style="color:white;">  
-	       <span class="mdc-button__ripple"> Interests </span>
+	       <span class="mdc-button__ripple">Interests</span>
 	     </button>
          </div>
       </div>
       <div id="profile-wrapper" style="display:inline-block;">
          <div id="basic-profile">
-      	   <img src="/images/PROFILE_PIC.JPG">
+      	   <img id="profile" src="/images/PROFILE_PIC.JPG" onmouseover="mouseparallax(this)">
       	   <h1>Michaela Murray's Portfolio</h1>
-      	   <p id="intro">
-      	      <ul style="list-style-type:none;">
+      	   <div id="intro">
+      	      <ul style="list-style-type: none;">
                 <li>Stanford Class of 2022</li> 
                 <li>Major: Computer Science</li>
                 <li>STEP Intern @ Google</li>
 	      </ul>
-           </p>
+           </div>
          </div>
       </div>
-      <div id="intro-button-two" style="display:inline-block;">
-	 <div class="mdc-touch-target-wrapper" style="display:block;">
+      <div id="intro-button-two" style="display: inline-block;">
+	 <div class="mdc-touch-target-wrapper" style="display: block;">
 	     <button class="mdc-button mdc-button--outlined" onclick="blog()" style="color:white;">  
-	       <span class="mdc-button__ripple"> Blog </span>
+	       <span class="mdc-button__ripple">Blog</span>
 	     </button>
          </div>
          <div class="mdc-touch-target-wrapper" style="display:block;">
              <form action="/pdf/Michaela_Murray_Resume.pdf" target="_blank" style="display:inline-block;">
                <button class="mdc-button mdc-button--outlined" style="color:white;">  
-		 <span class="mdc-button__ripple"> Resume </span>
+		 <span class="mdc-button__ripple">Resume</span>
 	       </button>
              </form>
          </div> 
          <div class="mdc-touch-target-wrapper" style="display:block;">
       	     <button class="mdc-button mdc-button--outlined" onclick="contact()" style="color:white;">  
-	       <span class="mdc-button__ripple"> Contact </span>
+	       <span class="mdc-button__ripple">Contact</span>
 	     </button>
          </div>
       </div>
-    </div>
-    <div id="inner-content" style="display:none">
-       <p id="para"></p>
+      <div id="info-two" style="display:inline-block">
+	 <div id="para-two" style="display:none;">
+	    <ul style="list-style-type:none;"> 
+	       <li>Email: 
+		  <a href="mailto:murray22@stanford.edu">murray22@stanford.edu </a>
+	       </li>
+	       <li>Linkedin:
+		  <a href="https://www.linkedin.com/in/murray22/" target="_blank">My LinkedIn</a>
+	       </li> 
+	       <li>Github: 
+		  <a href="https://github.com/mmurray22" target="_blank">My Github</a>
+	       </li> 
+	    </ul>
+	 </div>
+      </div>
     </div>
   </body>
 </html>
