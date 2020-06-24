@@ -1,3 +1,8 @@
+@use "@material/button";
+@include button.core-styles;
+@use "@material/card";
+@include card.core-styles;
+
 body {
    background-color: #808080;
    color: white;

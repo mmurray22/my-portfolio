@@ -13,6 +13,7 @@
 // limitations under the License.
 
 function intro() {
+   document.getElementById("info-one").style.border = "1px solid black";
    document.getElementById("para-one").innerHTML = `Hi everyone! My name is
 	Michaela Murray, and I’m currently a rising junior at Stanford
 	University.  I am majoring in Computer Science with a concentration in
@@ -30,11 +31,13 @@ function intro() {
 }
 
 function tech() { 
+   document.getElementById("info-one").style.border = "1px solid black";
    document.getElementById("para-one").innerHTML = `Rust, C++, C, JS`;
    console.log('Tech!'); 
 }
 
 function interests() { 
+   document.getElementById("info-one").style.border = "1px solid black";
    document.getElementById("para-one").innerHTML = `Violin, Piano, AppliedCyber`; 
    console.log('Interests!');   
 }
@@ -44,7 +47,8 @@ function blog() {
    console.log(`Blog`);
 }
 
-function contact() { 
+function contact() {
+   document.getElementById("info-two").style.border = "1px solid black"; 
    document.getElementById("para-two").style.display = "block";
    console.log('Contact!'); 
 }
