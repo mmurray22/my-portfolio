@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8">
-
     <!-- Imported Libraries: Google's Material Design Library and Google's Fonts Library -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -11,9 +10,26 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
-    <div id="intro-content">
-      <div id="basic-profile">
+  <body onload="background()">
+    <div id="intro-content" style="display:block;">
+      <div id="intro-button-one" style="display:inline-block">
+         <div id = "button-div" class="mdc-touch-target-wrapper" style="display:block;">
+             <button class="mdc-button mdc-button--outlined" onclick="intro()" style="color:white;">  
+	       <span class="mdc-button__ripple"></span> Intro
+	     </button>
+         </div>
+         <div id="button-div" class="mdc-touch-target-wrapper" style="display:block;">
+	     <button class="mdc-button mdc-button--outlined" onclick="tech()" style="color:white;">  
+	       <span class="mdc-button__ripple"></span> Tech Skills
+	     </button>
+         </div>
+         <div id = "button-div" class="mdc-touch-target-wrapper" style="display:block;">
+	     <button class="mdc-button mdc-button--outlined" onclick="interests()" style="color:white;">  
+	       <span class="mdc-button__ripple"></span> Interests
+	     </button>
+         </div>
+      </div>
+      <div id="basic-profile" style="display:inline-block;">
       	<img src="/images/PROFILE_PIC.JPG">
       	<h1>Michaela Murray's Portfolio</h1>
       	<p id="intro">
@@ -22,32 +38,22 @@
               <li>Major: Computer Science</li>
               <li>STEP Intern @ Google</li>
 	   </ul>
-      </p>
+        </p>
       </div>
-      <div id="intro-button">
-         <div class="mdc-touch-target-wrapper">
-             <button class="mdc-button mdc-button--outlined" onclick="intro()" style="color:white;">  
-	       <span class="mdc-button__ripple"></span> Intro
+      <div id="intro-button-two" style="display:inline-block;">
+	 <div id="button-div" class="mdc-touch-target-wrapper" style="display:block;">
+	     <button class="mdc-button mdc-button--outlined" onclick="blog()" style="color:white;">  
+	       <span class="mdc-button__ripple"></span> Blog
 	     </button>
          </div>
-         <div class="mdc-touch-target-wrapper">
-	     <button class="mdc-button mdc-button--outlined" onclick="tech()" style="color:white;">  
-	       <span class="mdc-button__ripple"></span> Tech Skills
-	     </button>
-         </div>
-         <div class="mdc-touch-target-wrapper">
-	     <button class="mdc-button mdc-button--outlined" onclick="interests()" style="color:white;">  
-	       <span class="mdc-button__ripple"></span> Interests
-	     </button>
-         </div>
-         <div class="mdc-touch-target-wrapper">
+         <div id="button-div" class="mdc-touch-target-wrapper" style="display:block;">
              <form action="/pdf/Michaela_Murray_Resume.pdf" target="_blank" style="display:inline-block;">
                <button class="mdc-button mdc-button--outlined" style="color:white;">  
-		  <span class="mdc-button__ripple"></span> Resume
+		 <span class="mdc-button__ripple"></span> Resume
 	       </button>
              </form>
          </div> 
-         <div class="mdc-touch-target-wrapper">
+         <div id="button-div" class="mdc-touch-target-wrapper" style="display:block;">
       	     <button class="mdc-button mdc-button--outlined" onclick="contact()" style="color:white;">  
 	       <span class="mdc-button__ripple"></span> Contact
 	     </button>
