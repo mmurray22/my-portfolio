@@ -76,14 +76,6 @@ function interests() {
 }
 
 /*
- * Navigates to the blog page
- */
-function blog() {
-   location.replace("/blog.html");
-   console.log(`Blog`);
-}
-
-/*
  * Naviagates to the pictures page
  */
 function pictures() {
