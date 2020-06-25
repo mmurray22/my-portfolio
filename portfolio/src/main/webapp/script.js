@@ -29,7 +29,7 @@ function intro() {
    console.log('Intro!'); 
 }
 
-function tech() { 
+function tech() {
    document.getElementById("wrapper").innerHTML = `Rust, C++, C, JS`;
    console.log('Tech!'); 
 }
