@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*
+ * Displays intro paragraph
+ */
 function intro() {
    document.getElementById("wrapper").innerHTML = `Hi everyone! My name is
 	Michaela Murray, and I’m currently a rising junior at Stanford
@@ -24,27 +27,39 @@ function intro() {
 	continued to engage in research, the most of which was developing a
 	sensor peripheral driver for TockOS.  When I am not taking classes or
 	doing research, my main activities are being Vice President of our
-	school’s security club and taking violin lessons. A fun fact about me is
-	that I am 5’, which you might not be able to tell over GVC.`;
+	school’s security club and taking violin lessons.`;
    console.log('Intro!'); 
 }
 
+/*
+ * Displays tech skills
+ */
 function tech() { 
    document.getElementById("wrapper").innerHTML = `Rust, C++, C, JS`;
    console.log('Tech!'); 
 }
 
+/*
+ * Displays interests
+ */
 function interests() { 
    document.getElementById("wrapper").innerHTML = `Violin, Piano, AppliedCyber`; 
    console.log('Interests!');   
 }
 
+/*
+ * Navigates to the blog page
+ */
 function blog() {
    location.replace("/blog.html");
    console.log(`Blog`);
 }
 
+/*
+ * Naviagates to the pictures page
+ */
 function pictures() {
   /*More to add*/
   console.log(`Pictures!`);
 }
+
