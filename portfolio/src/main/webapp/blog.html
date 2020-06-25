@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8">
-
     <!-- Imported Libraries: Google's Material Design Library and Google's Fonts Library -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -14,22 +13,21 @@
   <body>
     <div class="mdc-touch-target-wrapper" style="display: block;">
 	  <button class="mdc-button mdc-button--outlined" onclick="return_home()" style="color:white;">  
-	    <span class="mdc-button__ripple">Return To Home Page</span>
+	    <span class="mdc-button__ripple">Return</span>
 	  </button>
     </div>
     <div id="my-profile">
-      <img src="/images/PROFILE_PIC.JPG">
-      <h1>Michaela Murray's Portfolio</h1>
-      <p id="intro">
+      <h1>Blog</h1>
+      <div id="intro">
       	<ul style="list-style-type:none;">
            <li>Stanford Class of 2022</li> 
            <li>Major: Computer Science</li>
            <li>STEP Intern @ Google</li>
-	</ul>
-      </p>
+	    </ul>
+      </div>
     </div>
     <div id="blog">
-      <div id="title-slot">Brownian Motion</div>
+      <div id="title-slot">Head In The Clouds</div>
       <div id="blog-feed"></div>
     </div>
   </body>

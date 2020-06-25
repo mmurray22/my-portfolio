@@ -8,5 +8,3 @@ function return_home() {
    console.log(`Return Home`);
 }
 
-function post() {
-}

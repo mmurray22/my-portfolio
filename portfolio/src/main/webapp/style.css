@@ -2,15 +2,38 @@
 @include button.core-styles;
 @use "@material/card";
 @include card.core-styles;
+@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
 
 html {
    background-size: cover;
+   background-color: #6495ED;
+   height:100%;
 }
 
+/*
+ * Credit to codepen: https://codepen.io/valentin/pen/fkdCG
+*/
 body {
+  animation: wind 20s linear infinite;
+  background-color: #808080;
+  background: url(https://static.radulescu.me/examples/clouds/clouds1000.png);
+  background: url(https://static.radulescu.me/examples/clouds/clouds1000.png) 0 200px,
+	      url(https://static.radulescu.me/examples/clouds/clouds1200_1.png) 0 300px,
+	      url(https://static.radulescu.me/examples/clouds/clouds1000_blur3.png) 100px 250px;
   color: white;
-  margin: auto;
-  padding: 1%;
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+  position: relative;
+}
+
+@keyframes wind{
+   0% {
+	background-position: 0 200px, 0 300px, 100px 250px;
+      }
+   100% {
+	  background-position: 1000px 200px, 1200px 300px, 1100px 250px;
+	}
 }
 
 #intro-content {
@@ -30,7 +53,9 @@ body {
 }
 
 #basic-profile {
+   background-color: rgba(128,128,128,.6);
    border: 1px solid black;
+   font-weight: bold;
    padding-top: 10px;
    padding-left: 20px;
    padding-right: 20px;
@@ -51,26 +76,59 @@ body {
   width: 300px;
 }
 
-#info-one, #info-two {
-  margin-bottom:150px;
-  margin-right:50px;
-  width: 250px;
-  text-align:center;
+#info {
+   border: 1px solid black;
+   margin-top: -50px;
+   margin-right: auto;
+   margin-left: auto;
+   text-align: center;
+   width: 250px;
 }
 
-img {
+#profile {
+  background: #CCC;
   border: 1px solid white;
   box-shadow: 0 19px 30px #0000004C, 0 15px 12px #00000038;
   height: 400px;
+  margin: 10px;
+  position: relative;
   width: 350px;
+  transform: rotateX(0) rotateY(0);
+  transform-style: preserve-3d;
+  transition-duration: 0.1s;
+  transition-timing-function: ease !important;
+}
+
+#icon {
+  display:inline-block;
+  height:40px;
+  margin-top:-50px;
+  width: 40px;
 }
 
 button {
   border: 1px solid black;
-  color: white;
-  margin-bottom: 150px;
   height:20px;
   line-height:20px;
+  color: white;
+  margin-bottom: 150px;
   width: 100px;
   text-align: center;
 }
+
+.mdc-button__ripple {
+  align-items: center;
+  background-color: rgba(128, 128, 128, .6);
+  display: inline-flex;
+  justify-content: center;
+  min-height: 36px;
+  text-align: center;
+  
+}
+
+
+#wrapper {
+   height: 400px;
+   width: 350px; 
+}
+ 

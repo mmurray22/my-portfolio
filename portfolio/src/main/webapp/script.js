@@ -13,8 +13,7 @@
 // limitations under the License.
 
 function intro() {
-   document.getElementById("info-one").style.border = "1px solid black";
-   document.getElementById("para-one").innerHTML = `Hi everyone! My name is
+   document.getElementById("wrapper").innerHTML = `Hi everyone! My name is
 	Michaela Murray, and I’m currently a rising junior at Stanford
 	University.  I am majoring in Computer Science with a concentration in
 	Systems, and I plan to minor in mathematics and music. So far, my
@@ -31,14 +30,12 @@ function intro() {
 }
 
 function tech() { 
-   document.getElementById("info-one").style.border = "1px solid black";
-   document.getElementById("para-one").innerHTML = `Rust, C++, C, JS`;
+   document.getElementById("wrapper").innerHTML = `Rust, C++, C, JS`;
    console.log('Tech!'); 
 }
 
 function interests() { 
-   document.getElementById("info-one").style.border = "1px solid black";
-   document.getElementById("para-one").innerHTML = `Violin, Piano, AppliedCyber`; 
+   document.getElementById("wrapper").innerHTML = `Violin, Piano, AppliedCyber`; 
    console.log('Interests!');   
 }
 
@@ -47,36 +44,7 @@ function blog() {
    console.log(`Blog`);
 }
 
-function contact() {
-   document.getElementById("info-two").style.border = "1px solid black"; 
-   document.getElementById("para-two").style.display = "block";
-   console.log('Contact!'); 
-}
-
-function background() {
-   let today = new Date();
-   if (today.getHours() <= 8 || today.getHours() >= 19) { //Nighttime
-	document.body.style.background = 
-		   `linear-gradient(to top, #a8edea 0%, #fed6e3 100%) 
-	   	    no-repeat center center fixed`;
-   } else if (today.getHours() > 8 && today.getHours() <= 16) { //Daytime
-	document.body.style.background = 
-		   `linear-gradient(to right, #ffecd2 0%, #fcb69f 100%) 
-	 	    no-repeat center center fixed`;
-   } else if (today.getHours() > 16 && today.getHours() <= 18) { //Evening
-	document.body.style.background =  
-		   `linear-gradient(to top, #30cfd0 0%, #330867 100%) 
-	            no-repeat center center fixed`;
-   }
-   console.log(`Background`);
-}
-
-/*
- * TODO: FINISH PARALLAX
- */
-function mouseparallax(image) {
-  let followX, followY, x, y = 0;
-  let friction = 1/10;
-  i
-  console.log(`Mouse parallax`); 
+function pictures() {
+  /*More to add*/
+  console.log(`Pictures!`);
 }
