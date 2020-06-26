@@ -38,6 +38,13 @@ body {
   width: 300px;
 }
 
+#icon {
+  display:inline-block;
+  height:40px;
+  margin-top:-50px;
+  width: 40px;
+}
+
 img {
   border: 1px solid white;
   box-shadow: 0 19px 30px #0000004C, 0 15px 12px #00000038;
