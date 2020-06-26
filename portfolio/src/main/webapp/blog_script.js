@@ -2,21 +2,29 @@
  * This is the JavaScript file for 
  * the blog portion of the website
  */
-import init from "./pkg/random_fxn.js";
+import init from "./pkg/portfolio.js";
 
 function return_home() {
    location.replace("/index.html");
    console.log(`Return Home!`);
 }
 
-const runWasmOne = async() => {
-   const helloWorld = await init("./pkg/hello_world_bg.wasm");
-   document.getElementById('#demo-1').textContent = helloWorld.intro(d);
+const wasmRandNum = async() => {
+   const randNum = await init("./pkg/portfolio_bg.wasm");
+   document.getElementById("val").innerHTML += randNum.num(20, 20, "add");//randNum.random_number();
 }
 
-function demoOne () {
+wasmRandNum();
+/*function demo_one() {
     runWasmOne();
     console.log(`Run Wasm One!`);
 }
 
+const runWasmOne = async() => {
+   const helloWorld = await init("./pkg/portfolio_bg.wasm");
+   console.log(helloWorld.intro("Michaela"));
+   document.getElementById('demo-1').innerHTML = helloWorld.intro("Michaela");
+};
+
+runWasmOne();*/
 

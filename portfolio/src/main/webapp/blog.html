@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>MM Portfolio</title>
     <link rel="stylesheet" href="blog_style.css">
-    <script src="blog_script.js"></script>
+    <script type="module" src="./blog_script.js"></script>
   </head>
   <body>
     <div class="mdc-touch-target-wrapper" style="display: block;">
@@ -17,7 +17,7 @@
 	  </button>
     </div>
     <div id="blog">
-      <h2 id="title-slot">Head In The Clouds</h2>
+      <h1 id="title-slot">Head In The Clouds</h2>
       <div id="blog-feed">Blog Number 1</div>
       <p id="post">Hello there! This is the first blog installment in the "Head In The Clouds Blog".
           In this blog, we will be discussing a new and exciting programming standard for the 
@@ -25,20 +25,12 @@
           C++, Go, and more to be executed alongside JavaScript in a webpage! To see our 
           first example of such a program supported by the standard, let's start with the 
           canonical example one uses when exploring any new programming paradigm: the Hello
-          World program.
+          World program. For our hello world program, we will actually be adding two 20s together
+	  and then returning that value. Very simple on the surface, but lots of machinery under
+	  the hood!
       </p>
       <p id="demo-1">
-          <label for="fname">First name:</label>
-          <input type="text" id="name" name="name" pattern="[A-Za-z]">
-          <button>Run the program!</button>
-      </p>
-      <p id="post">
-      </p>
-      <p id="demo-2">
-          <label for="fname">Number 1:</label>
-          <input type="text" id="num1" name="num1" pattern="(?=.*\d)">
-          <button>Run the program!</button>
-      </p>
+      	<div id="val">Hello World: </div> 
       </p>
     </div>
   </body>
