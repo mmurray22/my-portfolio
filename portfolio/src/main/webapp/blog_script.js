@@ -9,13 +9,14 @@ function return_home() {
    console.log(`Return Home!`);
 }
 
-const randomWasm = async() => {
-   const randomFxn = await init("./pkg/random_fxn_bg.wasm");
-   
-   document.body.textContent = randomFxn.poly_pic();
+const runWasmOne = async() => {
+   const helloWorld = await init("./pkg/hello_world_bg.wasm");
+   document.getElementById('#demo-1').textContent = helloWorld.intro(d);
 }
-function random_wasm() {
-   
-   console.log(`Random WASM Functions!`);
+
+function demoOne () {
+    runWasmOne();
+    console.log(`Run Wasm One!`);
 }
+
 

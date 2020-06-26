@@ -2,7 +2,7 @@
 name = "portfolio"
 version = "0.1.0"
 authors = ["Michaela Murray murray22@stanford.edu"]
-edition = "2020"
+edition = "2018"
 
 [lib]
 crate-type = ["cdylib"]

@@ -6,6 +6,11 @@ use wasm_bindgen::prelude::*;
 // wasm-pack requires "exported" functions
 // to include #[wasm_bindgen]
 #[wasm_bindgen]
+pub fn intro(name: String) -> String {
+    let result = format!("{} {}", "Hello World and Hello", input_string);
+    return result.into();
+}
+
 pub fn add(a: i32, b: i32) -> i32 {
   return a + b;
 }
@@ -13,3 +18,4 @@ pub fn add(a: i32, b: i32) -> i32 {
 pub fn sub(a:i32, b:i32) -> i32 {
   return a - b;
 }
+
