@@ -43,6 +43,14 @@ function interests() {
 	console.log('Interests!');   
 }
 
+/*
+ * Navigates to the blog page
+ */
+function blog() {
+   location.replace("/blog.html");
+   console.log(`Blog`);
+}
+
 function contact() { 
 	document.getElementById("inner-content").style.display = "block"; 
 	document.getElementById("my-info").innerHTML = 
