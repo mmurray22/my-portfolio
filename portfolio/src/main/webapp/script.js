@@ -12,6 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+var $profile = $('#profile'),
+    lFollowX = 0,
+    lFollowY = 0,
+    lFollowZ = 0,
+    x = 0,
+    y = 0,
+    friction = 1 / 10;
+
+$(document).ready(function() {
+  function animate() {
+    x += (lFollowX - x) * friction;
+    y += (lFollowY - y) * friction;
+    $('#profile').css({
+        'transform': 'perspective(600px) rotateY(' + -x + 'deg) rotateX(' + y + 'deg)'
+    });
+    window.requestAnimationFrame(animate);
+  }
+
+  $("#profile").on('mousemove click', function(e) {
+        var lMouseX = Math.max(-100, Math.min(100, $('#profile').width()*2 - e.clientX));
+        var lMouseY = Math.max(-100, Math.min(100, $('#profile').height() / 2 - e.clientY));
+        lFollowX = (12 * lMouseX) / 100; // 100 : 12 = lMouxeX : lFollow
+        lFollowY = (10 * lMouseY) / 100;
+        /*Animate!*/
+        animate();
+  });
+});
+
 function intro() { 
 	document.getElementById("inner-content").style.display = "block"; 
 	document.getElementById("my-info").innerHTML = `Hi everyone! My name is

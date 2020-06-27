@@ -33,6 +33,20 @@ body {
   padding: 1%;
 }
 
+#profile {
+  background: #CCC;
+  border: 1px solid white;
+  box-shadow: 0 19px 30px #0000004C, 0 15px 12px #00000038;
+  height: 400px;
+  margin: 10px;
+  position: relative;
+  width: 350px;
+  transform: rotateX(0) rotateY(0);
+  transform-style: preserve-3d;
+  transition-duration: 0.1s;
+  transition-timing-function: ease !important;
+}
+
 #intro {
   margin: auto;
   width: 300px;
