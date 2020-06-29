@@ -72,9 +72,8 @@ function contact() {
 }
 
 async function fetchHelloWorld() {
-	document.getElementById("inner-content").style.display = "block";
 	const response = await fetch('/data');
-	const hello = await response.text();
-	document.getElementById("my-info").innerText = hello;
-	console.log(`Fetch Hello World!`);
+	const helloMessage = await response.text();
+	document.getElementById('my-info').innerText = hello;
+	console.log('Fetch Hello World!');
 }
