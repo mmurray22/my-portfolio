@@ -11,31 +11,14 @@ body {
   padding: 1%;
 }
 
-#intro-content {
-  margin-left: auto;
-  margin-right: auto;
-  text-align:center;
-  width: 650px;
-}
-
 #basic-profile {
    border: 1px solid black;
+   display:inline-block;
    padding: 10px;
 }
 
-#inner-content {
-   border: 1px solid black;
-   text-align: center;
-}
-
-#intro-buttons {
-  display: inline-block;
-  padding: 1%;
-}
-
-#intro {
-  margin: auto;
-  width: 300px;
+form {
+  display:inline-block;
 }
 
 #icon {
@@ -45,6 +28,18 @@ body {
   width: 40px;
 }
 
+#icons {
+  display:block;
+}
+
+#icons ul {
+  margin-left:-42px
+}
+
+#icons ul li {
+  display:inline-block;
+}
+
 img {
   border: 1px solid white;
   box-shadow: 0 19px 30px #0000004C, 0 15px 12px #00000038;
@@ -52,6 +47,42 @@ img {
   width: 350px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#inner-content {
+   border: 1px solid black;
+   display:none;
+   text-align: center;
+}
+
+#intro {
+  margin: auto;
+  width: 300px;
+}
+
+#intro-button-one {
+  display: inline-block;
+  padding: 1%;
+}
+
+#intro-button-two {
+    display:inline-block;
+}
+
+#intro-content {
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+  width: 650px;
+}
+
+.mdc-button {
+    color:white;
+}
+
+.mdc-touch-target-wrapper {
+    display:block;
+}
+
+ul {
+    list-style-type:none;
 }
