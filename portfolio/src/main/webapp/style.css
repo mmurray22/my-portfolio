@@ -27,7 +27,7 @@ body {
   position: relative;
 }
 
-@keyframes wind{
+@keyframes wind {
    0% {
 	background-position: 0 200px, 0 300px, 100px 250px;
       }
@@ -125,7 +125,6 @@ button {
   text-align: center;
   
 }
-
 
 #wrapper {
    height: 400px;
