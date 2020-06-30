@@ -1,4 +1,4 @@
-![](https://github.com/mmurray/my-portfolio/workflows/Java_CI/badge.svg)
+![](https://github.com/actions/my-portfolio/workflows/Java_CI/badge.svg)
 
 This directory is where you'll write all of your code!
 
