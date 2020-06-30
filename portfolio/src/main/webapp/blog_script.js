@@ -15,3 +15,4 @@ const wasmRandNum = async() => {
 }
 
 wasmRandNum();
+
