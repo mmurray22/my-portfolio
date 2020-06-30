@@ -42,6 +42,13 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(commentJSON);
   }
 
+   @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String userComment = getUserComment();
+    response.sendRedirect('/index.html');
+  }
+
+
   private static String convertToJson(MyComments myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
