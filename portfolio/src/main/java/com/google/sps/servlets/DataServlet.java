@@ -30,19 +30,19 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> comments = new ArrayList<String>();
+    ArrayList<String> comments = new ArrayList<>();
     comments.add("Comment 1: This blog is interesting!");
     comments.add("Comment 2: Well known information. Not too interesting.");
     comments.add("Comment 3: Needs some more development, but cool concept!");
     MyComments myComments = new MyComments(comments);
-    String comment_json = convertToJson(myComments);
+    String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
     response.setContentType("application/json;");
-    response.getWriter().println(comment_json);
+    response.getWriter().println(commentJSON);
   }
 
-  private String convertToJson(MyComments myComments) {
+  private static String convertToJson(MyComments myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
     return json;
