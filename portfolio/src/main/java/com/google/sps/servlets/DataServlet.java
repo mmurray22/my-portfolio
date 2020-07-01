@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   MyComments myComments = new MyComments();
+  int maxNumComments = 1;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,9 +43,16 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment");
     MyComments myComments = new MyComments();
     PreparedQuery results = datastore.prepare(query);
+    // String maxNumComments = request.getParameter("max-num");
+    int index = 0;
     for (Entity entity : results.asIterable()) {
+        if (maxNumComments == index) {
+            break;
+        }
         myComments.addComment((String) entity.getProperty("text"));
+        index++;
     }
+    // myComments.addComment(Integer.toString(maxNumComments));
     String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
@@ -56,6 +64,10 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     //Get response from the form
     String text = request.getParameter("text-input");
+    String maxNumCommentsParam = request.getParameter("max-num");
+    if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
+        maxNumComments = Integer.parseInt(request.getParameter("max-num"));
+    }
     Entity comment = new Entity("Comment");
     comment.setProperty("text", text);
     DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();

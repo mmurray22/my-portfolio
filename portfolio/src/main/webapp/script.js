@@ -55,7 +55,7 @@ function contact() {
 	document.getElementById("inner-content").style.display = "block"; 
 	document.getElementById("my-info").innerHTML = 
 		`<ul style="list-style-type:none;"> 
-		<li>Email: 
+		<li>Email:
 		<a href="mailto:murray22@stanford.edu"> 
 		murray22@stanford.edu 
 		</a></li>
@@ -71,13 +71,23 @@ function contact() {
 	console.log('Contact!'); 
 }
 
+function updateNumber() {
+    getComments();
+}
+
 function getComments() {
 	fetch('/data').then(response => response.json()).then((comments) => {
 		const commentElement = document.body;
         console.log('Comments: ', comments);
         commentElement.innerHTML += 'Here are all the comments: <br>';
+	    let it = 0;
+        // console.log('Comment num: ', document.getElementById("num-comments").value);
         for (index in comments.arr) {
+            // if (it == document.getElementById("num-comments").value) {
+                // break;
+            // }
             commentElement.innerHTML += comments.arr[index] + '<br>';
+            it++;
         }
 	});
 }
