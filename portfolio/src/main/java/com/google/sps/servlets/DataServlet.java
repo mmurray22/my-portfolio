@@ -18,6 +18,9 @@ import com.google.sps.data.MyComments;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -35,6 +38,13 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("Comment");
+    MyComments myComments = new MyComments();
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+        myComments.addComment((String) entity.getProperty("text"));
+    }
     String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
