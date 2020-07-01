@@ -30,7 +30,7 @@ $(document).ready(function() {
     window.requestAnimationFrame(animate);
   }
 
-  $("#profile").on('mousemove click', function(e) {
+  $('#profile').on('mousemove click', function(e) {
         var lMouseX = Math.max(-100, Math.min(100, $('#profile').width()*2 - e.clientX));
         var lMouseY = Math.max(-100, Math.min(100, $('#profile').height() / 2 - e.clientY));
         lFollowX = (12 * lMouseX) / 100; // 100 : 12 = lMouxeX : lFollow
@@ -63,7 +63,7 @@ function intro() {
  * Displays tech skills
  */
 function tech() { 
-   document.getElementById("wrapper").innerHTML = `Rust, C++, C, JS`;
+   document.getElementById("wrapper").innerHTML = `My favorite languages include: Rust, C++, C.`;
    console.log('Tech!'); 
 }
 
@@ -71,7 +71,14 @@ function tech() {
  * Displays interests
  */
 function interests() { 
-   document.getElementById("wrapper").innerHTML = `Violin, Piano, AppliedCyber`; 
+   document.getElementById("wrapper").innerHTML = `My hobbies outside of classwork and research include Violin, Piano and AppliedCyber.
+                                                    I have played Violin and Piano since I was 4 and 3 years old respectively. Music is one of 
+                                                    my deepest passions outside of computing, and I am very happy to continue taking private 
+                                                    lessons at my university!
+                                                    AppliedCyber is a club centered around security, analyzing it from a technical, political,
+                                                    and social lense. One of my favorite parts of AppliedCyber are the competitions we participate
+                                                    in, where we get to travel across the United States and meet many people heavily 
+                                                    involved in the security scene.`; 
    console.log('Interests!');   
 }
 
@@ -84,10 +91,18 @@ function blog() {
 }
 
 /*
+ * Navigates to the landing page
+ */
+function return_home() {
+   location.replace("/index.html");
+   console.log(`Return Home!`);
+}
+
+/*
  * Naviagates to the pictures page
  */
 function pictures() {
-  /*More to add*/
+  document.getElementById("wrapper").innerHTML = `<img id=\"profile\" src=\"/images/PROFILE_PIC.JPG\">`;
   console.log(`Pictures!`);
 }
 

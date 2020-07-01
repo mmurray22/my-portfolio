@@ -9,7 +9,7 @@ pub fn ops(a:i32, b:i32, op:String) -> i32 {
     } else if (op == "sub") {
         return sub(a, b);
     }
-    return 0;
+    return add(a, b);
 }
 
 #[wasm_bindgen]
