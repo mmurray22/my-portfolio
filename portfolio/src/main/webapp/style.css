@@ -13,31 +13,31 @@ body {
 
 #basic-profile {
    border: 1px solid black;
-   display:inline-block;
+   display: inline-block;
    padding: 10px;
 }
 
 form {
-  display:inline-block;
+  display: inline-block;
 }
 
 #icon {
-  display:inline-block;
-  height:40px;
-  margin-top:-50px;
+  display: inline-block;
+  height: 40px;
+  margin-top: -50px;
   width: 40px;
 }
 
 #icons {
-  display:block;
+  display: block;
 }
 
 #icons ul {
-  margin-left:-42px
+  margin-left: -42px
 }
 
 #icons ul li {
-  display:inline-block;
+  display: inline-block;
 }
 
 img {
@@ -49,7 +49,7 @@ img {
 
 #inner-content {
    border: 1px solid black;
-   display:none;
+   display: none;
    text-align: center;
 }
 
@@ -64,25 +64,25 @@ img {
 }
 
 #intro-button-two {
-    display:inline-block;
+    display: inline-block;
 }
 
 #intro-content {
-  display:block;
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  text-align:center;
+  text-align: center;
   width: 650px;
 }
 
 .mdc-button {
-    color:white;
+    color: white;
 }
 
 .mdc-touch-target-wrapper {
-    display:block;
+    display: block;
 }
 
 ul {
-    list-style-type:none;
+    list-style-type: none;
 }
