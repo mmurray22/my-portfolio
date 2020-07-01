@@ -1,3 +1,7 @@
+/*
+ * The following code is based on the WASM tutorial "Hello World": https://wasmbyexample.dev/examples/hello-world/hello-world.rust.en-us.html
+ */
+
 // The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
 // Import the wasm-bindgen crate.
 use wasm_bindgen::prelude::*;
