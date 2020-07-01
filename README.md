@@ -1,6 +1,6 @@
 # Google Student Training in Engineering Program
 
-![](https://github.com/actions/my-portfoliog/workflows/Java_CI/badge.svg)
+![](https://github.com/mmurray22/my-portfolio/workflows/Java_CI/badge.svg?event=push)
 
 This repo contains Michaela's portfolio and STEP projects.
 
