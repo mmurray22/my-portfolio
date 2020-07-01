@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*
+ * This feature is largely based off this codepen: https://codepen.io/jjgodcom/details/QMxwKq/
+ * Other codepens which were used to get the code to its current state:
+ * https://codepen.io/hesham-farag/pen/yXzqNX
+ *
+ */
 /*Global variables pertaining to parallax animation*/
 var lFollowX = 0,
     lFollowY = 0,
