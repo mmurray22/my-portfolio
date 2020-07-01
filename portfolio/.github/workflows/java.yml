@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    name: Maven
     runs-on: ubuntu-latest
 
     steps:
