@@ -20,28 +20,24 @@ import java.util.List;
 /** Class containing server statistics. */
 public final class MyComments {
 
-  private final String c1;
-  private final String c2;
-  private final String c3;
+  private ArrayList<String> arr;
 
-  public MyComments(ArrayList<String> arr) {
-    this.c1 = arr.get(0);
-    this.c2 = arr.get(1);
-    this.c3 = arr.get(2);
+  public MyComments() {
+    this.arr = new ArrayList<String>();
   }
 
-  public String getCommentOne() {
-    return c1;
+  public String addComment(String comment) {
+    arr.add(comment);
+    return comment;
   }
 
-  public String getCommentTwo() {
-    return c2;
+  public String getUserComment(int n) {
+    return arr.get(n-1);
   }
-
-  public String getCommentThree() {
-    return c3;
+  
+  public int getNumberOfComments() {
+    return arr.size();
   }
-
 }
 
 

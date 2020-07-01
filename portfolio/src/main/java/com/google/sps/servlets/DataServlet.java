@@ -18,6 +18,7 @@ import com.google.sps.data.MyComments;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,14 +28,10 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  MyComments myComments = new MyComments();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> comments = new ArrayList<>();
-    comments.add("Comment 1: This blog is interesting!");
-    comments.add("Comment 2: Well known information. Not too interesting.");
-    comments.add("Comment 3: Needs some more development, but cool concept!");
-    MyComments myComments = new MyComments(comments);
     String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
@@ -42,12 +39,13 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(commentJSON);
   }
 
-   @Override
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String userComment = getUserComment();
-    response.sendRedirect('/index.html');
+    //Get response from the form
+    String text = request.getParameter("text-input");
+    myComments.addComment(text);
+    response.sendRedirect("/index.html");
   }
-
 
   private static String convertToJson(MyComments myComments) {
     Gson gson = new Gson();
