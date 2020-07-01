@@ -19,7 +19,7 @@
  *
  */
 /*Global variables pertaining to parallax animation*/
-var lFollowX = 0,
+/*var lFollowX = 0,
     lFollowY = 0,
     lFollowZ = 0,
     x = 0,
@@ -27,7 +27,6 @@ var lFollowX = 0,
     friction = 1 / 10;
 
 $(document).ready(function() {
-  /* The animate function changes the picture perspective*/
   function animate() {
     
     //Gets rotation values x and y
@@ -39,16 +38,14 @@ $(document).ready(function() {
     window.requestAnimationFrame(animate);
   }
   
-  /* Detects the inciting parallax animation action */
   $("#profile").on('mousemove click', function(e) {
-        /* Adjusting appropriate transform variables based on current mouse location*/
         var lMouseX = Math.max(-100, Math.min(100, $('#profile').width()*2 - e.clientX));
         var lMouseY = Math.max(-100, Math.min(100, $('#profile').height()/2 - e.clientY));
         lFollowX = (12 * lMouseX) / 100;
         lFollowY = (10 * lMouseY) / 100;
         animate();
   });
-});
+});*/
 
 function intro() { 
 	document.getElementById("inner-content").style.display = "block"; 
