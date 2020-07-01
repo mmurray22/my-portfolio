@@ -12,9 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function intro() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my-info").innerHTML = `Hi everyone! My name is
+var $profile = $('#profile'),
+    lFollowX = 0,
+    lFollowY = 0,
+    lFollowZ = 0,
+    x = 0,
+    y = 0,
+    friction = 1 / 10;
+
+$(document).ready(function() {
+  function animate() {
+    x += (lFollowX - x) * friction;
+    y += (lFollowY - y) * friction;
+    $('#profile').css({
+        'transform': 'perspective(600px) rotateY(' + -x + 'deg) rotateX(' + y + 'deg)'
+    });
+    window.requestAnimationFrame(animate);
+  }
+
+  $("#profile").on('mousemove click', function(e) {
+        var lMouseX = Math.max(-100, Math.min(100, $('#profile').width()*2 - e.clientX));
+        var lMouseY = Math.max(-100, Math.min(100, $('#profile').height() / 2 - e.clientY));
+        lFollowX = (12 * lMouseX) / 100; // 100 : 12 = lMouxeX : lFollow
+        lFollowY = (10 * lMouseY) / 100;
+        /*Animate!*/
+        animate();
+  });
+});
+
+/*
+ * Displays intro paragraph
+ */
+function intro() {
+   document.getElementById("wrapper").innerHTML = `Hi everyone! My name is
 	Michaela Murray, and I’m currently a rising junior at Stanford
 	University.  I am majoring in Computer Science with a concentration in
 	Systems, and I plan to minor in mathematics and music. So far, my
@@ -25,22 +55,24 @@ function intro() {
 	continued to engage in research, the most of which was developing a
 	sensor peripheral driver for TockOS.  When I am not taking classes or
 	doing research, my main activities are being Vice President of our
-	school’s security club and taking violin lessons. A fun fact about me is
-	that I am 5’, which you might not be able to tell over GVC.`;
-	console.log('Intro!'); 
+	school’s security club and taking violin lessons.`;
+   console.log('Intro!'); 
 }
 
+/*
+ * Displays tech skills
+ */
 function tech() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my -info").innerHTML = `Rust, C++, C, JS`;
-	console.log('Tech!'); 
+   document.getElementById("wrapper").innerHTML = `Rust, C++, C, JS`;
+   console.log('Tech!'); 
 }
 
+/*
+ * Displays interests
+ */
 function interests() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my-info").innerHTML = `Violin, Piano, 
-						     AppliedCyber`; 
-	console.log('Interests!');   
+   document.getElementById("wrapper").innerHTML = `Violin, Piano, AppliedCyber`; 
+   console.log('Interests!');   
 }
 
 /*
@@ -51,22 +83,11 @@ function blog() {
    console.log(`Blog`);
 }
 
-function contact() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my-info").innerHTML = 
-		`<ul style="list-style-type:none;"> 
-		<li>Email: 
-		<a href="mailto:murray22@stanford.edu"> 
-		murray22@stanford.edu 
-		</a></li>
-		<li>Linkedin:
-		<a href="https://www.linkedin.com/in/murray22/" target="_blank">
-		My LinkedIn
-		</a></li> 
-		<li>Github: 
-		<a href="https://github.com/mmurray22" target="_blank">
-		My Github
-		</a></li> 
-		</ul>`; 
-	console.log('Contact!'); 
+/*
+ * Naviagates to the pictures page
+ */
+function pictures() {
+  /*More to add*/
+  console.log(`Pictures!`);
 }
+

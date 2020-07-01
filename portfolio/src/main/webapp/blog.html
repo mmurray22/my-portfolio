@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>MM Portfolio</title>
-    <link rel="stylesheet" href="./blog_style.css">
-    <script src="./blog_script.js"></script>
+    <link rel="stylesheet" href="blog_style.css">
+    <script src="blog_script.js"></script>
   </head>
   <body>
     <div class="mdc-touch-target-wrapper" style="display: block;">
@@ -16,10 +16,22 @@
 	    <span class="mdc-button__ripple">Return</span>
 	  </button>
     </div>
-    <h1>Blog</h1>
     <div id="blog">
-      <h2 id="title-slot">Head In The Clouds</h2>
-      <div id="blog-feed"></div>
+      <h1 id="title-slot">Head In The Clouds</h2>
+      <div id="blog-feed">Blog Number 1</div>
+      <p id="post">Hello there! This is the first blog installment in the "Head In The Clouds Blog".
+          In this blog, we will be discussing a new and exciting programming standard for the 
+          web called Web Assembly (WASM). This model allows code from languages like Rust, 
+          C++, Go, and more to be executed alongside JavaScript in a webpage! To see our 
+          first example of such a program supported by the standard, let's start with the 
+          canonical example one uses when exploring any new programming paradigm: the Hello
+          World program. For our hello world program, we will actually be adding two 20s together
+	  and then returning that value. Very simple on the surface, but lots of machinery under
+	  the hood!
+      </p>
+      <p id="demo-1">
+      	<div id="val">Hello World: </div> 
+      </p>
     </div>
   </body>
 </html>
