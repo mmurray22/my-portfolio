@@ -15,11 +15,11 @@ html {
  */
 body {
   animation: wind 20s linear infinite;
-  background-color: #808080;
-  background: url(https://static.radulescu.me/examples/clouds/clouds1000.png);
-  background: url(https://static.radulescu.me/examples/clouds/clouds1000.png) 0 200px,
+  background: url(https://static.radulescu.me/examples/clouds/clouds1000.png),
+  	      url(https://static.radulescu.me/examples/clouds/clouds1000.png) 0 200px,
 	      url(https://static.radulescu.me/examples/clouds/clouds1200_1.png) 0 300px,
 	      url(https://static.radulescu.me/examples/clouds/clouds1000_blur3.png) 100px 250px;
+  background-color: #8EC5FC;
   color: white;
   margin: 0;
   min-height: 100%;
@@ -56,10 +56,10 @@ body {
    background-color: rgba(128,128,128,.6);
    border: 1px solid black;
    font-weight: bold;
-   padding-top: 10px;
+   padding-bottom: 5px;
    padding-left: 20px;
    padding-right: 20px;
-   padding-bottom: 5px;
+   padding-top: 10px;
 }
 
 #intro-button-two {
@@ -78,38 +78,31 @@ body {
 
 #info {
    border: 1px solid black;
-   margin-top: -50px;
-   margin-right: auto;
    margin-left: auto;
+   margin-right: auto;
+   margin-top: -50px;
    text-align: center;
    width: 250px;
 }
 
 #profile {
-  background: #CCC;
   border: 1px solid white;
   box-shadow: 0 19px 30px #0000004C, 0 15px 12px #00000038;
   height: 400px;
-  margin: 10px;
-  position: relative;
   width: 350px;
-  transform: rotateX(0) rotateY(0);
-  transform-style: preserve-3d;
-  transition-duration: 0.1s;
-  transition-timing-function: ease !important;
 }
 
 #icon {
-  display:inline-block;
-  height:40px;
-  margin-top:-50px;
+  display: inline-block;
+  height: 40px;
+  margin-top: -50px;
   width: 40px;
 }
 
 button {
   border: 1px solid black;
-  height:20px;
-  line-height:20px;
+  height: 20px;
+  line-height: 20px;
   color: white;
   margin-bottom: 150px;
   width: 100px;
