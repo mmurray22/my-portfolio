@@ -74,6 +74,6 @@ function contact() {
 async function fetchHelloWorld() {
 	const response = await fetch('/data');
 	const helloMessage = await response.text();
-	document.getElementById('my-info').innerText = hello;
+	document.getElementById('my-info').innerText = helloMessage;
 	console.log('Fetch Hello World!');
 }
