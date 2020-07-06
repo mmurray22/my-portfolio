@@ -74,7 +74,7 @@ function contact() {
 function getComments() {
 	fetch('/data').then(response => response.json()).then((comments) => {
 		console.log(comments);
-		const commentElement = document.body;
+		const body = document.body;
 		commentElement.innerHTML += 'Here are the comments: \n';
         for (var i = 0; i < comments.length; i++) {
             commentElement.innerHTML += comments[i] + '\n';
