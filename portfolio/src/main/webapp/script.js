@@ -74,10 +74,10 @@ function contact() {
 function getComments() {
 	fetch('/data').then(response => response.json()).then((comments) => {
 		console.log(comments);
-		const body = document.body;
-		commentElement.innerHTML += 'Here are the comments: \n';
+		const bodyElement = document.body;
+		bodyElement.innerHTML += 'Here are the comments: \n';
         for (var i = 0; i < comments.length; i++) {
-            commentElement.innerHTML += comments[i] + '\n';
+            bodyElement.innerHTML += comments[i] + '\n';
         }
 	});
 }
