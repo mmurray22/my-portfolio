@@ -10,13 +10,11 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.data.MyComments;
+import com.google.sps.servlets.DataServlet;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -33,8 +31,9 @@ public class DeleteComments extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      Query query = new Query("Comment");
-      PreparedQuery results = datastore.prepare(query);
-      datastore.delete(results);
+      String id = request.getParameter("id");
+      Key taskEntityKey = KeyFactory.createKey("Comment", "1");
+      datastore.delete(taskEntityKey);
+      response.sendRedirect("/index.html");
   }
 }

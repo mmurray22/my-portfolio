@@ -69,6 +69,10 @@
       <br/><br/>
       <input type="submit"/>
     </form>
+    <form method="POST" action="/delete-data">
+      <input type="number" name="id" />
+      <button onclick="deleteComments()">Delete!</button>
+    </form>
     <label>Choose a number of comments:</label>
     <form action="/data" method="POST">
       <input type="number" name="max-num" />

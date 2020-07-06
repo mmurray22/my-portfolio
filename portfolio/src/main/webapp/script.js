@@ -71,10 +71,6 @@ function contact() {
 	console.log('Contact!'); 
 }
 
-function updateNumber() {
-    getComments();
-}
-
 function getComments() {
 	fetch('/data').then(response => response.json()).then((comments) => {
 		const commentElement = document.body;
@@ -90,4 +86,10 @@ function getComments() {
             it++;
         }
 	});
+}
+
+function deleteComments() {
+    console.log("Starting to delete comments!");
+    fetch('/delete-data');
+    console.log("Complete!");
 }

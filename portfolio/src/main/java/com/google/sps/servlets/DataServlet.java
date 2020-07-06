@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   MyComments myComments = new MyComments();
   int maxNumComments = 1;
+  int numCommentsOverall = 0;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -52,7 +53,6 @@ public class DataServlet extends HttpServlet {
         myComments.addComment((String) entity.getProperty("text"));
         index++;
     }
-    // myComments.addComment(Integer.toString(maxNumComments));
     String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
@@ -68,10 +68,13 @@ public class DataServlet extends HttpServlet {
     if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
         maxNumComments = Integer.parseInt(request.getParameter("max-num"));
     }
-    Entity comment = new Entity("Comment");
-    comment.setProperty("text", text);
-    DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
-    dataStore.put(comment);
+    if (text != null && !text.isEmpty()) {
+        Entity comment = new Entity("Comment", String.valueOf(numCommentsOverall));
+        numCommentsOverall+=1;
+        comment.setProperty("text", text);
+        DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+        dataStore.put(comment);
+    }
     response.sendRedirect("/index.html");
   }
 
