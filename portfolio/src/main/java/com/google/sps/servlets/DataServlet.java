@@ -14,7 +14,6 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.data.MyComments;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  MyComments myComments = new MyComments();
+  ArrayList<String> myComments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -43,13 +42,15 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     //Get response from the form
     String text = request.getParameter("text-input");
-    myComments.addComment(text);
+    if (text != null && !text.isEmpty()) {
+        myComments.add(text);
+    }
     response.sendRedirect("/index.html");
   }
 
-  private static String convertToJson(MyComments myComments) {
+  private static String convertToJson(ArrayList<String> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
-    return json;
+    return json; 
   }
 }
