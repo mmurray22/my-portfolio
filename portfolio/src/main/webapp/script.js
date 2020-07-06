@@ -76,8 +76,8 @@ function getComments() {
 		console.log(comments);
 		const commentElement = document.body;
 		commentElement.innerHTML += 'Here are the comments: \n';
-		commentElement.innerHTML += comments.c1 + '\n';
-		commentElement.innerHTML += comments.c2 + '\n';
-		commentElement.innerHTML += comments.c3 + '\n';
+        for (var i = 0; i < comments.length; i++) {
+            commentElement.innerHTML += comments[i] + '\n';
+        }
 	});
 }

@@ -14,7 +14,6 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.data.MyComments;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -34,17 +33,16 @@ public class DataServlet extends HttpServlet {
     comments.add("Comment 1: This blog is interesting!");
     comments.add("Comment 2: Well known information. Not too interesting.");
     comments.add("Comment 3: Needs some more development, but cool concept!");
-    MyComments myComments = new MyComments(comments);
-    String commentJSON = convertToJson(myComments);
+    String commentJSON = convertToJson(comments);
 
     //Send JSON as the response
     response.setContentType("application/json;");
     response.getWriter().println(commentJSON);
   }
 
-  private static String convertToJson(MyComments myComments) {
+  private static String convertToJson(ArrayList<String> comments) {
     Gson gson = new Gson();
-    String json = gson.toJson(myComments);
+    String json = gson.toJson(comments);
     return json;
   }
 }
