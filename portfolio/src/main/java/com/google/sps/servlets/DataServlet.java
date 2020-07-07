@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+ // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  MyComments myComments = new MyComments();
+  private final List<String> myComments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -46,6 +46,9 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     //Get response from the form
     String text = request.getParameter("text-input");
+    if (text != null && !text.isEmpty()) {
+      myComments.add(text);
+    }
     Entity comment = new Entity("Comment");
     comment.setProperty("text", text);
     DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
@@ -53,9 +56,9 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
-  private static String convertToJson(MyComments myComments) {
+  private static String convertToJson(List<String> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
-    return json;
+    return json; 
   }
 }
