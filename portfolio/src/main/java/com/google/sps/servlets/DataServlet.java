@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  List<String> myComments = new List<>();
+  private final List<String> myComments = new List<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,7 +44,7 @@ public class DataServlet extends HttpServlet {
     //Get response from the form
     String text = request.getParameter("text-input");
     if (text != null && !text.isEmpty()) {
-        myComments.add(text);
+      myComments.add(text);
     }
     response.sendRedirect("/index.html");
   }
