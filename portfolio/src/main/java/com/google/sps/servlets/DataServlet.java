@@ -1,5 +1,4 @@
- 
-// Copyright 2019 Google LLC
+ // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +17,6 @@ package com.google.sps.servlets;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private final List<String> myComments = new List<>();
+  private final List<String> myComments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
