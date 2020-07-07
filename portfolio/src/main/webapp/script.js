@@ -73,11 +73,11 @@ function contact() {
 
 function getComments() {
 	fetch('/data').then(response => response.json()).then((comments) => {
-		const commentElement = document.body;
+		const bodyElement = document.body;
         console.log('Comments: ', comments);
-        commentElement.innerHTML += 'Here are all the comments: <br>';
+        bodyElement.innerHTML += 'Here are all the comments: <br>';
         for (index in comments) {
-    		commentElement.innerHTML += comments[index] + '<br>';
+    		bodyElement.innerHTML += comments[index] + '<br>';
         }
 	});
 }
