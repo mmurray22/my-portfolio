@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
-    <div id="intro-content">
-      <div id="intro-button-one">
-        <div class="mdc-touch-target-wrapper">
-          <button class="mdc-button mdc-button--outlined" onclick="intro()">  
-	        <span class="mdc-button__ripple">Intro</span> 
-	       </button>
+  <body onload="getComments()">
+    <div id="intro-content" style="display:block;">
+      <div id="intro-button-one" style="display:inline-block">
+        <div class="mdc-touch-target-wrapper" style="display:block;">
+          <button class="mdc-button mdc-button--outlined" onclick="intro()" style="color:white;">  
+	     <span class="mdc-button__ripple">Intro</span> 
+	  </button>
         </div>
         <div class="mdc-touch-target-wrapper">
            <button class="mdc-button mdc-button--outlined" onclick="tech()">  
