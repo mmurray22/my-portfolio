@@ -53,8 +53,8 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get response from the form
     String text = request.getParameter("text-input");
-    long timestamp = System.currentTimeMillis();
     if (text != null && !text.isEmpty()) {
+        long timestamp = System.currentTimeMillis();
         Entity comment = new Entity("Comment");
         comment.setProperty("text", text);
         comment.setProperty("timestamp", timestamp);
