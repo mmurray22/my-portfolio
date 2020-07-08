@@ -17,11 +17,7 @@ body {
    padding: 10px;
 }
 
-form {
-  display: inline-block;
-}
-
-#icon {
+.icon {
   display: inline-block;
   height: 40px;
   margin-top: -50px;
