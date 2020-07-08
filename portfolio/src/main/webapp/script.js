@@ -77,7 +77,7 @@ function getComments() {
         console.log('Comments: ', comments);
         bodyElement.innerHTML += 'Here are all the comments: <br>';
         for (comment of comments) {
-    		bodyElement.innerHTML += comments[index] + '<br>';
+    		bodyElement.innerHTML += comment + '<br>';
         }
 	});
 }
