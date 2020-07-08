@@ -32,13 +32,13 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private final List<String> myComments = new ArrayList<>();
   private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
+    List<String> myComments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
         myComments.add((String) entity.getProperty("text"));
     }
@@ -55,12 +55,11 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
     if (text != null && !text.isEmpty()) {
-      myComments.add(text);
+        Entity comment = new Entity("Comment");
+        comment.setProperty("text", text);
+        comment.setProperty("timestamp", timestamp);
+        dataStore.put(comment);
     }
-    Entity comment = new Entity("Comment");
-    comment.setProperty("text", text);
-    comment.setProperty("timestamp", timestamp);
-    dataStore.put(comment);
     response.sendRedirect("/index.html");
   }
 
