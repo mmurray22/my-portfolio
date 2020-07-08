@@ -14,14 +14,12 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.data.MyComments;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  MyComments myComments = new MyComments();
+  private final List<String> myComments = new ArrayList<>();
+  private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,11 +43,13 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Get response from the form
+    // Get response from the form
     String text = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
+    
     Entity comment = new Entity("Comment");
     comment.setProperty("text", text);
-    DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+    comment.setProperty("timestamp", timestamp);
     dataStore.put(comment);
     response.sendRedirect("/index.html");
   }
