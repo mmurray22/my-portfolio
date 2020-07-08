@@ -40,10 +40,9 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query = new Query("Comment");
-    MyComments myComments = new MyComments();
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-        myComments.addComment((String) entity.getProperty("text"));
+        myComments.add((String) entity.getProperty("text"));
     }
     String commentJSON = convertToJson(myComments);
 
