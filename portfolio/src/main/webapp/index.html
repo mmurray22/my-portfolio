@@ -8,15 +8,12 @@
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>MM Portfolio</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk"></script>
     <link rel="stylesheet" href="style.css">
-    <script type='text/javascript' src='../../../../config.js'></script> 
+    <!-- <script type='text/javascript' src='../../../../config.js'></script>  -->
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="createMap();">
     <div id="intro-content" style="display:block;">
       <div id="intro-button-one" style="display:inline-block">
         <div class="mdc-touch-target-wrapper" style="display:block;">
@@ -69,5 +66,6 @@
     <div id="inner-content" style="display:none;">
       <div id="my-info"></div>
     </div>
+    <div id="map"></div>
   </body>
 </html>
