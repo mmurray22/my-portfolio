@@ -76,8 +76,8 @@ function getComments() {
 	 	const bodyElement = document.body;
     console.log('Comments: ', comments);
     bodyElement.innerHTML += 'Here are all the comments: <br>';
-    for (index in comments) {
-      bodyElement.innerHTML += comments[index] + '<br>';
+    for (comment of comments) {
+      bodyElement.innerHTML += comment + '<br>';
     }
 	});
 }
