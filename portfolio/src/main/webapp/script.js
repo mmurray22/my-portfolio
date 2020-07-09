@@ -73,12 +73,12 @@ function contact() {
 
 /** Creates a map and adds it to the page. */
 function loadMap() {
-  var treeCSLatLng = {lat:37.430175, lng:-122.173388};
+  const stanfordGatesBldgLatLng = {lat:37.430175, lng:-122.173388};
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: treeCSLatLng, zoom: 16});
-  var marker = new google.maps.Marker({
-        position: treeCSLatLng, 
+      {center: stanfordGatesBldgLatLng, zoom: 16});
+  const marker = new google.maps.Marker({
+        position: stanfordGatesBldgLatLng, 
         map: map,
         title: 'My School :)'
       });
