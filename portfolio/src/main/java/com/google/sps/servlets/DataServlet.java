@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+ // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,6 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.data.MyComments;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -24,7 +23,6 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,16 +32,14 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  MyComments myComments = new MyComments();
   int maxNumComments = 1;
+  private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("Comment");
-    MyComments myComments = new MyComments();
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
-    // String maxNumComments = request.getParameter("max-num");
+    List<String> myComments = new ArrayList<>();
     int index = 0;
     for (Entity entity : results.asIterable()) {
         if (maxNumComments == index) {
@@ -62,22 +58,25 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Get response from the form
+    // Get response from the form
     String text = request.getParameter("text-input");
     String maxNumCommentsParam = request.getParameter("max-num");
     if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
         maxNumComments = Integer.parseInt(request.getParameter("max-num"));
     }
-    Entity comment = new Entity("Comment");
-    comment.setProperty("text", text);
-    DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
-    dataStore.put(comment);
+    if (text != null && !text.isEmpty()) {
+        long timestamp = System.currentTimeMillis();
+        Entity comment = new Entity("Comment");
+        comment.setProperty("text", text);
+        comment.setProperty("timestamp", timestamp);
+        dataStore.put(comment);
+    }
     response.sendRedirect("/index.html");
   }
 
-  private static String convertToJson(MyComments myComments) {
+  private static String convertToJson(List<String> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
-    return json;
+    return json; 
   }
 }
