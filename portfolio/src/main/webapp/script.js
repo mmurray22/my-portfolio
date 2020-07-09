@@ -72,7 +72,7 @@ function contact() {
 }
 
 /** Creates a map and adds it to the page. */
-function createMap() {
+function loadMap() {
   var treeCSLatLng = {lat:37.430175, lng:-122.173388};
   const map = new google.maps.Map(
       document.getElementById('map'),
