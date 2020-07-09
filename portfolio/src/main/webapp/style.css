@@ -36,6 +36,7 @@ body {
 	}
 }
 
+
 #intro-content {
   display: block;
   margin-left: auto;
@@ -70,14 +71,28 @@ body {
    margin: auto;
 }
 
-#inner-content {
-   border: 1px solid black;
-   text-align: center;
+.icon {
+  display: inline-block;
+  height: 40px;
+  margin-top: -50px;
+  width: 40px;
 }
 
 #intro {
   margin: auto;
   width: 300px;
+}
+
+#icons {
+  display: block;
+}
+
+#icons ul {
+  margin-left: -42px
+}
+
+#icons ul li {
+  display: inline-block;
 }
 
 #info {
@@ -140,4 +155,44 @@ ul {
 #wrapper {
    height: 400px;
    width: 350px; 
+}
+
+#inner-content {
+   border: 1px solid black;
+   display: none;
+   text-align: center;
+}
+
+#intro {
+  margin: auto;
+  width: 300px;
+}
+
+#intro-button-one {
+  display: inline-block;
+  padding: 1%;
+}
+
+#intro-button-two {
+    display: inline-block;
+}
+
+#intro-content {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 650px;
+}
+
+.mdc-button {
+    color: white;
+}
+
+.mdc-touch-target-wrapper {
+    display: block;
+}
+
+ul {
+    list-style-type: none;
 }

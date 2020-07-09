@@ -53,3 +53,14 @@ function interests() {
    document.getElementById("wrapper").innerHTML = `Violin, Piano, AppliedCyber`; 
    console.log('Interests!');   
 }
+
+function getComments() {
+	fetch('/data').then(response => response.json()).then((comments) => {
+		console.log(comments);
+		const bodyElement = document.body;
+		bodyElement.innerHTML += 'Here are the comments: \n';
+        for (comment of comments) {
+            bodyElement.innerHTML += comment + '\n';
+        }
+	});
+}
