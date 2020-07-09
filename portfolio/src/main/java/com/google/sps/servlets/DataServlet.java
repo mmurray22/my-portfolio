@@ -1,4 +1,4 @@
- // Copyright 2019 Google LLC
+// Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,21 +32,19 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  int maxNumComments = 1;
+  private static final String COMMENT_TABLE_NAME = "Comment";
+  private static final String COMMENT_COLUMN_NAME = "text";
+  private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+
   private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
+    Query query = new Query(COMMENT_TABLE_NAME ).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
     List<String> myComments = new ArrayList<>();
-    int index = 0;
     for (Entity entity : results.asIterable()) {
-        if (maxNumComments == index) {
-            break;
-        }
-        myComments.addComment((String) entity.getProperty("text"));
-        index++;
+        myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
     }
     // myComments.addComment(Integer.toString(maxNumComments));
     String commentJSON = convertToJson(myComments);
@@ -66,9 +64,9 @@ public class DataServlet extends HttpServlet {
     }
     if (text != null && !text.isEmpty()) {
         long timestamp = System.currentTimeMillis();
-        Entity comment = new Entity("Comment");
-        comment.setProperty("text", text);
-        comment.setProperty("timestamp", timestamp);
+        Entity comment = new Entity(COMMENT_TABLE_NAME);
+        comment.setProperty(COMMENT_COLUMN_NAME, text);
+        comment.setProperty(TIMESTAMP_COLUMN_NAME, timestamp);
         dataStore.put(comment);
     }
     response.sendRedirect("/index.html");
