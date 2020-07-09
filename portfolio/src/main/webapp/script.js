@@ -39,9 +39,17 @@ function tech() {
 }
 
 /*
+ * Navigates to the blog page
+ */
+function blog() {
+   location.replace("/blog.html");
+   console.log(`Blog`);
+}
+
+/*
  * Displays interests
  */
-function interests() { 
+function interests() {
    document.getElementById("wrapper").innerHTML = `Violin, Piano, AppliedCyber`; 
    console.log('Interests!');   
 }
