@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>MM Portfolio</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body onload="getComments();createMap();">
     <div id="intro-content">
         <div id="intro-button-one">
             <div class="mdc-touch-target-wrapper">
@@ -87,5 +88,6 @@
     <div id="inner-content">
       <div id="my-info"></div>
     </div>
+    <div id="map"></div>
   </body>
 </html>
