@@ -20,6 +20,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.FetchOptions;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -32,26 +33,22 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  int maxNumComments = 1;
   private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    int maxNumComments = 1;
     Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
-    PreparedQuery results = datastore.prepare(query);
+    PreparedQuery results = dataStore.prepare(query);
     List<String> myComments = new ArrayList<>();
-    int index = 0;
-    for (Entity entity : results.asIterable()) {
-        if (maxNumComments == index) {
-            break;
-        }
-        myComments.addComment((String) entity.getProperty("text"));
-        index++;
-    }
-    // myComments.addComment(Integer.toString(maxNumComments));
-    String commentJSON = convertToJson(myComments);
+    String maxNumCommentsParam = request.getParameter("max-num");
+    if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
+        maxNumComments = Integer.parseInt(maxNumCommentsParam);
+    } 
+    String commentJSON = convertToJson(results.asList(FetchOptions.Builder.withLimit(maxNumComments)));
 
     //Send JSON as the response
+    // response.sendRedirect("/index.html");
     response.setContentType("application/json;");
     response.getWriter().println(commentJSON);
   }
@@ -60,10 +57,7 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get response from the form
     String text = request.getParameter("text-input");
-    String maxNumCommentsParam = request.getParameter("max-num");
-    if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
-        maxNumComments = Integer.parseInt(request.getParameter("max-num"));
-    }
+    
     if (text != null && !text.isEmpty()) {
         long timestamp = System.currentTimeMillis();
         Entity comment = new Entity("Comment");
@@ -74,7 +68,7 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
-  private static String convertToJson(List<String> myComments) {
+  private static String convertToJson(List<Entity> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
     return json; 
