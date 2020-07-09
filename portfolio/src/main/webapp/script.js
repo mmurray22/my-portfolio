@@ -73,9 +73,11 @@ function contact() {
 
 /** Creates a map and adds it to the page. */
 function createMap() {
+  var stanford_cs = {lat:37.430175, lng:-122.173388};
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+      {center: stanford_cs, zoom: 16});
+  var marker = new google.maps.Marker({position: stanford_cs, map: map});
 }
 
 function getComments() {
