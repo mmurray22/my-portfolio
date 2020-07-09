@@ -76,7 +76,7 @@ function updateNumber() {
 }
 
 function getComments() {
-	fetch('/data').then(response => response.json()).then((comments) => {
+	fetch('/data?max-num=' + (document.getElementById("numComments").value)).then(response => response.json()).then((comments) => {
 	  const bodyElement = document.body;
       console.log('Comments: ', comments);
       bodyElement.innerHTML += 'Here are all the comments: <br>';

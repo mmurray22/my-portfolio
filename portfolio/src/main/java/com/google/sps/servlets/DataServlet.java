@@ -42,23 +42,22 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxNumComments = 1;
     Query query = new Query(COMMENT_TABLE_NAME ).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
-    PreparedQuery results = datastore.prepare(query);
+    PreparedQuery results = dataStore.prepare(query);
     List<String> myComments = new ArrayList<>();
     String maxNumCommentsParam = request.getParameter("max-num");
     if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
         maxNumComments = Integer.parseInt(maxNumCommentsParam);
     } 
     String commentJSON = convertToJson(results.asList(FetchOptions.Builder.withLimit(maxNumComments)));
-    for (Entity entity : results.asIterable()) {
-        myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
-    }
-    // myComments.addComment(Integer.toString(maxNumComments));
-    String commentJSON = convertToJson(myComments);
+    // for (Entity entity : results.asIterable()) {
+    //     myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
+    // }`
+    // String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
-    // response.sendRedirect("/index.html");
     response.setContentType("application/json;");
     response.getWriter().println(commentJSON);
+    
   }
 
   @Override

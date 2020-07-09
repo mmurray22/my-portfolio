@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body>
     <div id="intro-content" style="display:block;">
       <div id="intro-button-one" style="display:inline-block">
         <div class="mdc-touch-target-wrapper" style="display:block;">
@@ -70,8 +70,7 @@
       <input type="submit"/>
     </form>
     <label>Choose a number of comments:</label>
-    <form action="/data" method="GET">
-      <input type="number" name="max-num" />
-    </form>
+    <input type="number" name="max-num" id="numComments" />
+    <input type="submit" onclick="getComments()" value="See comments!"/>
   </body>
 </html>
