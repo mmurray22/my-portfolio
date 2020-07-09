@@ -73,11 +73,15 @@ function contact() {
 
 /** Creates a map and adds it to the page. */
 function createMap() {
-  var stanford_cs = {lat:37.430175, lng:-122.173388};
+  var treeCSLatLng = {lat:37.430175, lng:-122.173388};
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: stanford_cs, zoom: 16});
-  var marker = new google.maps.Marker({position: stanford_cs, map: map});
+      {center: treeCSLatLng, zoom: 16});
+  var marker = new google.maps.Marker({
+        position: treeCSLatLng, 
+        map: map,
+        title: 'My School :)'
+      });
 }
 
 function getComments() {
