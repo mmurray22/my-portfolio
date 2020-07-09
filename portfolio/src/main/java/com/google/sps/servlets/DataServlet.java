@@ -50,6 +50,6 @@ public class DataServlet extends HttpServlet {
   private static String convertToJson(List<String> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
-    return json; 
+    return json;
   }
 }
