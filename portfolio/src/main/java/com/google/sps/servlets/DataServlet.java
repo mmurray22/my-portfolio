@@ -1,4 +1,4 @@
- // Copyright 2019 Google LLC
+// Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,10 +33,18 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+<<<<<<< HEAD
+=======
+  private static final String COMMENT_TABLE_NAME = "Comment";
+  private static final String COMMENT_COLUMN_NAME = "text";
+  private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+
+>>>>>>> 94c69a698557797dd534228cfee72c2e096b0399
   private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+<<<<<<< HEAD
     int maxNumComments = 1;
     Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
     PreparedQuery results = dataStore.prepare(query);
@@ -46,6 +54,16 @@ public class DataServlet extends HttpServlet {
         maxNumComments = Integer.parseInt(maxNumCommentsParam);
     } 
     String commentJSON = convertToJson(results.asList(FetchOptions.Builder.withLimit(maxNumComments)));
+=======
+    Query query = new Query(COMMENT_TABLE_NAME ).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
+    PreparedQuery results = datastore.prepare(query);
+    List<String> myComments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+        myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
+    }
+    // myComments.addComment(Integer.toString(maxNumComments));
+    String commentJSON = convertToJson(myComments);
+>>>>>>> 94c69a698557797dd534228cfee72c2e096b0399
 
     //Send JSON as the response
     // response.sendRedirect("/index.html");
@@ -60,9 +78,9 @@ public class DataServlet extends HttpServlet {
     
     if (text != null && !text.isEmpty()) {
         long timestamp = System.currentTimeMillis();
-        Entity comment = new Entity("Comment");
-        comment.setProperty("text", text);
-        comment.setProperty("timestamp", timestamp);
+        Entity comment = new Entity(COMMENT_TABLE_NAME);
+        comment.setProperty(COMMENT_COLUMN_NAME, text);
+        comment.setProperty(TIMESTAMP_COLUMN_NAME, timestamp);
         dataStore.put(comment);
     }
     response.sendRedirect("/index.html");
