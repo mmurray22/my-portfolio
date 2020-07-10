@@ -73,8 +73,19 @@ function contact() {
 
 /** Creates a map and adds it to the page. */
 function loadMap() {
+  var contentString = '<div id="map-content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">'+document.getElementById("locations").value+'</h1>'+
+      '<div id="bodyContent">'+
+      '<p> This place is awesome!</p>'+
+      '<p>Unrelated Attribution: <a href="https://rustacean.net/assets/rustacean-flat-happy.svg">'+
+      'Unrelated Picture</a> '+
+      '</p>'+
+      '</div>'+
+      '</div>';
   var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
-  if (document.getElementById("locations").value == "Ramen") {
+  if (document.getElementById("locations").value == "Ramen-Nagi") {
       desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
   }
   if (document.getElementById("locations").value == "Havanna") {
@@ -88,12 +99,17 @@ function loadMap() {
         position: desiredLocationLatLng, 
         map: map,
         animation: google.maps.Animation.DROP,
-        title: 'Travel Destinations'
+        title: 'Travel Destinations: Click me to see more!'
       });
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
   marker.addListener('click', function() {
       if (this.getAnimation() !== null) {
+        infowindow.close(map, marker);
         this.setAnimation(null);
       } else {
+        infowindow.open(map, marker);
         this.setAnimation(google.maps.Animation.BOUNCE);
       }
   });
