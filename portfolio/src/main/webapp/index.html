@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body>
     <div id="intro-content" style="display:block;">
       <div id="intro-button-one" style="display:inline-block">
         <div class="mdc-touch-target-wrapper" style="display:block;">
@@ -74,14 +74,7 @@
       <button onclick="deleteComments()">Delete!</button>
     </form>
     <label>Choose a number of comments:</label>
-    <form action="/data" method="POST">
-      <input type="number" name="max-num" />
-      <!-- <select id="num-comments" onchange="updateNumber()">
-        <option value="1">1</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="all">All</option>
-      </select> -->
-    </form>
+    <input type="number" name="max-num" id="numComments" />
+    <input type="submit" onclick="getComments()" value="See comments!"/>
   </body>
 </html>

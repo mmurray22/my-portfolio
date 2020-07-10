@@ -14,17 +14,16 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.data.MyComments;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.FetchOptions;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,53 +33,51 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  MyComments myComments = new MyComments();
-  int maxNumComments = 1;
-  int numCommentsOverall = 0;
+  private static final String COMMENT_TABLE_NAME = "Comment";
+  private static final String COMMENT_COLUMN_NAME = "text";
+  private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+  private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("Comment");
-    MyComments myComments = new MyComments();
-    PreparedQuery results = datastore.prepare(query);
-    // String maxNumComments = request.getParameter("max-num");
-    int index = 0;
-    for (Entity entity : results.asIterable()) {
-        if (maxNumComments == index) {
-            break;
-        }
-        myComments.addComment((String) entity.getProperty("text"));
-        index++;
-    }
-    String commentJSON = convertToJson(myComments);
+    int maxNumComments = 1;
+    Query query = new Query(COMMENT_TABLE_NAME ).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
+    PreparedQuery results = dataStore.prepare(query);
+    List<String> myComments = new ArrayList<>();
+    String maxNumCommentsParam = request.getParameter("max-num");
+    if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
+        maxNumComments = Integer.parseInt(maxNumCommentsParam);
+    } 
+    String commentJSON = convertToJson(results.asList(FetchOptions.Builder.withLimit(maxNumComments)));
+    // for (Entity entity : results.asIterable()) {
+    //     myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
+    // }`
+    // String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
     response.setContentType("application/json;");
     response.getWriter().println(commentJSON);
+    
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Get response from the form
+    // Get response from the form
     String text = request.getParameter("text-input");
-    String maxNumCommentsParam = request.getParameter("max-num");
-    if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
-        maxNumComments = Integer.parseInt(request.getParameter("max-num"));
-    }
+    
     if (text != null && !text.isEmpty()) {
-        Entity comment = new Entity("Comment", String.valueOf(numCommentsOverall));
-        numCommentsOverall+=1;
-        comment.setProperty("text", text);
-        DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+        long timestamp = System.currentTimeMillis();
+        Entity comment = new Entity(COMMENT_TABLE_NAME);
+        comment.setProperty(COMMENT_COLUMN_NAME, text);
+        comment.setProperty(TIMESTAMP_COLUMN_NAME, timestamp);
         dataStore.put(comment);
     }
     response.sendRedirect("/index.html");
   }
 
-  private static String convertToJson(MyComments myComments) {
+  private static String convertToJson(List<Entity> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
-    return json;
+    return json; 
   }
 }
