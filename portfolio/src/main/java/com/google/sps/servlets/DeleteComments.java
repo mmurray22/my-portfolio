@@ -48,12 +48,7 @@ public class DeleteComments extends HttpServlet {
     }
     int counter = 0;
     for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numDeleteComments))) {
-        Key taskEntityKey = KeyFactory.createKey(COMMENT_TABLE_NAME, (long) entity.getProperty(TIMESTAMP_COLUMN_NAME));
-        datastore.delete(taskEntityKey);
-        counter++;
-        if (numDeleteComments == counter) {
-            break;
-        }
+        datastore.delete(entity.getKey());
     }
     response.sendRedirect("/index.html");
   }
