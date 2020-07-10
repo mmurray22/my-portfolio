@@ -17,18 +17,19 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.datastore.FetchOptions;
-import java.io.IOException;
 import com.google.gson.Gson;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /** Servlet that returns some example content. */
 @WebServlet("/data")
@@ -48,18 +49,15 @@ public class DataServlet extends HttpServlet {
     if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
         maxNumComments = Integer.parseInt(maxNumCommentsParam);
     } 
-    String commentJSON = convertToJson(results.asList(FetchOptions.Builder.withLimit(maxNumComments)));
-    // for (Entity entity : results.asIterable()) {
-    //     myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
-    // }`
-    // String commentJSON = convertToJson(myComments);
+    for (Entity entity : results.asList(FetchOptions.Builder.withLimit(maxNumComments))) {
+        myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
+    }
 
     //Send JSON as the response
+    String commentJSON = convertToJson(myComments);
     response.setContentType("application/json;");
     response.getWriter().println(commentJSON);
-    
   }
-
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get response from the form
@@ -75,7 +73,7 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
-  private static String convertToJson(List<Entity> myComments) {
+  private static String convertToJson(List<String> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
     return json; 
