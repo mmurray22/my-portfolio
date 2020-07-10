@@ -13,6 +13,11 @@ package com.google.sps.servlets;
 import com.google.sps.servlets.DataServlet;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import java.io.IOException;
@@ -28,12 +33,28 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/delete-data")
 public class DeleteComments extends HttpServlet {
+  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  private static final String COMMENT_TABLE_NAME = "Comment";
+  private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      String id = request.getParameter("id");
-      Key taskEntityKey = KeyFactory.createKey("Comment", "1");
-      datastore.delete(taskEntityKey);
-      response.sendRedirect("/index.html");
+    int numDeleteComments = 1;
+    Query query = new Query(COMMENT_TABLE_NAME ).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
+    PreparedQuery results = datastore.prepare(query);
+    String inputNumDelete = request.getParameter("delete-num");
+    if (inputNumDelete != null && !inputNumDelete.isEmpty()) {
+        numDeleteComments = Integer.parseInt(inputNumDelete);
+    }
+    int counter = 0;
+    for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numDeleteComments))) {
+        Key taskEntityKey = KeyFactory.createKey(COMMENT_TABLE_NAME, (long) entity.getProperty(TIMESTAMP_COLUMN_NAME));
+        datastore.delete(taskEntityKey);
+        counter++;
+        if (numDeleteComments == counter) {
+            break;
+        }
+    }
+    response.sendRedirect("/index.html");
   }
 }
