@@ -72,19 +72,13 @@ function contact() {
 }
 
 function getComments() {
-	fetch('/data').then(response => response.json()).then((comments) => {
-		const commentElement = document.body;
-        console.log('Comments: ', comments);
-        commentElement.innerHTML += 'Here are all the comments: <br>';
-	    let it = 0;
-        // console.log('Comment num: ', document.getElementById("num-comments").value);
-        for (index in comments.arr) {
-            // if (it == document.getElementById("num-comments").value) {
-                // break;
-            // }
-            commentElement.innerHTML += comments.arr[index] + '<br>';
-            it++;
-        }
+	fetch('/data?max-num=' + (document.getElementById("numComments").value)).then(response => response.json()).then((comments) => {
+	  const bodyElement = document.body;
+      console.log('Comments: ', comments);
+      bodyElement.innerHTML += 'Here are all the comments: <br>';
+      for (comment of comments) {
+        bodyElement.innerHTML += comment.propertyMap.text + '<br>';
+      }
 	});
 }
 
