@@ -87,8 +87,16 @@ function loadMap() {
   const marker = new google.maps.Marker({
         position: desiredLocationLatLng, 
         map: map,
+        animation: google.maps.Animation.DROP,
         title: 'Travel Destinations'
       });
+  marker.addListener('click', function() {
+      if (this.getAnimation() !== null) {
+        this.setAnimation(null);
+      } else {
+        this.setAnimation(google.maps.Animation.BOUNCE);
+      }
+  });
 }
 
 function getComments() {
