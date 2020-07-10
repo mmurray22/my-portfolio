@@ -65,6 +65,12 @@
     <div id="inner-content" style="display:none;">
       <div id="my-info"></div>
     </div>
+    <label id="location-label">Places I want to go:</label>
+    <select name="locations" id="locations" onchange="loadMap()">
+        <option value="CERN">CERN, Geneva, Switzerland</option>
+        <option value="Ramen">Ramen Nagi, Palo Alto, California, US</option>
+        <option value="Havanna">Havanna, Cuba</option>
+    </select>
     <div id="map"></div>
   </body>
 </html>
