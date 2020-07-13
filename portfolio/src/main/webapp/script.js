@@ -11,10 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-function intro() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my-info").innerHTML = `Hi everyone! My name is
+/*
+ * Displays intro paragraph
+ */
+function intro() {
+   document.getElementById("wrapper").innerHTML = `Hi everyone! My name is
 	Michaela Murray, and I’m currently a rising junior at Stanford
 	University.  I am majoring in Computer Science with a concentration in
 	Systems, and I plan to minor in mathematics and music. So far, my
@@ -25,78 +26,61 @@ function intro() {
 	continued to engage in research, the most of which was developing a
 	sensor peripheral driver for TockOS.  When I am not taking classes or
 	doing research, my main activities are being Vice President of our
-	school’s security club and taking violin lessons. A fun fact about me is
-	that I am 5’, which you might not be able to tell over GVC.`;
-	console.log('Intro!'); 
+	school’s security club and taking violin lessons.`;
+   console.log('Intro!'); 
 }
 
+/*
+ * Displays tech skills
+ */
 function tech() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my -info").innerHTML = `Rust, C++, C, JS`;
-	console.log('Tech!'); 
-}
-
-function interests() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my-info").innerHTML = `Violin, Piano, 
-						     AppliedCyber`; 
-	console.log('Interests!');   
+   document.getElementById("wrapper").innerHTML = `Rust, C++, C, JS`;
+   console.log('Tech!'); 
 }
 
 /*
  * Navigates to the blog page
  */
 function blog() {
-   location.replace("/blog.html");
+    location.replace("/blog.html");
    console.log(`Blog`);
 }
 
-function contact() { 
-	document.getElementById("inner-content").style.display = "block"; 
-	document.getElementById("my-info").innerHTML = 
-		`<ul style="list-style-type:none;"> 
-		<li>Email: 
-		<a href="mailto:murray22@stanford.edu"> 
-		murray22@stanford.edu 
-		</a></li>
-		<li>Linkedin:
-		<a href="https://www.linkedin.com/in/murray22/" target="_blank">
-		My LinkedIn
-		</a></li> 
-		<li>Github: 
-		<a href="https://github.com/mmurray22" target="_blank">
-		My Github
-		</a></li> 
-		</ul>`; 
-	console.log('Contact!'); 
+/*
+ * Displays interests
+ */
+function interests() {
+   document.getElementById("wrapper").innerHTML = `Violin, Piano, AppliedCyber`; 
+   console.log('Interests!');   
 }
 
 /** Creates a map and adds it to the page. */
 function loadMap() {
-  var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
-  if (document.getElementById("locations").value == "Ramen") {
-      desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
-  }
-  if (document.getElementById("locations").value == "Havanna") {
-      desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
-  }
-  console.log(desiredLocationLatLng);
-  const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: desiredLocationLatLng, zoom: 16});
-  const marker = new google.maps.Marker({
+    var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
+    if (document.getElementById("locations").value == "Ramen") {
+        desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
+    }
+    if (document.getElementById("locations").value == "Havanna") {
+        desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
+    }
+    console.log(desiredLocationLatLng);
+    const map = new google.maps.Map(
+        document.getElementById('map'),
+        {center: desiredLocationLatLng, zoom: 16
+    });
+    const marker = new google.maps.Marker({
         position: desiredLocationLatLng, 
         map: map,
         animation: google.maps.Animation.DROP,
         title: 'Travel Destinations'
       });
-  marker.addListener('click', function() {
-      if (this.getAnimation() !== null) {
-        this.setAnimation(null);
-      } else {
-        this.setAnimation(google.maps.Animation.BOUNCE);
-      }
-  });
+    marker.addListener('click', function() {
+        if (this.getAnimation() !== null) {
+          this.setAnimation(null);
+        } else {
+          this.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    });
 }
 
 function getComments() {
