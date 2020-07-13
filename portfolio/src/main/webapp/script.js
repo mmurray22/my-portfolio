@@ -55,10 +55,16 @@ function interests() {
 }
 
 /** Creates a map and adds it to the page. */
-function createMap() {
+function loadMap() {
+  const stanfordGatesBldgLatLng = {lat:37.430175, lng:-122.173388};
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+      {center: stanfordGatesBldgLatLng, zoom: 16});
+  const marker = new google.maps.Marker({
+        position: stanfordGatesBldgLatLng, 
+        map: map,
+        title: 'My School :)'
+      });
 }
 
 function getComments() {
