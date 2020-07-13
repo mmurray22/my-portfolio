@@ -42,7 +42,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxNumComments = 1;
-    Query query = new Query(COMMENT_TABLE_NAME ).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
+    Query query = new Query(COMMENT_TABLE_NAME).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
     PreparedQuery results = dataStore.prepare(query);
     List<String> myComments = new ArrayList<>();
     String maxNumCommentsParam = request.getParameter("max-num");
