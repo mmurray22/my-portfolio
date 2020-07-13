@@ -13,11 +13,26 @@
 // limitations under the License.
 
 package com.google.sps;
+import com.google.common.collect.Sets;
 
 import java.util.Collection;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    Collection<TimeRange> validCalendarTimes = new ArrayList<>();
+    /*Find the time ranges everyone else is not available*/
+    Collection<TimeRange> forbiddenTimes = new ArrayList<>();
+    for (Event event : events) {
+        if ((Sets.intersection(event.getAttendees(), request.getAttendees())).size() > 0) {
+            continue;
+        }
+        forbiddenTimes.add(event.getWhen());
+    }
+    /*Compare ^^ to all valid meeting times an see what isn't cancelled out*/
+    validCalendarTimes.add(TimeRange.WHOLE_DAY);
+    for (TimeRange timeRange in forbiddenTimes) {
+       /*Take out time slices as necessary*/ 
+    }
+    /*Remove slices that are too small ^^maybe can do above?*/
   }
 }
