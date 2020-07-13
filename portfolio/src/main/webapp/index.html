@@ -13,68 +13,77 @@
     <script src="script.js"></script>
   </head>
   <body onload="getComments();createMap();">
-    <div id="intro-content" style="display:block;">
-      <div id="intro-button-one" style="display:inline-block">
-        <div class="mdc-touch-target-wrapper" style="display:block;">
-          <button class="mdc-button mdc-button--outlined" onclick="intro()" style="color:white;">  
-	     <span class="mdc-button__ripple">Intro</span> 
-	  </button>
+    <div id="intro-content">
+        <div id="intro-button-one">
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined" onclick="intro()">  
+                    <span class="mdc-button__ripple">Intro</span>
+                </button>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined" onclick="tech()">  
+                    <span class="mdc-button__ripple">Tech Skills</span>
+                </button>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined" onclick="interests()">  
+                    <span class="mdc-button__ripple">Interests</span>
+                </button>
+            </div>
         </div>
-        <div class="mdc-touch-target-wrapper">
-           <button class="mdc-button mdc-button--outlined" onclick="tech()">  
-	      <span class="mdc-button__ripple">Tech Skills</span> 
-           </button>
+        <div id="profile-wrapper">
+            <div id="basic-profile">
+                <div id="wrapper">
+                    <img id="profile" src="/images/PROFILE_PIC.JPG" alt="Picture of Michaela">
+                </div>
+                <h1>Michaela Murray's Portfolio</h1>
+                <div id="intro">
+                    <ul>
+                        <li>Stanford Class of 2022</li> 
+                        <li>Major: Computer Science</li>
+                        <li>STEP Intern @ Google</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="mdc-touch-target-wrapper">
-	   <button class="mdc-button mdc-button--outlined" onclick="interests()">  
-	       <span class="mdc-button__ripple">Interests</span>
-	   </button>
+        <div id="intro-button-two">
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined">  
+                    <span class="mdc-button__ripple">Blog</span>
+                </button>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <form action="/pdf/Michaela_Murray_Resume.pdf" target="_blank">
+                    <button class="mdc-button mdc-button--outlined">  
+                        <span class="mdc-button__ripple">Resume</span>
+                    </button>
+                </form>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <button id="picture-button" class="mdc-button mdc-button--outlined">  
+                    <span class="mdc-button__ripple">Pictures</span>
+                </button>
+            </div>
+	    <div id="icons">
+              <ul> 
+                <li> 
+                    <a href="https://github.com/mmurray22" target="_blank">
+                        <img class="icon" src="/images/logo-github.svg" alt="Github icon">
+                    </a>
+                </li> 
+                <li>
+                    <a href="https://www.linkedin.com/in/murray22/" target="_blank">
+                        <img class="icon" src="/images/logo-linkedin.svg" alt="LinkedIn Icon">
+                    </a>
+                </li> 
+                <li> 
+                    <a href="mailto:murray22@stanford.edu" target="_blank">
+                        <img class="icon" src="/images/email-24px.svg" alt="Email Icon">
+                    </a>
+                </li>
+              </ul>
+            </div>
         </div>
-      </div>
-      <div id="basic-profile">
-        <img src="/images/PROFILE_PIC.JPG">
-      	<h1>Michaela Murray's Portfolio</h1>
-      	<div id="intro">
-      	  <ul>
-            <li>Stanford Class of 2022</li> 
-            <li>Major: Computer Science</li>
-            <li>STEP Intern @ Google</li>
-	  </ul>
-        </div>
-      </div>
-      <div id="intro-button-two">
-	<div class="mdc-touch-target-wrapper">
-	   <button class="mdc-button mdc-button--outlined" onclick="blog()">  
-	      <span class="mdc-button__ripple">Blog</span>
-	   </button>
-        </div>
-        <div class="mdc-touch-target-wrapper">
-          <form action="/pdf/Michaela_Murray_Resume.pdf" target="_blank">
-            <button class="mdc-button mdc-button--outlined">  
-	      <span class="mdc-button__ripple">Resume</span> 
-	    </button>
-          </form>
-        </div>
-	<div id="icons">
-            <ul> 
-            <li> 
-                <a href="https://github.com/mmurray22" target="_blank" >
-                    <img class="icon" src="/images/logo-github.svg" alt="Github icon">
-                </a>
-            </li> 
-            <li>
-                <a href="https://www.linkedin.com/in/murray22/" target="_blank" >
-                    <img class="icon" src="/images/logo-linkedin.svg" alt="LinkedIn Icon">
-                </a>
-            </li> 
-            <li> 
-                <a href="mailto:murray22@stanford.edu" target="_blank">
-                    <img class="icon" src="/images/email-24px.svg" alt="Email Icon">
-                </a>
-            </li>
-            </ul>
-        </div>
-      </div>
     </div>
     <div id="inner-content">
       <div id="my-info"></div>

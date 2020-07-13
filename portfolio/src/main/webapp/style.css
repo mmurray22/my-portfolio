@@ -2,19 +2,73 @@
 @include button.core-styles;
 @use "@material/card";
 @include card.core-styles;
+@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
 
+html {
+   background-color: #6495ED;
+   background-size: cover;
+   height:100%;
+}
+
+/*
+ * Credit to codepen: https://codepen.io/valentin/pen/fkdCG
+ */
 body {
+  animation: wind 20s linear infinite;
+  background: url(https://static.radulescu.me/examples/clouds/clouds1000.png),
+  	      url(https://static.radulescu.me/examples/clouds/clouds1000.png) 0 200px,
+	      url(https://static.radulescu.me/examples/clouds/clouds1200_1.png) 0 300px,
+	      url(https://static.radulescu.me/examples/clouds/clouds1000_blur3.png) 100px 250px;
   background-color: #8EC5FC;
-  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
   color: white;
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+  position: relative;
+}
+
+@keyframes wind {
+   0% {
+	background-position: 0 200px, 0 300px, 100px 250px;
+      }
+   100% {
+	  background-position: 1000px 200px, 1200px 300px, 1100px 250px;
+	}
+}
+
+
+#intro-content {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 100%;
+}
+
+#intro-button-one {
+  display:inline-block;
   margin: auto;
-  padding: 1%;
+}
+
+#profile-wrapper {
+   display:inline-block;
+   margin: auto;
+   padding-top: 15px;
 }
 
 #basic-profile {
+   background-color: rgba(128,128,128,.6);
    border: 1px solid black;
+   font-weight: bold;
+   padding-bottom: 5px;
+   padding-left: 20px;
+   padding-right: 20px;
+   padding-top: 10px;
+}
+
+#intro-button-two {
    display: inline-block;
-   padding: 10px;
+   margin: auto;
 }
 
 .icon {
@@ -22,6 +76,11 @@ body {
   height: 40px;
   margin-top: -50px;
   width: 40px;
+}
+
+#intro {
+  margin: auto;
+  width: 300px;
 }
 
 #icons {
@@ -36,11 +95,66 @@ body {
   display: inline-block;
 }
 
-img {
+#info {
+   border: 1px solid black;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: -50px;
+   text-align: center;
+   width: 250px;
+}
+
+form {
+  display: inline-block;
+}
+
+#profile {
   border: 1px solid white;
   box-shadow: 0 19px 30px #0000004C, 0 15px 12px #00000038;
   height: 400px;
   width: 350px;
+}
+
+#icon {
+  display: inline-block;
+  height: 40px;
+  margin-top: -50px;
+  width: 40px;
+}
+
+button {
+  border: 1px solid black;
+  height: 20px;
+  line-height: 20px;
+  color: white;
+  margin-bottom: 150px;
+  width: 100px;
+  text-align: center;
+}
+
+.mdc-button {
+  color:white;
+}
+.mdc-button__ripple {
+  align-items: center;
+  background-color: rgba(128, 128, 128, .6);
+  display: inline-flex;
+  justify-content: center;
+  min-height: 36px;
+  text-align: center;
+}
+
+.mdc-touch-target-wrapper {
+  display:block; 
+}
+
+ul {
+  list-style-type: none;
+}
+
+#wrapper {
+   height: 400px;
+   width: 350px; 
 }
 
 #inner-content {
