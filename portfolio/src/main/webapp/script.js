@@ -47,14 +47,14 @@ function interests() {
  * Navigates to the blog page
  */
 function blog() {
-   location.replace("/blog.html");
+    location.replace("/blog.html");
    console.log(`Blog`);
 }
 
 function contact() { 
 	document.getElementById("inner-content").style.display = "block"; 
 	document.getElementById("my-info").innerHTML = 
-		`<ul style="list-style-type:none;"> 
+	    `<ul style="list-style-type:none;"> 
 		<li>Email: 
 		<a href="mailto:murray22@stanford.edu"> 
 		murray22@stanford.edu 
@@ -73,22 +73,23 @@ function contact() {
 
 /** Creates a map and adds it to the page. */
 function loadMap() {
-  var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
-  if (document.getElementById("locations").value == "Ramen") {
-      desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
-  }
-  if (document.getElementById("locations").value == "Havanna") {
-      desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
-  }
-  console.log(desiredLocationLatLng);
-  const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: desiredLocationLatLng, zoom: 16});
-  const marker = new google.maps.Marker({
+    var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
+    if (document.getElementById("locations").value == "Ramen") {
+        desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
+    }
+    if (document.getElementById("locations").value == "Havanna") {
+        desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
+    }
+    console.log(desiredLocationLatLng);
+    const map = new google.maps.Map(
+        document.getElementById('map'),
+        {center: desiredLocationLatLng, zoom: 16
+    });
+    const marker = new google.maps.Marker({
         position: desiredLocationLatLng, 
         map: map,
         title: 'Travel Destinations'
-      });
+    });
 }
 
 function getComments() {
