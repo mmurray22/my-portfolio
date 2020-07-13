@@ -74,7 +74,7 @@ function loadMap() {
         animation: google.maps.Animation.DROP,
         title: 'Travel Destinations: Click me to see more!'
       });
-    const infowindow = new google.maps.InfoWindow({
+    const infoWindow = new google.maps.InfoWindow({
       content: contentString
     });
     marker.addListener('click', function() {
