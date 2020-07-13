@@ -71,10 +71,6 @@ function contact() {
 	console.log('Contact!'); 
 }
 
-function updateNumber() {
-    getComments();
-}
-
 function getComments() {
 	fetch('/data?max-num=' + (document.getElementById("numComments").value)).then(response => response.json()).then((comments) => {
 	  const bodyElement = document.body;
