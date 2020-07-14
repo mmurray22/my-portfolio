@@ -60,7 +60,7 @@ function loadMap() {
     if (document.getElementById("locations").value === "Ramen") {
         desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
     }
-    if (document.getElementById("locations").value == "Havanna") {
+    if (document.getElementById("locations").value === "Havanna") {
         desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
     }
     console.log(desiredLocationLatLng);
