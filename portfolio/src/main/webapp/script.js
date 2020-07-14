@@ -71,12 +71,6 @@ function getComments() {
 	});
 }
 
-function deleteComments() {
-    console.log("Starting to delete comments!");
-    fetch('/delete-data');
-    console.log("Complete!");
-}
-
 /*
  * Creates a map and adds it to the page. 
  */
