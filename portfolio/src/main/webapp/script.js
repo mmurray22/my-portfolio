@@ -57,7 +57,7 @@ function interests() {
 /** Creates a map and adds it to the page. */
 function loadMap() {
     var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
-    if (document.getElementById("locations").value == "Ramen") {
+    if (document.getElementById("locations").value === "Ramen") {
         desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
     }
     if (document.getElementById("locations").value == "Havanna") {
