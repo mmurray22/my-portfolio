@@ -21,17 +21,37 @@ public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     Collection<TimeRange> validCalendarTimes = new ArrayList<>();
     /*Find the time ranges everyone else is not available*/
-    Collection<TimeRange> forbiddenTimes = new ArrayList<>();
-    for (Event event : events) {
-        if ((Sets.intersection(event.getAttendees(), request.getAttendees())).size() > 0) {
-            continue;
-        }
-        forbiddenTimes.add(event.getWhen());
+    // Collection<TimeRange> forbiddenTimes = new ArrayList<>();
+    // for (Event event : events) {
+    //     if ((Sets.intersection(event.getAttendees(), request.getAttendees())).size() == 0) {
+    //         continue;
+    //     }
+    //     forbiddenTimes.add(event.getWhen());
+    // }
+    if (events.size() == 0) {
+        validCalendarTimes.add(TimeRange.WHOLE_DAY);
+        return validCalendarTimes;
     }
-    /*Compare ^^ to all valid meeting times an see what isn't cancelled out*/
-    validCalendarTimes.add(TimeRange.WHOLE_DAY);
-    for (TimeRange timeRange in forbiddenTimes) {
-       /*Take out time slices as necessary*/ 
+    Collections.sort(events, TimeRange.ORDER_BY_START);
+    int start = TimeRange.START_OF_DAY;
+    for (int i = 0; i < events.size(); i++) {
+        if (start == events[i].getWhen().start()) { /*Time is occupied*/
+            if ((i+1) != events.size() &&
+                events[i].getWhen().end() > events[i+1].getWhen().start() &&
+                events[i].getWhen().end() < events[i+1].getWhen().end()) {
+                    start = events[i+1].getWhen().end();
+                    continue;
+            }
+            start = events[i].getWhen().end();
+            continue;
+        } else { /*Time is not occupied*/
+            TimeRange timeRange = new TimeRange(start, events[i+1].getWhen().start());
+            if (timeRange.duration() >= request.getDuration()) {
+                validCalendarTimes.add(timeRange);
+            }
+            start = events[i].getWhen().start();
+            i--;
+        }
     }
     /*Remove slices that are too small ^^maybe can do above?*/
   }
