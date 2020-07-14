@@ -49,10 +49,6 @@ public class DataServlet extends HttpServlet {
         maxNumComments = Integer.parseInt(maxNumCommentsParam);
     } 
     String commentJSON = convertToJson(results.asList(FetchOptions.Builder.withLimit(maxNumComments)));
-    // for (Entity entity : results.asIterable()) {
-    //     myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
-    // }`
-    // String commentJSON = convertToJson(myComments);
 
     //Send JSON as the response
     response.setContentType("application/json;");
