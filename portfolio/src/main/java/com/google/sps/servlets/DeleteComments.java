@@ -38,7 +38,7 @@ public class DeleteComments extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int numDeleteComments = 1;
-    Query query = new Query(dataServlet.COMMENT_TABLE_NAME )
+    Query query = new Query(dataServlet.COMMENT_TABLE_NAME)
                             .addSort(dataServlet.TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
     PreparedQuery results = dataStore.prepare(query);
     String inputNumDelete = request.getParameter("delete-num");
