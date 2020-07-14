@@ -34,7 +34,6 @@ import java.util.List;
 @WebServlet("/delete-data")
 public class DeleteComments extends HttpServlet {
   private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
-  private DataServlet dataServlet = new DataServlet();
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
