@@ -37,15 +37,15 @@ public class DeleteComments extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    int numDeleteComments = 1;
+    int numCommentsToDelete = 1;
     Query query = new Query(DataServlet.COMMENT_TABLE_NAME)
                             .addSort(DataServlet.TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
     PreparedQuery results = dataStore.prepare(query);
     String inputNumDelete = request.getParameter("delete-num");
     if (inputNumDelete != null && !inputNumDelete.isEmpty()) {
-        numDeleteComments = Integer.parseInt(inputNumDelete);
+        numCommentsToDelete = Integer.parseInt(inputNumDelete);
     }
-    for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numDeleteComments))) {
+    for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numCommentsToDelete))) {
         dataStore.delete(entity.getKey());
     }
     response.sendRedirect("/index.html");
