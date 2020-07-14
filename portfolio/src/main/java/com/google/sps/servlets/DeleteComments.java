@@ -33,21 +33,21 @@ import java.util.List;
 /** Servlet that returns some example content. */
 @WebServlet("/delete-data")
 public class DeleteComments extends HttpServlet {
-  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-  private static final String COMMENT_TABLE_NAME = "Comment";
-  private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+  private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+  private DataServlet dataServlet = new DataServlet();
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int numDeleteComments = 1;
-    Query query = new Query(COMMENT_TABLE_NAME ).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
-    PreparedQuery results = datastore.prepare(query);
+    Query query = new Query(dataServlet.COMMENT_TABLE_NAME )
+                            .addSort(dataServlet.TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
+    PreparedQuery results = dataStore.prepare(query);
     String inputNumDelete = request.getParameter("delete-num");
     if (inputNumDelete != null && !inputNumDelete.isEmpty()) {
         numDeleteComments = Integer.parseInt(inputNumDelete);
     }
     for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numDeleteComments))) {
-        datastore.delete(entity.getKey());
+        dataStore.delete(entity.getKey());
     }
     response.sendRedirect("/index.html");
   }

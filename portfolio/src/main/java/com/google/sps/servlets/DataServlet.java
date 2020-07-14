@@ -34,9 +34,9 @@ import java.util.List;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final String COMMENT_TABLE_NAME = "Comment";
-  private static final String COMMENT_COLUMN_NAME = "text";
-  private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+  public static final String COMMENT_TABLE_NAME = "Comment";
+  public static final String COMMENT_COLUMN_NAME = "text";
+  public static final String TIMESTAMP_COLUMN_NAME = "submit_time";
   private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
@@ -49,13 +49,9 @@ public class DataServlet extends HttpServlet {
     if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
         maxNumComments = Integer.parseInt(maxNumCommentsParam);
     } 
-<<<<<<< HEAD
-    String commentJSON = convertToJson(results.asList(FetchOptions.Builder.withLimit(maxNumComments)));
-=======
     for (Entity entity : results.asList(FetchOptions.Builder.withLimit(maxNumComments))) {
         myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
     }
->>>>>>> 85869e9fe663d988c5a837a04e3d30eea67401ac
 
     //Send JSON as the response
     String commentJSON = convertToJson(myComments);

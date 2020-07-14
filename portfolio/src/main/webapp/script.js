@@ -79,7 +79,7 @@ function getComments() {
             console.log('Comments: ', comments);
             bodyElement.innerHTML += 'Here are all the comments: <br>';
             for (comment of comments) {
-                bodyElement.innerHTML += comment.propertyMap.text + '<br>';
+                bodyElement.innerHTML += comment + '<br>';
             }
 	});
 }
