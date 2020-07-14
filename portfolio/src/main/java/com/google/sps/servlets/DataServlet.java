@@ -58,6 +58,7 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(commentJSON);
   }
+  
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get response from the form
@@ -76,6 +77,6 @@ public class DataServlet extends HttpServlet {
   private static String convertToJson(List<String> myComments) {
     Gson gson = new Gson();
     String json = gson.toJson(myComments);
-    return json; 
+    return json;
   }
 }
