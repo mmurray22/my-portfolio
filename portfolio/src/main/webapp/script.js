@@ -125,3 +125,17 @@ function getComments() {
         }
 	});
 }
+
+function getMarker() {
+    fetch('/markers').then(response => response.json()).then((markers) => {
+
+    });
+}
+
+function saveMarker(lat, lng, content) {
+    const params = new URLSearchParams();
+    params.append('lat', lat);
+    params.append('lng', lng);
+    params.append('content', content);
+    fetch('/markers', {method: 'POST', body: params});
+}
