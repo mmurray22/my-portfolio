@@ -71,7 +71,13 @@
         <option value="Ramen-Nagi">Ramen Nagi, Palo Alto, California, US</option>
         <option value="Havanna">Havanna, Cuba</option>
     </select>
+    <form action="/markers" type="POST" id="storeMarker">
+        <label>Marker I want to save:</label>
+        <input type="number" id="lat"/>
+        <input type="number" id="lng"/>
+    </form>
+    <button type="submit" form="storeMarker">Save Markers</button>
     <div id="map"></div>
-    <button id="post-marker" onclick="saveMarker()">Save marker to the back end!</button>
+    <button id="displayMarkers" onclick="getMarkers()">Display Saved Markers!</button>
   </body>
 </html>

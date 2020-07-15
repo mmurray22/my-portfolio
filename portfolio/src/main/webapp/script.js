@@ -72,6 +72,7 @@ function contact() {
 }
 
 /** Creates a map and adds it to the page. */
+var map;
 function loadMap() {
   var contentString = '<div id="map-content">'+
       '<div id="siteNotice">'+
@@ -92,7 +93,7 @@ function loadMap() {
       desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
   }
   console.log(desiredLocationLatLng);
-  const map = new google.maps.Map(
+  map = new google.maps.Map(
       document.getElementById('map'),
       {center: desiredLocationLatLng, zoom: 16});
   const marker = new google.maps.Marker({
@@ -126,16 +127,25 @@ function getComments() {
 	});
 }
 
-function getMarker() {
+function getMarkers() {
     fetch('/markers').then(response => response.json()).then((markers) => {
-
+        console.log("Markers: ", markers);
+        for (marker in markers) {
+            var desiredLocationLatLng = {lat: markers.lat, lng: markers.lng};
+            const marker = new google.maps.Marker({
+                position: desiredLocationLatLng, 
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'Saved Pin!'
+            });
+        }
+        
     });
 }
 
-function saveMarker(lat, lng, content) {
+function saveMarker(lat, lng) {
     const params = new URLSearchParams();
     params.append('lat', lat);
     params.append('lng', lng);
-    params.append('content', content);
     fetch('/markers', {method: 'POST', body: params});
 }
