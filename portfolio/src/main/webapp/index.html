@@ -65,8 +65,9 @@
                     <span class="mdc-button__ripple">Pictures</span>
                 </button>
             </div>
-	    <div id="icons">
-              <ul> 
+        </div>
+        <div id="icons">
+            <ul> 
                 <li> 
                     <a href="https://github.com/mmurray22" target="_blank">
                         <img class="icon" src="/images/logo-github.svg" alt="Github icon">
@@ -82,13 +83,18 @@
                         <img class="icon" src="/images/email-24px.svg" alt="Email Icon">
                     </a>
                 </li>
-              </ul>
-            </div>
+            </ul>
         </div>
     </div>
     <div id="inner-content">
       <div id="my-info"></div>
     </div>
+    <form action="/data" method="POST">
+      <p>Submit a comment!</p>
+      <textarea name="text-input"></textarea>
+      <br><br>
+      <input type="submit">
+    </form>
     <label for="locations">Places I want to go:</label>
     <select name="locations" id="locations" onchange="loadMap()">
         <option value="CERN">CERN, Geneva, Switzerland</option>
