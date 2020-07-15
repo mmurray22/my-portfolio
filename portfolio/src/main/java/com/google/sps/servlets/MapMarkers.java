@@ -21,7 +21,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
-import com.google.gson.sps.data.MapMarker;
+import com.google.sps.data.MapMarker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class MapMarkers extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Marker> markersToDisplay = new ArrayList<>();
+        List<MapMarker> markersToDisplay = new ArrayList<>();
         Query query = new Query(MARKER_TABLE_NAME);
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
@@ -74,7 +74,7 @@ public class MapMarkers extends HttpServlet {
 
     private static String convertToJson(List<MapMarker> markersToDisplay) {
         Gson gson = new Gson();
-        String json = gson.toJson(comments);
+        String json = gson.toJson(markersToDisplay);
         return json;
     } 
 }
