@@ -35,7 +35,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_TABLE_NAME = "Comment";
   private static final String COMMENT_COLUMN_NAME = "text";
   private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
-  private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+  private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -61,7 +61,7 @@ public class DataServlet extends HttpServlet {
         Entity comment = new Entity(COMMENT_TABLE_NAME);
         comment.setProperty(COMMENT_COLUMN_NAME, text);
         comment.setProperty(TIMESTAMP_COLUMN_NAME, timestamp);
-        dataStore.put(comment);
+        datastore.put(comment);
     }
     response.sendRedirect("/index.html");
   }
