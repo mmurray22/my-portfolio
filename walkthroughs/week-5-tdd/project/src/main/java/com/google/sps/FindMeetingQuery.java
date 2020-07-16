@@ -13,9 +13,11 @@
 // limitations under the License.
 
 package com.google.sps;
-import com.google.common.collect.Sets;
+// import com.google.common.collect.Sets;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
@@ -32,27 +34,26 @@ public final class FindMeetingQuery {
         validCalendarTimes.add(TimeRange.WHOLE_DAY);
         return validCalendarTimes;
     }
-    Collections.sort(events, TimeRange.ORDER_BY_START);
+    Collection.sort(events, TimeRange.ORDER_BY_START);
     int start = TimeRange.START_OF_DAY;
     for (int i = 0; i < events.size(); i++) {
-        if (start == events[i].getWhen().start()) { /*Time is occupied*/
+        if (start == events.get(i).getWhen().start()) { /*Time is occupied*/
             if ((i+1) != events.size() &&
-                events[i].getWhen().end() > events[i+1].getWhen().start() &&
-                events[i].getWhen().end() < events[i+1].getWhen().end()) {
-                    start = events[i+1].getWhen().end();
+                events.get(i).getWhen().end() > events.get(i+1).getWhen().start() &&
+                events.get(i).getWhen().end() < events.get(i+1).getWhen().end()) {
+                    start = events.get(i+1).getWhen().end();
                     continue;
             }
-            start = events[i].getWhen().end();
+            start = events.get(i).getWhen().end();
             continue;
         } else { /*Time is not occupied*/
-            TimeRange timeRange = new TimeRange(start, events[i+1].getWhen().start());
+            TimeRange timeRange = new TimeRange(start, events.get(i+1).getWhen().start());
             if (timeRange.duration() >= request.getDuration()) {
                 validCalendarTimes.add(timeRange);
             }
-            start = events[i].getWhen().start();
+            start = events.get(i).getWhen().start();
             i--;
         }
     }
-    /*Remove slices that are too small ^^maybe can do above?*/
   }
 }
