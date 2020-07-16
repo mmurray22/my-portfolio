@@ -43,7 +43,11 @@ public class DeleteComments extends HttpServlet {
     PreparedQuery results = dataStore.prepare(query);
     String inputNumDelete = request.getParameter("delete-num");
     if (inputNumDelete != null && !inputNumDelete.isEmpty()) {
-        numCommentsToDelete = Integer.parseInt(inputNumDelete);
+        try{
+            numCommentsToDelete = Integer.parseInt(inputNumDelete);
+        } catch(NumberFormatException e) {
+            numCommentsToDelete = 1;
+        }
     }
     for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numCommentsToDelete))) {
         dataStore.delete(entity.getKey());
