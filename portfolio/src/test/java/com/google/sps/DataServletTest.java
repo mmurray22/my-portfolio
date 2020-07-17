@@ -63,7 +63,6 @@ public final class DataServletTest {
     new DataServlet().doPost(requestPost, responsePost);
     new DataServlet().doGet(requestGet, responseGet);
 
-    // verify(requestPost, atLeast(1)).getParameter("text-input");
     writer.flush(); // it may not have been flushed yet...
     Assert.assertTrue(stringWriter.toString().contains("Test Comment #1"));
   }
