@@ -19,19 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapMarker {
-    private int lat;
-    private int lng;
+    private double lat;
+    private double lng;
 
-    public MapMarker(int lat, int lng) {
+    public MapMarker(double lat, double lng) {
         this.lat = lat;
         this.lng = lng;
     }
 
-    public int getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public int getLng() {
+    public double getLng() {
         return lng;
     }
 }

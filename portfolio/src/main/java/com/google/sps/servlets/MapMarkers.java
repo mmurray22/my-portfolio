@@ -44,8 +44,8 @@ public class MapMarkers extends HttpServlet {
         Query query = new Query(MARKER_TABLE_NAME);
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
-            MapMarker marker = new MapMarker((int) entity.getProperty(MARKER_LAT_COLUMN_NAME),
-                                             (int) entity.getProperty(MARKER_LNG_COLUMN_NAME)); 
+            MapMarker marker = new MapMarker((double) entity.getProperty(MARKER_LAT_COLUMN_NAME),
+                                             (double) entity.getProperty(MARKER_LNG_COLUMN_NAME)); 
             markersToDisplay.add(marker);
         }
         String markerJSON = convertToJson(markersToDisplay);
@@ -62,8 +62,8 @@ public class MapMarkers extends HttpServlet {
          if ((lat_str != null && !lat_str.isEmpty()) && 
               (lng_str != null && !lng_str.isEmpty())) 
             {
-                int lat = Integer.parseInt(lat_str);
-                int lng = Integer.parseInt(lng_str);
+                double lat = Double.parseDouble(lat_str);
+                double lng = Double.parseDouble(lng_str);
                 Entity coordinates = new Entity(MARKER_TABLE_NAME);
                 coordinates.setProperty(MARKER_LAT_COLUMN_NAME, lat);
                 coordinates.setProperty(MARKER_LNG_COLUMN_NAME, lng);
