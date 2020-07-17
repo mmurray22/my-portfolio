@@ -61,7 +61,8 @@ public final class DataServletTest {
     new DataServlet().doPost(postRequest, postResponse);
     new DataServlet().doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yet
-    Assert.assertTrue(stringWriter.toString().contains("Test Comment #1"));
+    printWriter.flush(); //may not have flushed yets
+    System.out.println(stringWriter[0]);
+    Assert.assertTrue((stringWriter[0]).contains("Test Comment #1"));
   }
 }

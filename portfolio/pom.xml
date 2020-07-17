@@ -25,13 +25,6 @@
     
     <dependency>
       <groupId>com.google.appengine</groupId>
-      <artifactId>appengine-testing</artifactId>
-      <version>1.9.59</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-labs</artifactId>
       <version>1.9.59</version>
       <scope>test</scope>
@@ -40,6 +33,13 @@
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-stubs</artifactId>
+      <version>1.9.59</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.appengine</groupId>
+      <artifactId>appengine-testing</artifactId>
       <version>1.9.59</version>
       <scope>test</scope>
     </dependency>
