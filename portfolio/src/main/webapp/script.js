@@ -43,7 +43,7 @@ function tech() {
  * Navigates to the blog page
  */
 function blog() {
-   location.replace("/blog.html");
+    location.replace("/blog.html");
    console.log(`Blog`);
 }
 
@@ -71,11 +71,31 @@ function getComments() {
 	});
 }
 
-/*
- * Creates a map and adds it to the page. 
- */
-function createMap() {
-  const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+/** Creates a map and adds it to the page. */
+function loadMap() {
+    var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
+    if (document.getElementById("locations").value === "Ramen") {
+        desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
+    }
+    if (document.getElementById("locations").value === "Havanna") {
+        desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
+    }
+    console.log(desiredLocationLatLng);
+    const map = new google.maps.Map(
+        document.getElementById('map'),
+        {center: desiredLocationLatLng, zoom: 16
+    });
+    const marker = new google.maps.Marker({
+        position: desiredLocationLatLng, 
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: 'Travel Destinations'
+      });
+    marker.addListener('click', function() {
+        if (this.getAnimation() !== null) {
+          this.setAnimation(null);
+        } else {
+          this.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    });
 }

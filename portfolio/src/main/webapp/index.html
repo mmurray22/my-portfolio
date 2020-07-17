@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>MM Portfolio</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk&callback=loadMap"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head> 
@@ -64,8 +65,9 @@
                     <span class="mdc-button__ripple">Pictures</span>
                 </button>
             </div>
-	      <div id="icons">
-              <ul> 
+        </div>
+        <div id="icons">
+            <ul> 
                 <li> 
                     <a href="https://github.com/mmurray22" target="_blank">
                         <img class="icon" src="/images/logo-github.svg" alt="Github icon">
@@ -81,8 +83,7 @@
                         <img class="icon" src="/images/email-24px.svg" alt="Email Icon">
                     </a>
                 </li>
-              </ul>
-        </div>
+            </ul>
         </div>
     </div>
     <div id="inner-content">
@@ -102,6 +103,12 @@
     <label for="numComShow">Choose a number of comments:</label>
     <input id="numComShow" type="number" name="max-num" id="numComments" />
     <input type="submit" onclick="getComments()" value="See comments!"/>
-    <div id="map"></div>
   </body>
+  <label for="locations">Places I want to go:</label>
+  <select name="locations" id="locations" onchange="loadMap()">
+      <option value="CERN">CERN, Geneva, Switzerland</option>
+      <option value="Ramen">Ramen Nagi, Palo Alto, California, US</option>
+      <option value="Havanna">Havanna, Cuba</option>
+  </select>
+  <div id="map"></div>
 </html>
