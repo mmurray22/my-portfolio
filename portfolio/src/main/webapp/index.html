@@ -11,7 +11,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-  </head>
+  </head> 
   <body onload="getComments();createMap();">
     <div id="intro-content">
         <div id="intro-button-one">
@@ -94,8 +94,13 @@
       <br><br>
       <input type="submit">
     </form>
-    <label>Choose a number of comments:</label>
-    <input type="number" name="max-num" id="numComments" />
+    <label for="numComDelete">Choose a number of comments to delete:</label>
+    <form id="numComDelete" method="POST" action="/delete-data">
+      <input type="number" name="delete-num" />
+      <input type="submit" value="Delete!">
+    </form>
+    <label for="numComShow">Choose a number of comments:</label>
+    <input id="numComShow" type="number" name="max-num" id="numComments" />
     <input type="submit" onclick="getComments()" value="See comments!"/>
     <div id="map"></div>
   </body>
