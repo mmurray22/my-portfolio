@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class MapMarker {
-    private int lat;
-    private int lng;
+    private final int lat;
+    private final int lng;
 
     public MapMarker(int lat, int lng) {
         this.lat = lat;
