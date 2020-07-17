@@ -14,24 +14,21 @@
 
 package com.google.sps.data;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public final class MapMarker {
-    private final double lat;
-    private final double lng;
+  private final double lat;
+  private final double lng;
 
-    public MapMarker(double lat, double lng) {
-        this.lat = lat;
-        this.lng = lng;
-    }
+  public MapMarker(double lat, double lng) {
+    this.lat = lat;
+    this.lng = lng;
+  }
 
-    public double getLat() {
-        return lat;
-    }
+  public double getLat() {
+    return lat;
+  }
 
-    public double getLng() {
-        return lng;
-    }
+  public double getLng() {
+    return lng;
+  }
 }
