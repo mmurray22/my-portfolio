@@ -94,13 +94,13 @@
       <br><br>
       <input type="submit">
     </form>
-    <label>Choose a number of comments to delete:</label>
-    <form method="POST" action="/delete-data">
+    <label for="numComDelete">Choose a number of comments to delete:</label>
+    <form id="numComDelete" method="POST" action="/delete-data">
       <input type="number" name="delete-num" />
       <input type="submit" value="Delete!">
     </form>
-    <label>Choose a number of comments:</label>
-    <input type="number" name="max-num" id="numComments" />
+    <label for="numComShow">Choose a number of comments:</label>
+    <input id="numComShow" type="number" name="max-num" id="numComments" />
     <input type="submit" onclick="getComments()" value="See comments!"/>
     <div id="map"></div>
   </body>
