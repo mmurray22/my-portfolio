@@ -42,7 +42,7 @@ function tech() {
  * Navigates to the blog page
  */
 function blog() {
-    location.replace("/blog.html");
+   location.replace("/blog.html");
    console.log(`Blog`);
 }
 
