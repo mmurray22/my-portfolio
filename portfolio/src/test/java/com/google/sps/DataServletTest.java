@@ -52,16 +52,16 @@ public final class DataServletTest {
     HttpServletRequest getRequest = mock(HttpServletRequest.class);
     HttpServletResponse getResponse = mock(HttpServletResponse.class);
 
-    when(requestPost.getParameter("text-input")).thenReturn("Test Comment #1");
+    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
 
     StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
-    when(responseGet.getWriter()).thenReturn(writer);
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    when(getResponse.getWriter()).thenReturn(printWriter);
 
-    new DataServlet().doPost(requestPost, responsePost);
-    new DataServlet().doGet(requestGet, responseGet);
+    new DataServlet().doPost(postRequest, postResponse);
+    new DataServlet().doGet(getRequest, getResponse);
 
-    writer.flush(); // it may not have been flushed yet...
+    printWriter.flush(); //may not have flushed yet
     Assert.assertTrue(stringWriter.toString().contains("Test Comment #1"));
   }
 }
