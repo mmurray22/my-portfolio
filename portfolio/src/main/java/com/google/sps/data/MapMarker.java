@@ -18,9 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapMarker {
-    private double lat;
-    private double lng;
+public final class MapMarker {
+    private final double lat;
+    private final double lng;
 
     public MapMarker(double lat, double lng) {
         this.lat = lat;

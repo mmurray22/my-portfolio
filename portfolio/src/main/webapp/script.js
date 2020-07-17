@@ -122,7 +122,6 @@ function getMarkers() {
                 title: 'Saved Pin!'
             });
         }
-        
     });
 }
 
