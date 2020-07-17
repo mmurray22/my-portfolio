@@ -5,21 +5,27 @@
     <!-- Imported Libraries: Google's Material Design Library and Google's Fonts Library -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>MM Portfolio</title>
     <link rel="stylesheet" href="./blog_style.css">
     <script src="./blog_script.js"></script>
   </head>
-  <body>
+  <body onload="drawChart();">
     <div class="mdc-touch-target-wrapper" style="display: block;">
-	  <button class="mdc-button mdc-button--outlined" onclick="return_home()" style="color:white;">  
+	  <button class="mdc-button mdc-button--outlined" onclick="returnHome()" style="color:white;">  
 	    <span class="mdc-button__ripple">Return</span>
 	  </button>
     </div>
     <h1>Blog</h1>
     <div id="blog">
       <h2 id="title-slot">Head In The Clouds</h2>
-      <div id="blog-feed"></div>
+      <div id="blog-feed">
+          <div id="post-1">
+              <p>Here is a Google charts visualization:</p>
+              <div id="chart"></div>
+          </div>
+      </div>
     </div>
   </body>
 </html>
