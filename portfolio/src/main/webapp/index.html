@@ -8,79 +8,109 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>MM Portfolio</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk&callback=loadMap"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-  </head>
+  </head> 
   <body onload="getComments();createMap();">
-    <div id="intro-content" style="display:block;">
-      <div id="intro-button-one" style="display:inline-block">
-        <div class="mdc-touch-target-wrapper" style="display:block;">
-          <button class="mdc-button mdc-button--outlined" onclick="intro()" style="color:white;">  
-	     <span class="mdc-button__ripple">Intro</span> 
-	  </button>
+    <div id="intro-content">
+        <div id="intro-button-one">
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined" onclick="intro()">  
+                    <span class="mdc-button__ripple">Intro</span>
+                </button>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined" onclick="tech()">  
+                    <span class="mdc-button__ripple">Tech Skills</span>
+                </button>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined" onclick="interests()">  
+                    <span class="mdc-button__ripple">Interests</span>
+                </button>
+            </div>
         </div>
-        <div class="mdc-touch-target-wrapper">
-           <button class="mdc-button mdc-button--outlined" onclick="tech()">  
-	      <span class="mdc-button__ripple">Tech Skills</span> 
-           </button>
+        <div id="profile-wrapper">
+            <div id="basic-profile">
+                <div id="wrapper">
+                    <img id="profile" src="/images/PROFILE_PIC.JPG" alt="Picture of Michaela">
+                </div>
+                <h1>Michaela Murray's Portfolio</h1>
+                <div id="intro">
+                    <ul>
+                        <li>Stanford Class of 2022</li> 
+                        <li>Major: Computer Science</li>
+                        <li>STEP Intern @ Google</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="mdc-touch-target-wrapper">
-	   <button class="mdc-button mdc-button--outlined" onclick="interests()">  
-	       <span class="mdc-button__ripple">Interests</span>
-	   </button>
+        <div id="intro-button-two">
+            <div class="mdc-touch-target-wrapper">
+                <button class="mdc-button mdc-button--outlined">  
+                    <span class="mdc-button__ripple">Blog</span>
+                </button>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <form action="/pdf/Michaela_Murray_Resume.pdf" target="_blank">
+                    <button class="mdc-button mdc-button--outlined">  
+                        <span class="mdc-button__ripple">Resume</span>
+                    </button>
+                </form>
+            </div>
+            <div class="mdc-touch-target-wrapper">
+                <button id="picture-button" class="mdc-button mdc-button--outlined">  
+                    <span class="mdc-button__ripple">Pictures</span>
+                </button>
+            </div>
         </div>
-      </div>
-      <div id="basic-profile">
-        <img src="/images/PROFILE_PIC.JPG">
-      	<h1>Michaela Murray's Portfolio</h1>
-      	<div id="intro">
-      	  <ul>
-            <li>Stanford Class of 2022</li> 
-            <li>Major: Computer Science</li>
-            <li>STEP Intern @ Google</li>
-	  </ul>
-        </div>
-      </div>
-      <div id="intro-button-two">
-	<div class="mdc-touch-target-wrapper">
-	   <button class="mdc-button mdc-button--outlined" onclick="blog()">  
-	      <span class="mdc-button__ripple">Blog</span>
-	   </button>
-        </div>
-        <div class="mdc-touch-target-wrapper">
-          <form action="/pdf/Michaela_Murray_Resume.pdf" target="_blank">
-            <button class="mdc-button mdc-button--outlined">  
-	      <span class="mdc-button__ripple">Resume</span> 
-	    </button>
-          </form>
-        </div>
-	<div id="icons">
+        <div id="icons">
             <ul> 
-            <li> 
-                <a href="https://github.com/mmurray22" target="_blank" >
-                    <img class="icon" src="/images/logo-github.svg" alt="Github icon">
-                </a>
-            </li> 
-            <li>
-                <a href="https://www.linkedin.com/in/murray22/" target="_blank" >
-                    <img class="icon" src="/images/logo-linkedin.svg" alt="LinkedIn Icon">
-                </a>
-            </li> 
-            <li> 
-                <a href="mailto:murray22@stanford.edu" target="_blank">
-                    <img class="icon" src="/images/email-24px.svg" alt="Email Icon">
-                </a>
-            </li>
+                <li> 
+                    <a href="https://github.com/mmurray22" target="_blank">
+                        <img class="icon" src="/images/logo-github.svg" alt="Github icon">
+                    </a>
+                </li> 
+                <li>
+                    <a href="https://www.linkedin.com/in/murray22/" target="_blank">
+                        <img class="icon" src="/images/logo-linkedin.svg" alt="LinkedIn Icon">
+                    </a>
+                </li> 
+                <li> 
+                    <a href="mailto:murray22@stanford.edu" target="_blank">
+                        <img class="icon" src="/images/email-24px.svg" alt="Email Icon">
+                    </a>
+                </li>
             </ul>
         </div>
-      </div>
     </div>
     <div id="comments">
     </div>
     <div id="inner-content">
       <div id="my-info"></div>
     </div>
-    <div id="map"></div>
+    <form action="/data" method="POST">
+      <p>Submit a comment!</p>
+      <textarea name="text-input"></textarea>
+      <br><br>
+      <input type="submit">
+    </form>
+    <label for="numComDelete">Choose a number of comments to delete:</label>
+    <form id="numComDelete" method="POST" action="/delete-data">
+      <input type="number" name="delete-num" />
+      <input type="submit" value="Delete!">
+    </form>
+    <label for="numComShow">Choose a number of comments:</label>
+    <input id="numComShow" type="number" name="max-num" id="numComments" />
+    <input type="submit" onclick="getComments()" value="See comments!"/>
   </body>
+  <label for="locations">Places I want to go:</label>
+  <select name="locations" id="locations" onchange="loadMap()">
+      <option value="CERN">CERN, Geneva, Switzerland</option>
+      <option value="Ramen">Ramen Nagi, Palo Alto, California, US</option>
+      <option value="Havanna">Havanna, Cuba</option>
+  </select>
+  <div id="map"></div>
 </html>
