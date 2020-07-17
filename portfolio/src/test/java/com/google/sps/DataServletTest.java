@@ -18,6 +18,8 @@ import static org.mockito.Mockito.*;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
 import com.google.sps.servlets.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -62,7 +64,7 @@ public final class DataServletTest {
     new DataServlet().doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yets
-    System.out.println(stringWriter[0]);
-    Assert.assertTrue((stringWriter[0]).contains("Test Comment #1"));
+    System.out.println(stringWriter);
+    assertThat(stringWriter.toString()).contains("Test Comment #1");
   }
 }
