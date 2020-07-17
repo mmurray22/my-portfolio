@@ -12,7 +12,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjTF_cxIVfkP_Z9NeXTcUJFNHiLjeYDhk&callback=loadMap"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-  </head>
+  </head> 
   <body onload="getComments();createMap();">
     <div id="intro-content">
         <div id="intro-button-one">
@@ -65,8 +65,9 @@
                     <span class="mdc-button__ripple">Pictures</span>
                 </button>
             </div>
-	    <div id="icons">
-              <ul> 
+        </div>
+        <div id="icons">
+            <ul> 
                 <li> 
                     <a href="https://github.com/mmurray22" target="_blank">
                         <img class="icon" src="/images/logo-github.svg" alt="Github icon">
@@ -82,26 +83,48 @@
                         <img class="icon" src="/images/email-24px.svg" alt="Email Icon">
                     </a>
                 </li>
-              </ul>
-            </div>
+            </ul>
         </div>
+    </div>
+    <div id="comments">
     </div>
     <div id="inner-content">
       <div id="my-info"></div>
     </div>
-    <label for="locations">Places I want to go:</label>
-    <select name="locations" id="locations" onchange="loadMap()">
-        <option value="CERN">CERN, Geneva, Switzerland</option>
-        <option value="Ramen-Nagi">Ramen Nagi, Palo Alto, California, US</option>
-        <option value="Havanna">Havanna, Cuba</option>
-    </select>
-    <label for="storeMarker">Marker I want to save:</label>
-    <form action="/markers" type="POST" id="storeMarker">
-        <input type="number" step="0.000001" min="-90" max="90" id="lat">
-        <input type="number" step="0.000001" min="-180" max="180" id="lng">
+    <form action="/data" method="POST">
+      <p>Submit a comment!</p>
+      <textarea name="text-input"></textarea>
+      <br><br>
+      <input type="submit">
     </form>
-    <button type="submit" form="storeMarker">Save Markers</button>
-    <div id="map"></div>
-    <button id="displayMarkers" onclick="getMarkers()">Display Saved Markers!</button>
+    <label for="numComDelete">Choose a number of comments to delete:</label>
+    <form id="numComDelete" method="POST" action="/delete-data">
+      <input type="number" name="delete-num" />
+      <input type="submit" value="Delete!">
+    </form>
+    <label for="numComShow">Choose a number of comments:</label>
+    <input id="numComShow" type="number" name="max-num" id="numComments" />
+    <input type="submit" onclick="getComments()" value="See comments!"/>
   </body>
+  <label for="locations">Places I want to go:</label>
+  <select name="locations" id="locations" onchange="loadMap()">
+      <option value="CERN">CERN, Geneva, Switzerland</option>
+      <option value="Ramen-Nagi">Ramen Nagi, Palo Alto, California, US</option>
+      <option value="Havanna">Havanna, Cuba</option>
+  </select>
+  <label for="storeMarker">Marker I want to save:</label>
+  <form action="/markers" type="POST" id="storeMarker">
+      <input type="number" step="0.000001" min="-90" max="90" id="lat">
+      <input type="number" step="0.000001" min="-180" max="180" id="lng">
+  </form>
+  <button type="submit" form="storeMarker">Save Markers</button>
+  <div id="map"></div>
+  <button id="displayMarkers" onclick="getMarkers()">Display Saved Markers!</button>
+  <label for="locations">Places I want to go:</label>
+  <select name="locations" id="locations" onchange="loadMap()">
+      <option value="CERN">CERN, Geneva, Switzerland</option>
+      <option value="Ramen">Ramen Nagi, Palo Alto, California, US</option>
+      <option value="Havanna">Havanna, Cuba</option>
+  </select>
+  <div id="map"></div>
 </html>

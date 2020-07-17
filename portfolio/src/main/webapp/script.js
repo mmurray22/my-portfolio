@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 /*
  * Displays intro paragraph
  */
@@ -54,6 +55,22 @@ function interests() {
    console.log('Interests!');   
 }
 
+/*
+ * Gets comments to display
+ */
+function getComments() {
+	fetch('/data?max-num=' + (document.getElementById("numComments").value))
+        .then(response => response.json())
+        .then((comments) => {
+            const commentsElement = document.getElementById("comments");
+            console.log('Comments: ', comments);
+            commentsElement.innerHTML += 'Here are all the comments: <br>';
+            for (const comment of comments) {
+                commentsElement.innerHTML += comment + '<br>';
+            }
+	});
+}
+
 /** Creates a map and adds it to the page. */
 var map;
 function loadMap() {
@@ -72,7 +89,7 @@ function loadMap() {
     if (document.getElementById("locations").value == "Ramen-Nagi") {
         desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
     }
-    if (document.getElementById("locations").value == "Havanna") {
+    if (document.getElementById("locations").value === "Havanna") {
         desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
     }
     console.log(desiredLocationLatLng);
