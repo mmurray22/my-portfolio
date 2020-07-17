@@ -59,9 +59,7 @@ public class MapMarkers extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
          String lat_str = request.getParameter("lat");
          String lng_str = request.getParameter("lng");
-         if ((lat_str != null && !lat_str.isEmpty()) && 
-              (lng_str != null && !lng_str.isEmpty())) 
-            {
+         if (lat_str != null && !lat_str.isEmpty() && lng_str != null && !lng_str.isEmpty()) {
                 int lat = Integer.parseInt(lat_str);
                 int lng = Integer.parseInt(lng_str);
                 Entity coordinates = new Entity(MARKER_TABLE_NAME);
