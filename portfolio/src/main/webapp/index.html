@@ -89,14 +89,14 @@
     <div id="inner-content">
       <div id="my-info"></div>
     </div>
-    <label id="location-label">Places I want to go:</label>
+    <label for="locations">Places I want to go:</label>
     <select name="locations" id="locations" onchange="loadMap()">
         <option value="CERN">CERN, Geneva, Switzerland</option>
         <option value="Ramen-Nagi">Ramen Nagi, Palo Alto, California, US</option>
         <option value="Havanna">Havanna, Cuba</option>
     </select>
+    <label for="storeMarker">Marker I want to save:</label>
     <form action="/markers" type="POST" id="storeMarker">
-        <label>Marker I want to save:</label>
         <input type="number" step="0.000001" min="-90" max="90" id="lat">
         <input type="number" step="0.000001" min="-180" max="180" id="lng">
     </form>
