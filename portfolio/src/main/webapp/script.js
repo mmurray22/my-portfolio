@@ -68,18 +68,18 @@ function loadMap() {
       '</p>'+
       '</div>'+
       '</div>';
-  var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
-  if (document.getElementById("locations").value == "Ramen-Nagi") {
-      desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
-  }
-  if (document.getElementById("locations").value == "Havanna") {
-      desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
-  }
-  console.log(desiredLocationLatLng);
-  map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: desiredLocationLatLng, zoom: 16});
-  const marker = new google.maps.Marker({
+    var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
+    if (document.getElementById("locations").value == "Ramen-Nagi") {
+        desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
+    }
+    if (document.getElementById("locations").value == "Havanna") {
+        desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
+    }
+    console.log(desiredLocationLatLng);
+    map = new google.maps.Map(
+        document.getElementById('map'),
+        {center: desiredLocationLatLng, zoom: 16});
+    const marker = new google.maps.Marker({
         position: desiredLocationLatLng, 
         map: map,
         animation: google.maps.Animation.DROP,
