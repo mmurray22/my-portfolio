@@ -14,23 +14,21 @@
 
 package com.google.sps;
 
-import com.google.sps.servlets.*;
+import static org.mockito.Mockito.*;
+
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import org.junit.After;
-import org.junit.Before;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import com.google.sps.servlets.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static org.mockito.Mockito.*;
-import java.io.StringWriter;
-import java.io.PrintWriter;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
 
 @RunWith(JUnit4.class)
 public final class DataServletTest {
@@ -46,14 +44,14 @@ public final class DataServletTest {
   public void tearDown() {
     helper.tearDown();
   }
-  
+
   @Test
   public void testJSONConverter() throws Exception {
-    HttpServletRequest requestPost = mock(HttpServletRequest.class);       
+    HttpServletRequest requestPost = mock(HttpServletRequest.class);
     HttpServletResponse responsePost = mock(HttpServletResponse.class);
-    HttpServletRequest requestGet = mock(HttpServletRequest.class);       
+    HttpServletRequest requestGet = mock(HttpServletRequest.class);
     HttpServletResponse responseGet = mock(HttpServletResponse.class);
-    
+
     when(requestPost.getParameter("text-input")).thenReturn("Test Comment #1");
 
     StringWriter stringWriter = new StringWriter();
