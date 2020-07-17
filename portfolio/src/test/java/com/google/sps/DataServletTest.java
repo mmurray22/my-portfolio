@@ -14,27 +14,57 @@
 
 package com.google.sps;
 
-import org.mockito.Mockito.*;
+import com.google.sps.servlets.*;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import org.junit.After;
+import org.junit.Before;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import static org.mockito.Mockito.*;
+import java.io.StringWriter;
+import java.io.PrintWriter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-@RunWith(JUnit4.class)
-public final class ServletTest {
 
+@RunWith(JUnit4.class)
+public final class DataServletTest {
+  private final LocalServiceTestHelper helper =
+      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
+  @Before
+  public void setUp() {
+    helper.setUp();
+  }
+
+  @After
+  public void tearDown() {
+    helper.tearDown();
+  }
+  
   @Test
   public void testJSONConverter() throws Exception {
-    HttpServletRequest request = mock(HttpServletRequest.class);       
-    HttpServletResponse response = mock(HttpServletResponse.class);
+    HttpServletRequest requestPost = mock(HttpServletRequest.class);       
+    HttpServletResponse responsePost = mock(HttpServletResponse.class);
+    HttpServletRequest requestGet = mock(HttpServletRequest.class);       
+    HttpServletResponse responseGet = mock(HttpServletResponse.class);
     
-    when(request.getParameter("text-input")).thenReturn("Test Comment #1");
+    when(requestPost.getParameter("text-input")).thenReturn("Test Comment #1");
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter writer = new PrintWriter(stringWriter);
-    when(response.getWriter()).thenReturn(writer);
+    when(responseGet.getWriter()).thenReturn(writer);
 
-    new MyServlet().doGet(request, response);
-    Assert.assertEquals("Hello Ada", greeting);
+    new DataServlet().doPost(requestPost, responsePost);
+    new DataServlet().doGet(requestGet, responseGet);
+
+    // verify(requestPost, atLeast(1)).getParameter("text-input");
+    writer.flush(); // it may not have been flushed yet...
+    Assert.assertTrue(stringWriter.toString().contains("Test Comment #1"));
   }
 }
