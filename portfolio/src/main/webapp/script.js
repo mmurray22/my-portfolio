@@ -62,11 +62,11 @@ function getComments() {
 	fetch('/data?max-num=' + (document.getElementById("numComments").value))
         .then(response => response.json())
         .then((comments) => {
-            const bodyElement = document.body;
+            const commentsElement = document.getElementById("comments");
             console.log('Comments: ', comments);
-            bodyElement.innerHTML += 'Here are all the comments: <br>';
+            commentsElement.innerHTML += 'Here are all the comments: <br>';
             for (const comment of comments) {
-                bodyElement.innerHTML += comment + '<br>';
+                commentsElement.innerHTML += comment + '<br>';
             }
 	});
 }
