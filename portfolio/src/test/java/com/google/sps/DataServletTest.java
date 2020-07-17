@@ -47,10 +47,10 @@ public final class DataServletTest {
 
   @Test
   public void testJSONConverter() throws Exception {
-    HttpServletRequest requestPost = mock(HttpServletRequest.class);
-    HttpServletResponse responsePost = mock(HttpServletResponse.class);
-    HttpServletRequest requestGet = mock(HttpServletRequest.class);
-    HttpServletResponse responseGet = mock(HttpServletResponse.class);
+    HttpServletRequest postRequest = mock(HttpServletRequest.class);
+    HttpServletResponse postResponse = mock(HttpServletResponse.class);
+    HttpServletRequest getRequest = mock(HttpServletRequest.class);
+    HttpServletResponse getResponse = mock(HttpServletResponse.class);
 
     when(requestPost.getParameter("text-input")).thenReturn("Test Comment #1");
 
