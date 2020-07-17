@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 /*
  * Displays intro paragraph
  */
@@ -54,6 +55,22 @@ function interests() {
    console.log('Interests!');   
 }
 
+/*
+ * Gets comments to display
+ */
+function getComments() {
+	fetch('/data?max-num=' + (document.getElementById("numComments").value))
+        .then(response => response.json())
+        .then((comments) => {
+            const bodyElement = document.body;
+            console.log('Comments: ', comments);
+            bodyElement.innerHTML += 'Here are all the comments: <br>';
+            for (const comment of comments) {
+                bodyElement.innerHTML += comment + '<br>';
+            }
+	});
+}
+
 /** Creates a map and adds it to the page. */
 function loadMap() {
     var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
@@ -81,15 +98,4 @@ function loadMap() {
           this.setAnimation(google.maps.Animation.BOUNCE);
         }
     });
-}
-
-function getComments() {
-	fetch('/data').then(response => response.json()).then((comments) => {
-	 	const bodyElement = document.body;
-    console.log('Comments: ', comments);
-    bodyElement.innerHTML += 'Here are all the comments: <br>';
-    for (comment of comments) {
-      bodyElement.innerHTML += comment + '<br>';
-    }
-	});
 }
