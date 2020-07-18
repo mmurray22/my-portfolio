@@ -17,11 +17,12 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import java.io.IOException;
 import com.google.gson.Gson;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -33,21 +34,27 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   static final String COMMENT_TABLE_NAME = "Comment";
-  private static final String COMMENT_COLUMN_NAME = "text";
-  private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
-  private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  static final String COMMENT_COLUMN_NAME = "text";
+  static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+  private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT_TABLE_NAME).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
-    PreparedQuery results = datastore.prepare(query);
+    int maxNumComments = 1;
+    Query query =
+        new Query(COMMENT_TABLE_NAME).addSort(TIMESTAMP_COLUMN_NAME, SortDirection.ASCENDING);
+    PreparedQuery results = dataStore.prepare(query);
     List<String> myComments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-        myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
+    String maxNumCommentsParam = request.getParameter("max-num");
+    if (maxNumCommentsParam != null && !maxNumCommentsParam.isEmpty()) {
+      maxNumComments = Integer.parseInt(maxNumCommentsParam);
     }
-    String commentJSON = convertToJson(myComments);
+    for (Entity entity : results.asList(FetchOptions.Builder.withLimit(maxNumComments))) {
+      myComments.add((String) entity.getProperty(COMMENT_COLUMN_NAME));
+    }
 
     // Send JSON as the response
+    String commentJSON = convertToJson(myComments);
     response.setContentType("application/json;");
     response.getWriter().println(commentJSON);
   }
@@ -56,12 +63,13 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get response from the form
     String text = request.getParameter("text-input");
+
     if (text != null && !text.isEmpty()) {
-        long timestamp = System.currentTimeMillis();
-        Entity comment = new Entity(COMMENT_TABLE_NAME);
-        comment.setProperty(COMMENT_COLUMN_NAME, text);
-        comment.setProperty(TIMESTAMP_COLUMN_NAME, timestamp);
-        datastore.put(comment);
+      long timestamp = System.currentTimeMillis();
+      Entity comment = new Entity(COMMENT_TABLE_NAME);
+      comment.setProperty(COMMENT_COLUMN_NAME, text);
+      comment.setProperty(TIMESTAMP_COLUMN_NAME, timestamp);
+      dataStore.put(comment);
     }
     response.sendRedirect("/index.html");
   }
