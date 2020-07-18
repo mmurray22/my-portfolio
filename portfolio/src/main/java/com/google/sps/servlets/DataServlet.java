@@ -71,7 +71,7 @@ public class DataServlet extends HttpServlet {
       comment.setProperty(TIMESTAMP_COLUMN_NAME, timestamp);
       dataStore.put(comment);
     }
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/blog.html");
   }
 
   private static String convertToJson(List<String> myComments) {
