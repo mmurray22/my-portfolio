@@ -57,18 +57,53 @@ public final class DataServletTest {
   }
 
   @Test 
-  public void testPOST() throws Exception {
+  public void testPOSTSingleComment() throws Exception {
     DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
     HttpServletRequest postRequest = mock(HttpServletRequest.class);
     HttpServletResponse postResponse = mock(HttpServletResponse.class);
+
+    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
     new DataServlet().doPost(postRequest, postResponse);
     
     Assert.assertEquals(1, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
+  @Test 
+  public void testPOSTMultipleComments() throws Exception {
+    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+    HttpServletRequest postRequest = mock(HttpServletRequest.class);
+    HttpServletResponse postResponse = mock(HttpServletResponse.class);
+
+    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+
+    when(postRequest.getParameter("text-input")).thenReturn("Comment1");
+    new DataServlet().doPost(postRequest, postResponse);
+    when(postRequest.getParameter("text-input")).thenReturn("Comment2");
+    new DataServlet().doPost(postRequest, postResponse);
+    when(postRequest.getParameter("text-input")).thenReturn("Comment3");
+    new DataServlet().doPost(postRequest, postResponse);
+    
+    Assert.assertEquals(3, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+  }
+
+  @Test 
+  public void testPOSTNull() throws Exception {
+    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+    HttpServletRequest postRequest = mock(HttpServletRequest.class);
+    HttpServletResponse postResponse = mock(HttpServletResponse.class);
+
+    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+
+    when(postRequest.getParameter("text-input")).thenReturn(null);
+    new DataServlet().doPost(postRequest, postResponse);
+    
+    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+  }
+
   @Test
-  public void testJSONConverter() throws Exception {
+  public void testGETSingleComment() throws Exception {
     HttpServletRequest postRequest = mock(HttpServletRequest.class);
     HttpServletResponse postResponse = mock(HttpServletResponse.class);
     HttpServletRequest getRequest = mock(HttpServletRequest.class);
@@ -86,5 +121,32 @@ public final class DataServletTest {
     printWriter.flush(); //may not have flushed yets
     System.out.println(stringWriter);
     assertThat(stringWriter.toString()).contains("Test Comment #1");
+  }
+
+  @Test
+  public void testGETMultipleComments() throws Exception {
+    HttpServletRequest postRequest = mock(HttpServletRequest.class);
+    HttpServletResponse postResponse = mock(HttpServletResponse.class);
+    HttpServletRequest getRequest = mock(HttpServletRequest.class);
+    HttpServletResponse getResponse = mock(HttpServletResponse.class);
+
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    when(getResponse.getWriter()).thenReturn(printWriter);
+
+    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
+    new DataServlet().doPost(postRequest, postResponse);
+    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
+    new DataServlet().doPost(postRequest, postResponse);
+    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
+    new DataServlet().doPost(postRequest, postResponse);
+
+    new DataServlet().doGet(getRequest, getResponse);
+
+    printWriter.flush(); //may not have flushed yets
+    System.out.println(stringWriter);
+    assertThat(stringWriter.toString()).contains("Test Comment #1");
+    assertThat(stringWriter.toString()).contains("Test Comment #2");
+    assertThat(stringWriter.toString()).contains("Test Comment #3");
   }
 }
