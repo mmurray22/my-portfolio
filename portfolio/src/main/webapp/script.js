@@ -55,22 +55,6 @@ function interests() {
    console.log('Interests!');   
 }
 
-/*
- * Gets comments to display
- */
-function getComments() {
-	fetch('/data?max-num=' + (document.getElementById("numComments").value))
-        .then(response => response.json())
-        .then((comments) => {
-            const commentsElement = document.getElementById("comments");
-            console.log('Comments: ', comments);
-            commentsElement.innerHTML += 'Here are all the comments: <br>';
-            for (const comment of comments) {
-                commentsElement.innerHTML += comment + '<br>';
-            }
-	});
-}
-
 /** Creates a map and adds it to the page. */
 function loadMap() {
     var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};

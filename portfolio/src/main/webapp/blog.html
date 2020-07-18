@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./blog_style.css">
     <script src="./blog_script.js"></script>
   </head>
-  <body>
+  <body onload="getComments();">
     <div class="mdc-touch-target-wrapper" style="display: block;">
 	  <button class="mdc-button mdc-button--outlined" onclick="return_home()" style="color:white;">  
 	    <span class="mdc-button__ripple">Return</span>
@@ -20,6 +20,22 @@
     <div id="blog">
       <h2 id="title-slot">Head In The Clouds</h2>
       <div id="blog-feed"></div>
+    </div>
+    <div id="comments">
+        <form action="/data" method="POST">
+            <p>Submit a comment!</p>
+            <textarea name="text-input"></textarea>
+            <br><br>
+            <input type="submit">
+        </form>
+        <label for="numComDelete">Choose a number of comments to delete:</label>
+        <form id="numComDelete" method="POST" action="/delete-data">
+            <input type="number" name="delete-num" />
+            <input type="submit" value="Delete!">
+        </form>
+        <label for="numComShow">Choose a number of comments:</label>
+        <input id="numComShow" type="number" name="max-num" id="numComments" />
+        <input type="submit" onclick="getComments()" value="See comments!"/>
     </div>
   </body>
 </html>
