@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final String COMMENT_TABLE_NAME = "Comment";
+  static final String COMMENT_TABLE_NAME = "Comment";
   private static final String COMMENT_COLUMN_NAME = "text";
   private static final String TIMESTAMP_COLUMN_NAME = "submit_time";
   private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

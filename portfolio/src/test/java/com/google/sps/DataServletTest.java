@@ -14,12 +14,19 @@
 
 package com.google.sps;
 
-import static org.mockito.Mockito.*;
-
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
+import static com.google.common.truth.Truth.*;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static org.mockito.Mockito.*;
+
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+
 import com.google.sps.servlets.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -34,6 +41,8 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public final class DataServletTest {
+  static final String COMMENT_TABLE_NAME = "Comment";
+
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
@@ -45,6 +54,17 @@ public final class DataServletTest {
   @After
   public void tearDown() {
     helper.tearDown();
+  }
+
+  @Test 
+  public void testPOST() throws Exception {
+    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+    HttpServletRequest postRequest = mock(HttpServletRequest.class);
+    HttpServletResponse postResponse = mock(HttpServletResponse.class);
+    when(postRequest.getParameter("text-input")).thenReturn("Comment1");
+    new DataServlet().doPost(postRequest, postResponse);
+    
+    Assert.assertEquals(1, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
   @Test
