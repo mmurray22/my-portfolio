@@ -7,12 +7,12 @@
  * Gets comments to display
  */
 function getComments() {
-	fetch('/data?max-num=' + (document.getElementById("numComments").value))
+	fetch('/data?max-num=' + (document.getElementById("numComShow").value))
         .then(response => response.json())
         .then((comments) => {
-            const commentsElement = document.getElementById("comments");
+            const commentsElement = document.getElementById("displayComments");
             console.log('Comments: ', comments);
-            commentsElement.innerHTML += 'Here are all the comments: <br>';
+            commentsElement.innerHTML = 'Here are all the comments: <br>';
             for (const comment of comments) {
                 commentsElement.innerHTML += comment + '<br>';
             }
