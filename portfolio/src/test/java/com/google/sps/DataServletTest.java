@@ -42,6 +42,12 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public final class DataServletTest {
   static final String COMMENT_TABLE_NAME = "Comment";
+  HttpServletRequest postRequest = mock(HttpServletRequest.class);
+  HttpServletResponse postResponse = mock(HttpServletResponse.class);
+  HttpServletRequest getRequest = mock(HttpServletRequest.class);
+  HttpServletResponse getResponse = mock(HttpServletResponse.class);
+  DataServlet dataServelet = new DataServlet();
+  DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
@@ -58,95 +64,73 @@ public final class DataServletTest {
 
   @Test 
   public void testPostSingleComment() throws Exception {
-    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-    HttpServletRequest postRequest = mock(HttpServletRequest.class);
-    HttpServletResponse postResponse = mock(HttpServletResponse.class);
-
     Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     
     Assert.assertEquals(1, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
   @Test 
   public void testPostMultipleComments() throws Exception {
-    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-    HttpServletRequest postRequest = mock(HttpServletRequest.class);
-    HttpServletResponse postResponse = mock(HttpServletResponse.class);
-
     Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Comment2");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Comment3");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     
     Assert.assertEquals(3, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
   @Test 
   public void testPostNull() throws Exception {
-    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-    HttpServletRequest postRequest = mock(HttpServletRequest.class);
-    HttpServletResponse postResponse = mock(HttpServletResponse.class);
-
     Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn(null);
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     
     Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
   @Test
   public void testGetSingleComment() throws Exception {
-    HttpServletRequest postRequest = mock(HttpServletRequest.class);
-    HttpServletResponse postResponse = mock(HttpServletResponse.class);
-    HttpServletRequest getRequest = mock(HttpServletRequest.class);
-    HttpServletResponse getResponse = mock(HttpServletResponse.class);
-
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    new DataServlet().doPost(postRequest, postResponse);
-    new DataServlet().doGet(getRequest, getResponse);
+    dataServelet.doPost(postRequest, postResponse);
+    dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
-    System.out.println(stringWriter);
     assertThat(stringWriter.toString()).contains("Test Comment #1");
   }
   
   @Test
   public void testGetSomeComments() throws Exception {
     int NUM_COMMENTS = 2;
-    HttpServletRequest postRequest = mock(HttpServletRequest.class);
-    HttpServletResponse postResponse = mock(HttpServletResponse.class);
-    HttpServletRequest getRequest = mock(HttpServletRequest.class);
-    HttpServletResponse getResponse = mock(HttpServletResponse.class);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #4");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #5");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
-    new DataServlet().doGet(getRequest, getResponse);
+    dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     assertThat(stringWriter.toString()).contains("Test Comment #1");
@@ -156,23 +140,19 @@ public final class DataServletTest {
   @Test
   public void testGetAllComments() throws Exception {
     int NUM_COMMENTS = 3;
-    HttpServletRequest postRequest = mock(HttpServletRequest.class);
-    HttpServletResponse postResponse = mock(HttpServletResponse.class);
-    HttpServletRequest getRequest = mock(HttpServletRequest.class);
-    HttpServletResponse getResponse = mock(HttpServletResponse.class);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
-    new DataServlet().doPost(postRequest, postResponse);
+    dataServelet.doPost(postRequest, postResponse);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
-    new DataServlet().doGet(getRequest, getResponse);
+    dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     assertThat(stringWriter.toString()).contains("Test Comment #1");
@@ -182,14 +162,11 @@ public final class DataServletTest {
 
   @Test
   public void testGetEmptyDataStore() throws Exception {
-    HttpServletRequest getRequest = mock(HttpServletRequest.class);
-    HttpServletResponse getResponse = mock(HttpServletResponse.class);
-
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);  
 
-    new DataServlet().doGet(getRequest, getResponse); 
+    dataServelet.doGet(getRequest, getResponse); 
 
     printWriter.flush(); //may not have flushed yets
     assertThat(stringWriter.toString().trim()).isEqualTo("[]");
@@ -203,7 +180,7 @@ public final class DataServletTest {
 //     StringWriter stringWriter = new StringWriter();
 //     PrintWriter printWriter = new PrintWriter(stringWriter);
       
-//     new DataServlet().doGet(getRequest, getResponse); 
+//     dataServelet.doGet(getRequest, getResponse); 
 //     when(getResponse.getWriter()).thenReturn(printWriter);
 //     printWriter.flush(); //may not have flushed yets
 //     String responseContentType = getResponse.getContentType();
