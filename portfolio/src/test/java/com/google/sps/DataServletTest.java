@@ -62,17 +62,17 @@ public final class DataServletTest {
 
   @Test 
   public void testPostSingleComment() throws Exception {
-    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
     dataServelet.doPost(postRequest, postResponse);
     
-    Assert.assertEquals(1, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(1).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
   @Test 
   public void testPostMultipleComments() throws Exception {
-    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
     dataServelet.doPost(postRequest, postResponse);
@@ -81,17 +81,17 @@ public final class DataServletTest {
     when(postRequest.getParameter("text-input")).thenReturn("Comment3");
     dataServelet.doPost(postRequest, postResponse);
     
-    Assert.assertEquals(3, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(3).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
   @Test 
   public void testPostNull() throws Exception {
-    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn(null);
     dataServelet.doPost(postRequest, postResponse);
     
-    Assert.assertEquals(0, ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
 
   @Test
