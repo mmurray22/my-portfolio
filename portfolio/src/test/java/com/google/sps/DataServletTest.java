@@ -124,7 +124,8 @@ public final class DataServletTest {
   }
 
   @Test
-  public void testGETMultipleComments() throws Exception {
+  public void testGETAllComments() throws Exception {
+    int NUM_COMMENTS = 3;
     HttpServletRequest postRequest = mock(HttpServletRequest.class);
     HttpServletResponse postResponse = mock(HttpServletResponse.class);
     HttpServletRequest getRequest = mock(HttpServletRequest.class);
@@ -140,13 +141,42 @@ public final class DataServletTest {
     new DataServlet().doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
     new DataServlet().doPost(postRequest, postResponse);
-
+    when(getRequest.getParameter("max-num")).thenReturn("3");
     new DataServlet().doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yets
-    System.out.println(stringWriter);
+    printWriter.flush(); //may not have flushed yet
     assertThat(stringWriter.toString()).contains("Test Comment #1");
     assertThat(stringWriter.toString()).contains("Test Comment #2");
     assertThat(stringWriter.toString()).contains("Test Comment #3");
   }
+
+  @Test
+  public void testGETEmptyDataStore() throws Exception {
+    HttpServletRequest getRequest = mock(HttpServletRequest.class);
+    HttpServletResponse getResponse = mock(HttpServletResponse.class);
+
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    when(getResponse.getWriter()).thenReturn(printWriter);  
+
+    new DataServlet().doGet(getRequest, getResponse); 
+
+    printWriter.flush(); //may not have flushed yets
+    assertThat(stringWriter.toString().trim()).isEqualTo("[]");
+  }
+
+//   @Test 
+//   public void testGETContentType() throws Exception {
+//     HttpServletRequest getRequest = mock(HttpServletRequest.class);
+//     HttpServletResponse getResponse = mock(HttpServletResponse.class);
+
+//     StringWriter stringWriter = new StringWriter();
+//     PrintWriter printWriter = new PrintWriter(stringWriter);
+      
+//     new DataServlet().doGet(getRequest, getResponse); 
+//     when(getResponse.getWriter()).thenReturn(printWriter);
+//     printWriter.flush(); //may not have flushed yets
+//     String responseContentType = getResponse.getContentType();
+//     assertThat(responseContentType).isEqualTo("application/json");  
+//   }
 }
