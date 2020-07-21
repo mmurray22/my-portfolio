@@ -263,4 +263,15 @@ public final class DataServletTest {
     assertThat(comments[2]).isEqualTo(COMMENT_THREE);
     assertThat(comments.length).isEqualTo(3);
   }
+
+  @Test 
+  public void testGETContentType() throws Exception {
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    when(getResponse.getWriter()).thenReturn(printWriter);
+
+    dataServlet.doGet(getRequest, getResponse); 
+    
+    verify(getResponse).setContentType("application/json"); 
+  }
 }
