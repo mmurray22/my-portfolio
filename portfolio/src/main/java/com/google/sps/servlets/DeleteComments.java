@@ -46,6 +46,6 @@ public class DeleteComments extends HttpServlet {
     for (Entity entity : results.asList(FetchOptions.Builder.withLimit(numCommentsToDelete))) {
       dataStore.delete(entity.getKey());
     }
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/blog.html");
   }
 }
