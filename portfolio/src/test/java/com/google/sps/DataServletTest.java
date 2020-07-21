@@ -72,14 +72,18 @@ public final class DataServletTest {
     helper.tearDown();
   }
 
-  private String[] convertStringToArray(String responseOutput) {
+  private List<String> convertStringToArray(String responseOutput) {
       // Gets rid of brackets
       responseOutput = responseOutput.replace("[", "")
                                      .replace("]", "")
                                      .replace("\"", "");
       // Parse by commas
-      String[] comments = (responseOutput.trim()).split(",");
-      return comments;
+      List<String> commentsList = new ArrayList<>();
+      String[] commentsArray = (responseOutput.trim()).split(",");
+      for(String comment : commentsArray) {
+          commentsList.add(comment);
+      }
+      return commentsList;
   }
   
   private int getNumberOfEntiresInDatastore() {
@@ -137,8 +141,8 @@ public final class DataServletTest {
 
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
+    List<String> comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments).containsExactly(COMMENT_ONE); 
   }
   
   @Test
@@ -157,10 +161,8 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
-    assertThat(comments[1]).isEqualTo(COMMENT_TWO);  
-    assertThat(comments.length).isEqualTo(NUM_COMMENTS_TO_DISPLAY);
+    List<String> comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments).containsExactly(COMMENT_ONE, COMMENT_TWO); 
   }
 
   @Test
@@ -177,12 +179,8 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
-    String responseOutput = stringWriter.toString();
-    String[] comments = convertStringToArray(responseOutput);
-    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
-    assertThat(comments[1]).isEqualTo(COMMENT_TWO);
-    assertThat(comments[2]).isEqualTo(COMMENT_THREE); 
-    assertThat(comments.length).isEqualTo(NUM_COMMENTS_TO_DISPLAY);
+    List<String> comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments).containsExactly(COMMENT_ONE, COMMENT_TWO, COMMENT_THREE);
   }
 
   @Test
@@ -207,9 +205,8 @@ public final class DataServletTest {
     dataServlet.doPost(postRequest, postResponse);
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
-    assertThat(comments.length).isEqualTo(1);
+    List<String> comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments).containsExactly(COMMENT_ONE);
   }
   
   @Test
@@ -234,10 +231,8 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
-    assertThat(comments[1]).isEqualTo(COMMENT_TWO);
-    assertThat(comments.length).isEqualTo(2);
+    List<String> comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments).containsExactly(COMMENT_ONE,COMMENT_TWO);
   }
 
   @Test
@@ -257,11 +252,8 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
-    assertThat(comments[1]).isEqualTo(COMMENT_TWO);
-    assertThat(comments[2]).isEqualTo(COMMENT_THREE);
-    assertThat(comments.length).isEqualTo(3);
+    List<String> comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments).containsExactly(COMMENT_ONE,COMMENT_TWO,COMMENT_THREE);
   }
 
   @Test 
