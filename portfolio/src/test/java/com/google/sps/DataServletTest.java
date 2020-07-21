@@ -44,12 +44,12 @@ public final class DataServletTest {
   static final String COMMENT_TABLE_NAME = "Comment";
   static final String COMMENT_COLUMN_NAME = "text";
   static final String TIMESTAMP_COLUMN_NAME = "submit_time";
-  HttpServletRequest postRequest = mock(HttpServletRequest.class);
-  HttpServletResponse postResponse = mock(HttpServletResponse.class);
-  HttpServletRequest getRequest = mock(HttpServletRequest.class);
-  HttpServletResponse getResponse = mock(HttpServletResponse.class);
-  DataServlet dataServelet = new DataServlet();
-  DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+  private final HttpServletRequest postRequest = mock(HttpServletRequest.class);
+  private final HttpServletResponse postResponse = mock(HttpServletResponse.class);
+  private final HttpServletRequest getRequest = mock(HttpServletRequest.class);
+  private final HttpServletResponse getResponse = mock(HttpServletResponse.class);
+  private final DataServlet dataServlet = new DataServlet();
+  private final DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
@@ -76,10 +76,10 @@ public final class DataServletTest {
 
   @Test 
   public void testPostSingleComment() throws Exception {
-    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(0).isEqualTo(ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     
     assertThat(1).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
@@ -89,11 +89,11 @@ public final class DataServletTest {
     assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Comment2");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Comment3");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     
     assertThat(3).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
@@ -103,7 +103,7 @@ public final class DataServletTest {
     assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
 
     when(postRequest.getParameter("text-input")).thenReturn(null);
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     
     assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
   }
@@ -120,8 +120,8 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    dataServelet.doPost(postRequest, postResponse);
-    dataServelet.doGet(getRequest, getResponse);
+    dataServlet.doPost(postRequest, postResponse);
+    dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
@@ -165,7 +165,7 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
-    dataServelet.doGet(getRequest, getResponse);
+    dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
@@ -200,7 +200,7 @@ public final class DataServletTest {
     when(getResponse.getWriter()).thenReturn(printWriter);
 
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
-    dataServelet.doGet(getRequest, getResponse);
+    dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String responseOutput = stringWriter.toString();
@@ -217,7 +217,7 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);  
 
-    dataServelet.doGet(getRequest, getResponse); 
+    dataServlet.doGet(getRequest, getResponse); 
 
     printWriter.flush(); //may not have flushed yet
     assertThat(stringWriter.toString().trim()).isEqualTo("[]");
@@ -231,8 +231,8 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    dataServelet.doPost(postRequest, postResponse);
-    dataServelet.doGet(getRequest, getResponse);
+    dataServlet.doPost(postRequest, postResponse);
+    dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
@@ -249,17 +249,17 @@ public final class DataServletTest {
     when(getResponse.getWriter()).thenReturn(printWriter);
 
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #4");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #5");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
-    dataServelet.doGet(getRequest, getResponse);
+    dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
@@ -277,13 +277,13 @@ public final class DataServletTest {
     when(getResponse.getWriter()).thenReturn(printWriter);
 
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
-    dataServelet.doPost(postRequest, postResponse);
+    dataServlet.doPost(postRequest, postResponse);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
-    dataServelet.doGet(getRequest, getResponse);
+    dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());

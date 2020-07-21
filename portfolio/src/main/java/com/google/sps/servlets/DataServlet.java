@@ -33,9 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  static final String COMMENT_TABLE_NAME = "Comment";
-  static final String COMMENT_COLUMN_NAME = "text";
-  static final String TIMESTAMP_COLUMN_NAME = "submit_time";
+  public static final String COMMENT_TABLE_NAME = "Comment";
+  public static final String COMMENT_COLUMN_NAME = "text";
+  public static final String TIMESTAMP_COLUMN_NAME = "submit_time";
   private final DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
