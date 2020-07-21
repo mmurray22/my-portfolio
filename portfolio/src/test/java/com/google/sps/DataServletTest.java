@@ -147,7 +147,7 @@ public final class DataServletTest {
   
   @Test
   public void testGetSomeComments() throws Exception {
-    int NUM_COMMENTS_TO_DISPLAY = 2;
+    int numCommentsToDisplay = 2;
 
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
@@ -158,7 +158,7 @@ public final class DataServletTest {
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
-    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(numCommentsToDisplay));
     dataServlet.doGet(getRequest, getResponse);
 
     List<String> comments = convertStringToArray(stringWriter.toString());
@@ -167,7 +167,7 @@ public final class DataServletTest {
 
   @Test
   public void testGetAllComments() throws Exception {
-    int NUM_COMMENTS_TO_DISPLAY = 3;
+    int numCommentsToDisplay = 3;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
     addEntityToDatastore(COMMENT_THREE, TIMESTAMP_THREE);
@@ -176,7 +176,7 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(numCommentsToDisplay));
     dataServlet.doGet(getRequest, getResponse);
 
     List<String> comments = convertStringToArray(stringWriter.toString());
