@@ -292,19 +292,4 @@ public final class DataServletTest {
     assertThat(comments[2]).isEqualTo("Test Comment #3");
     assertThat(comments.length).isEqualTo(3);
   }
-
-//   @Test 
-//   public void testGETContentType() throws Exception {
-//     HttpServletRequest getRequest = mock(HttpServletRequest.class);
-//     HttpServletResponse getResponse = mock(HttpServletResponse.class);
-
-//     StringWriter stringWriter = new StringWriter();
-//     PrintWriter printWriter = new PrintWriter(stringWriter);
-      
-//     dataServelet.doGet(getRequest, getResponse); 
-//     when(getResponse.getWriter()).thenReturn(printWriter);
-//     printWriter.flush(); //may not have flushed yets
-//     String responseContentType = getResponse.getContentType();
-//     assertThat(responseContentType).isEqualTo("application/json");  
-//   }
 }
