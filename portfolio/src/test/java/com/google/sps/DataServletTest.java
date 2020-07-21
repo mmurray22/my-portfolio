@@ -25,7 +25,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-// import com.google.sps.servlets.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +37,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.Mockito;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 
 @RunWith(JUnit4.class)
 public final class DataServletTest {
@@ -72,7 +77,7 @@ public final class DataServletTest {
     helper.tearDown();
   }
 
-  private List<String> convertStringToArray(String responseOutput) {
+  private List<String> convertStringToList(String responseOutput) {
       // Gets rid of brackets
       responseOutput = responseOutput.replace("[", "")
                                      .replace("]", "")
@@ -95,6 +100,11 @@ public final class DataServletTest {
     comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, comment_text);
     comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
     ds.put(comment);
+  }
+
+  private void verifyReturnedComments(StringWriter writer, String[] expectedComments) {
+    List<String> comments = convertStringToList(writer.toString());
+    assertThat(comments).containsExactlyElementsIn(expectedComments);
   }
 
   @Test 
@@ -141,8 +151,8 @@ public final class DataServletTest {
 
     dataServlet.doGet(getRequest, getResponse);
 
-    List<String> comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments).containsExactly(COMMENT_ONE); 
+    String[] expectedComments = {COMMENT_ONE};
+    verifyReturnedComments(stringWriter, expectedComments);
   }
   
   @Test
@@ -161,8 +171,8 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(numCommentsToDisplay));
     dataServlet.doGet(getRequest, getResponse);
 
-    List<String> comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments).containsExactly(COMMENT_ONE, COMMENT_TWO); 
+    String[] expectedComments = {COMMENT_ONE, COMMENT_TWO};
+    verifyReturnedComments(stringWriter, expectedComments);
   }
 
   @Test
@@ -179,8 +189,8 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(numCommentsToDisplay));
     dataServlet.doGet(getRequest, getResponse);
 
-    List<String> comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments).containsExactly(COMMENT_ONE, COMMENT_TWO, COMMENT_THREE);
+    String[] expectedComments = {COMMENT_ONE, COMMENT_TWO, COMMENT_THREE};
+    verifyReturnedComments(stringWriter, expectedComments);
   }
 
   @Test
@@ -205,8 +215,8 @@ public final class DataServletTest {
     dataServlet.doPost(postRequest, postResponse);
     dataServlet.doGet(getRequest, getResponse);
 
-    List<String> comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments).containsExactly(COMMENT_ONE);
+    String[] expectedComments = {COMMENT_ONE};
+    verifyReturnedComments(stringWriter, expectedComments);
   }
 
   @Test 
