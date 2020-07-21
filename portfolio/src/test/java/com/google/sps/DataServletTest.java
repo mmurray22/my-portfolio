@@ -265,13 +265,12 @@ public final class DataServletTest {
   }
 
   @Test 
-  public void testGETContentType() throws Exception {
+  public void testGetContentType() throws Exception {
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
     dataServlet.doGet(getRequest, getResponse); 
-    
     verify(getResponse).setContentType("application/json"); 
   }
 }
