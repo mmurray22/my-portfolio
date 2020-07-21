@@ -86,6 +86,13 @@ public final class DataServletTest {
       return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
   }
 
+  private void addEntityToDatastore(String comment_text, long timestamp) {
+    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, comment_text);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
+    ds.put(comment);
+  }
+
   @Test 
   public void testPostSingleComment() throws Exception {
     assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
@@ -122,10 +129,7 @@ public final class DataServletTest {
 
   @Test
   public void testGetSingleComment() throws Exception {
-    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_ONE);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
-    ds.put(comment);
+    addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
@@ -143,30 +147,11 @@ public final class DataServletTest {
   public void testGetSomeComments() throws Exception {
     int NUM_COMMENTS_TO_DISPLAY = 2;
 
-    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_ONE);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
-    ds.put(comment);
-
-    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_TWO);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_TWO);
-    ds.put(comment);
-
-    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_THREE);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_THREE);
-    ds.put(comment);
-
-    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_FOUR);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_FOUR);
-    ds.put(comment);
-
-    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_FIVE);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_FIVE);
-    ds.put(comment);
+    addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
+    addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
+    addEntityToDatastore(COMMENT_THREE, TIMESTAMP_THREE);
+    addEntityToDatastore(COMMENT_FOUR, TIMESTAMP_FOUR);
+    addEntityToDatastore(COMMENT_FIVE, TIMESTAMP_FIVE);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
@@ -184,20 +169,9 @@ public final class DataServletTest {
   @Test
   public void testGetAllComments() throws Exception {
     int NUM_COMMENTS_TO_DISPLAY = 3;
-    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_ONE);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
-    ds.put(comment);
-
-    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_TWO);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_TWO);
-    ds.put(comment);
-
-    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_THREE);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_THREE);
-    ds.put(comment);
+    addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
+    addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
+    addEntityToDatastore(COMMENT_THREE, TIMESTAMP_THREE);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
@@ -262,6 +236,7 @@ public final class DataServletTest {
     dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_FIVE);
     dataServlet.doPost(postRequest, postResponse);
+    
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
