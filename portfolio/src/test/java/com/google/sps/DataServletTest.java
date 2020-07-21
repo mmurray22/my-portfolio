@@ -73,11 +73,11 @@ public final class DataServletTest {
   }
 
   private String[] convertStringToArray(String responseOutput) {
-      //Gets rid of brackets
+      // Gets rid of brackets
       responseOutput = responseOutput.replace("[", "")
                                      .replace("]", "")
                                      .replace("\"", "");
-      //Parse by commas
+      // Parse by commas
       String[] comments = (responseOutput.trim()).split(",");
       return comments;
   }
