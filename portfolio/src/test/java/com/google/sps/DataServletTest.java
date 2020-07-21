@@ -208,53 +208,6 @@ public final class DataServletTest {
     List<String> comments = convertStringToArray(stringWriter.toString());
     assertThat(comments).containsExactly(COMMENT_ONE);
   }
-  
-  @Test
-  public void testPostAndGetSomeComments() throws Exception {
-    int NUM_COMMENTS = 2;
-
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(stringWriter);
-    when(getResponse.getWriter()).thenReturn(printWriter);
-
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
-    dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_TWO);
-    dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_THREE);
-    dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_FOUR);
-    dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_FIVE);
-    dataServlet.doPost(postRequest, postResponse);
-    
-    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
-    dataServlet.doGet(getRequest, getResponse);
-
-    List<String> comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments).containsExactly(COMMENT_ONE,COMMENT_TWO);
-  }
-
-  @Test
-  public void testPostAndGetAllComments() throws Exception {
-    int NUM_COMMENTS = 3;
-
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(stringWriter);
-    when(getResponse.getWriter()).thenReturn(printWriter);
-
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
-    dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_TWO);
-    dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_THREE);
-    dataServlet.doPost(postRequest, postResponse);
-    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
-    dataServlet.doGet(getRequest, getResponse);
-
-    List<String> comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments).containsExactly(COMMENT_ONE,COMMENT_TWO,COMMENT_THREE);
-  }
 
   @Test 
   public void testGetContentType() throws Exception {
