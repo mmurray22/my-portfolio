@@ -162,17 +162,28 @@ public final class DataServletTest {
   @Test
   public void testGetAllComments() throws Exception {
     int NUM_COMMENTS = 3;
+    long TIMESTAMP_ONE = 0;
+    Entity comment = new Entity(COMMENT_TABLE_NAME);
+    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #1");
+    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
+    ds.put(comment);
+
+    long TIMESTAMP_TWO = 1;
+    comment = new Entity(COMMENT_TABLE_NAME);
+    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #2");
+    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_TWO);
+    ds.put(comment);
+
+    long TIMESTAMP_THREE = 2;
+    comment = new Entity(COMMENT_TABLE_NAME);
+    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #3");
+    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_THREE);
+    ds.put(comment);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
-    dataServelet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
-    dataServelet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
-    dataServelet.doPost(postRequest, postResponse);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServelet.doGet(getRequest, getResponse);
 
