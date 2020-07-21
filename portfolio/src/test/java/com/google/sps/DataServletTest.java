@@ -57,6 +57,8 @@ public final class DataServletTest {
   private static final long TIMESTAMP_THREE = 2;
   private static final long TIMESTAMP_FOUR = 3;
   private static final long TIMESTAMP_FIVE = 4;
+  private static final String COMMENT_PARAMETER = "text-input";
+  private static final String NUMBER_COMMENTS_DISPLAYED_PARAMETER = "max-num";
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
@@ -88,7 +90,7 @@ public final class DataServletTest {
   public void testPostSingleComment() throws Exception {
     assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
 
-    when(postRequest.getParameter("text-input")).thenReturn("Comment1");
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
     
     assertThat(getNumberOfEntiresInDatastore()).isEqualTo(1);
@@ -98,11 +100,11 @@ public final class DataServletTest {
   public void testPostMultipleComments() throws Exception {
     assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
 
-    when(postRequest.getParameter("text-input")).thenReturn("Comment1");
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Comment2");
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_TWO);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Comment3");
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_THREE);
     dataServlet.doPost(postRequest, postResponse);
     
     assertThat(getNumberOfEntiresInDatastore()).isEqualTo(3);
@@ -112,7 +114,7 @@ public final class DataServletTest {
   public void testPostNull() throws Exception {
     assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
 
-    when(postRequest.getParameter("text-input")).thenReturn(null);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(null);
     dataServlet.doPost(postRequest, postResponse);
     
     assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
@@ -169,7 +171,7 @@ public final class DataServletTest {
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
-    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
@@ -201,7 +203,7 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
@@ -227,7 +229,7 @@ public final class DataServletTest {
 
   @Test
   public void testPostAndGetSingleComment() throws Exception {
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_ONE);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
@@ -250,17 +252,17 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_ONE);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_TWO);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_TWO);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_THREE);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_THREE);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_FOUR);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_FOUR);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_FIVE);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_FIVE);
     dataServlet.doPost(postRequest, postResponse);
-    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
@@ -278,13 +280,13 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_ONE);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_TWO);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_TWO);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_THREE);
+    when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_THREE);
     dataServlet.doPost(postRequest, postResponse);
-    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
