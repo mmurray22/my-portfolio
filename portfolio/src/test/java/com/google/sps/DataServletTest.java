@@ -135,7 +135,6 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    dataServlet.doPost(postRequest, postResponse);
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
