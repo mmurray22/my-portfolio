@@ -72,30 +72,79 @@ function getComments() {
 }
 
 /** Creates a map and adds it to the page. */
+var map;
 function loadMap() {
+    var contentString = '<div id="map-content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">'+document.getElementById("locations").value+'</h1>'+
+      '<div id="bodyContent">'+
+      '<p> This place is awesome!</p>'+
+      '<p>Unrelated Attribution: <a href="https://rustacean.net/assets/rustacean-flat-happy.svg">'+
+      'Unrelated Picture</a> '+
+      '</p>'+
+      '</div>'+
+      '</div>';
     var desiredLocationLatLng = {lat: 46.233950, lng: 6.055801};
-    if (document.getElementById("locations").value === "Ramen") {
+    if (document.getElementById("locations").value == "Ramen-Nagi") {
         desiredLocationLatLng = {lat: 37.445640, lng: -122.160736};
     }
     if (document.getElementById("locations").value === "Havanna") {
         desiredLocationLatLng = {lat: 23.115055, lng: -82.365972};
     }
     console.log(desiredLocationLatLng);
-    const map = new google.maps.Map(
+    map = new google.maps.Map(
         document.getElementById('map'),
-        {center: desiredLocationLatLng, zoom: 16
-    });
+        {center: desiredLocationLatLng, zoom: 16});
     const marker = new google.maps.Marker({
         position: desiredLocationLatLng, 
         map: map,
         animation: google.maps.Animation.DROP,
-        title: 'Travel Destinations'
+        title: 'Travel Destinations: Click me to see more!'
       });
+    const infoWindow = new google.maps.InfoWindow({
+      content: contentString
+    });
     marker.addListener('click', function() {
-        if (this.getAnimation() !== null) {
-          this.setAnimation(null);
-        } else {
-          this.setAnimation(google.maps.Animation.BOUNCE);
+      if (this.getAnimation() !== null) {
+        infowindow.close(map, marker);
+        this.setAnimation(null);
+      } else {
+        infowindow.open(map, marker);
+        this.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    });
+}
+
+function getComments() {
+	fetch('/data').then(response => response.json()).then((comments) => {
+		console.log(comments);
+		const bodyElement = document.body;
+		bodyElement.innerHTML += 'Here are the comments: \n';
+        for (comment of comments) {
+            bodyElement.innerHTML += comment + '\n';
+        }
+	});
+}
+
+function getMarkers() {
+    fetch('/markers').then(response => response.json()).then((markers) => {
+        console.log("Markers: ", markers);
+        for (marker in markers) {
+            var desiredLocationLatLng = {lat: markers.lat, lng: markers.lng};
+            const marker = new google.maps.Marker({
+                position: desiredLocationLatLng, 
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'Saved Pin!'
+            });
         }
     });
+}
+
+function saveMarker(lat, lng) {
+    const params = new URLSearchParams();
+    params.append('lat', lat);
+    params.append('lng', lng);
+    fetch('/markers', {method: 'POST', body: params});
 }
