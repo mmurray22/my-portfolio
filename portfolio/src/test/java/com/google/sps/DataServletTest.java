@@ -137,7 +137,6 @@ public final class DataServletTest {
 
     dataServlet.doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
     assertThat(comments[0]).isEqualTo(COMMENT_ONE);
   }
@@ -158,7 +157,6 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
     assertThat(comments[0]).isEqualTo(COMMENT_ONE);
     assertThat(comments[1]).isEqualTo(COMMENT_TWO);  
@@ -179,7 +177,6 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yet
     String responseOutput = stringWriter.toString();
     String[] comments = convertStringToArray(responseOutput);
     assertThat(comments[0]).isEqualTo(COMMENT_ONE);
@@ -196,7 +193,6 @@ public final class DataServletTest {
 
     dataServlet.doGet(getRequest, getResponse); 
 
-    printWriter.flush(); //may not have flushed yet
     assertThat(stringWriter.toString().trim()).isEqualTo("[]");
   }
 
@@ -211,7 +207,6 @@ public final class DataServletTest {
     dataServlet.doPost(postRequest, postResponse);
     dataServlet.doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
     assertThat(comments[0]).isEqualTo(COMMENT_ONE);
     assertThat(comments.length).isEqualTo(1);
@@ -239,7 +234,6 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
     assertThat(comments[0]).isEqualTo(COMMENT_ONE);
     assertThat(comments[1]).isEqualTo(COMMENT_TWO);
@@ -263,7 +257,6 @@ public final class DataServletTest {
     when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
-    printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
     assertThat(comments[0]).isEqualTo(COMMENT_ONE);
     assertThat(comments[1]).isEqualTo(COMMENT_TWO);
