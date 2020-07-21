@@ -41,16 +41,22 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public final class DataServletTest {
-  static final String COMMENT_TABLE_NAME = "Comment";
-  static final String COMMENT_COLUMN_NAME = "text";
-  static final String TIMESTAMP_COLUMN_NAME = "submit_time";
   private final HttpServletRequest postRequest = mock(HttpServletRequest.class);
   private final HttpServletResponse postResponse = mock(HttpServletResponse.class);
   private final HttpServletRequest getRequest = mock(HttpServletRequest.class);
   private final HttpServletResponse getResponse = mock(HttpServletResponse.class);
   private final DataServlet dataServlet = new DataServlet();
   private final DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-
+  private static final String COMMENT_ONE = "Test Comment #1";
+  private static final String COMMENT_TWO = "Test Comment #2";
+  private static final String COMMENT_THREE = "Test Comment #3";
+  private static final String COMMENT_FOUR = "Test Comment #4";
+  private static final String COMMENT_FIVE = "Test Comment #5";
+  private static final long TIMESTAMP_ONE = 0;
+  private static final long TIMESTAMP_TWO = 1;
+  private static final long TIMESTAMP_THREE = 2;
+  private static final long TIMESTAMP_FOUR = 3;
+  private static final long TIMESTAMP_FIVE = 4;
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
@@ -73,20 +79,24 @@ public final class DataServletTest {
       String[] comments = (responseOutput.trim()).split(",");
       return comments;
   }
+  
+  private int getNumberOfEntiresInDatastore() {
+      return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
+  }
 
   @Test 
   public void testPostSingleComment() throws Exception {
-    assertThat(0).isEqualTo(ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
     dataServlet.doPost(postRequest, postResponse);
     
-    assertThat(1).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(1);
   }
 
   @Test 
   public void testPostMultipleComments() throws Exception {
-    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
 
     when(postRequest.getParameter("text-input")).thenReturn("Comment1");
     dataServlet.doPost(postRequest, postResponse);
@@ -95,25 +105,24 @@ public final class DataServletTest {
     when(postRequest.getParameter("text-input")).thenReturn("Comment3");
     dataServlet.doPost(postRequest, postResponse);
     
-    assertThat(3).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(3);
   }
 
   @Test 
   public void testPostNull() throws Exception {
-    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
 
     when(postRequest.getParameter("text-input")).thenReturn(null);
     dataServlet.doPost(postRequest, postResponse);
     
-    assertThat(0).isEqualTo(ds.prepare(new Query(COMMENT_TABLE_NAME)).countEntities(withLimit(10)));
+    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
   }
 
   @Test
   public void testGetSingleComment() throws Exception {
-    long TIMESTAMP_ONE = 0;
-    Entity comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #1");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
+    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_ONE);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
     ds.put(comment);
 
     StringWriter stringWriter = new StringWriter();
@@ -125,90 +134,83 @@ public final class DataServletTest {
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo("Test Comment #1");
+    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
   }
   
   @Test
   public void testGetSomeComments() throws Exception {
-    int NUM_COMMENTS = 2;
-    long TIMESTAMP_ONE = 0;
-    Entity comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #1");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
+    int NUM_COMMENTS_TO_DISPLAY = 2;
+
+    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_ONE);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
     ds.put(comment);
 
-    long TIMESTAMP_TWO = 1;
-    comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #2");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_TWO);
+    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_TWO);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_TWO);
     ds.put(comment);
 
-    long TIMESTAMP_THREE = 2;
-    comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #3");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_THREE);
+    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_THREE);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_THREE);
     ds.put(comment);
 
-    long TIMESTAMP_FOUR = 3;
-    comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #4");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_FOUR);
+    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_FOUR);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_FOUR);
     ds.put(comment);
 
-    long TIMESTAMP_FIVE = 4;
-    comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #5");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_FIVE);
+    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_FIVE);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_FIVE);
     ds.put(comment);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
-    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
+    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo("Test Comment #1");
-    assertThat(comments[1]).isEqualTo("Test Comment #2");  
-    assertThat(comments.length).isEqualTo(2);
+    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
+    assertThat(comments[1]).isEqualTo(COMMENT_TWO);  
+    assertThat(comments.length).isEqualTo(NUM_COMMENTS_TO_DISPLAY);
   }
 
   @Test
   public void testGetAllComments() throws Exception {
-    int NUM_COMMENTS = 3;
-    long TIMESTAMP_ONE = 0;
-    Entity comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #1");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
+    int NUM_COMMENTS_TO_DISPLAY = 3;
+    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_ONE);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_ONE);
     ds.put(comment);
 
-    long TIMESTAMP_TWO = 1;
-    comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #2");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_TWO);
+    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_TWO);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_TWO);
     ds.put(comment);
 
-    long TIMESTAMP_THREE = 2;
-    comment = new Entity(COMMENT_TABLE_NAME);
-    comment.setProperty(COMMENT_COLUMN_NAME, "Test Comment #3");
-    comment.setProperty(TIMESTAMP_COLUMN_NAME, TIMESTAMP_THREE);
+    comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, COMMENT_THREE);
+    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, TIMESTAMP_THREE);
     ds.put(comment);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
+    when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS_TO_DISPLAY));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String responseOutput = stringWriter.toString();
     String[] comments = convertStringToArray(responseOutput);
-    assertThat(comments[0]).isEqualTo("Test Comment #1");
-    assertThat(comments[1]).isEqualTo("Test Comment #2");
-    assertThat(comments[2]).isEqualTo("Test Comment #3"); 
-    assertThat(comments.length).isEqualTo(3);
+    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
+    assertThat(comments[1]).isEqualTo(COMMENT_TWO);
+    assertThat(comments[2]).isEqualTo(COMMENT_THREE); 
+    assertThat(comments.length).isEqualTo(NUM_COMMENTS_TO_DISPLAY);
   }
 
   @Test
@@ -225,7 +227,7 @@ public final class DataServletTest {
 
   @Test
   public void testPostAndGetSingleComment() throws Exception {
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_ONE);
 
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
@@ -236,7 +238,7 @@ public final class DataServletTest {
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo("Test Comment #1");
+    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
     assertThat(comments.length).isEqualTo(1);
   }
   
@@ -248,23 +250,23 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_TWO);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_THREE);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #4");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_FOUR);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #5");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_FIVE);
     dataServlet.doPost(postRequest, postResponse);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo("Test Comment #1");
-    assertThat(comments[1]).isEqualTo("Test Comment #2");
+    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
+    assertThat(comments[1]).isEqualTo(COMMENT_TWO);
     assertThat(comments.length).isEqualTo(2);
   }
 
@@ -276,20 +278,20 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #1");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #2");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_TWO);
     dataServlet.doPost(postRequest, postResponse);
-    when(postRequest.getParameter("text-input")).thenReturn("Test Comment #3");
+    when(postRequest.getParameter("text-input")).thenReturn(COMMENT_THREE);
     dataServlet.doPost(postRequest, postResponse);
     when(getRequest.getParameter("max-num")).thenReturn(Integer.toString(NUM_COMMENTS));
     dataServlet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
     String[] comments = convertStringToArray(stringWriter.toString());
-    assertThat(comments[0]).isEqualTo("Test Comment #1");
-    assertThat(comments[1]).isEqualTo("Test Comment #2");
-    assertThat(comments[2]).isEqualTo("Test Comment #3");
+    assertThat(comments[0]).isEqualTo(COMMENT_ONE);
+    assertThat(comments[1]).isEqualTo(COMMENT_TWO);
+    assertThat(comments[2]).isEqualTo(COMMENT_THREE);
     assertThat(comments.length).isEqualTo(3);
   }
 }
