@@ -30,6 +30,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -60,6 +62,16 @@ public final class DataServletTest {
   @After
   public void tearDown() {
     helper.tearDown();
+  }
+
+  private String[] convertStringToArray(String responseOutput) {
+      //Gets rid of brackets
+      responseOutput = responseOutput.replace("[", "")
+                                     .replace("]", "")
+                                     .replace("\"", "");
+      //Parse by commas
+      String[] comments = (responseOutput.trim()).split(",");
+      return comments;
   }
 
   @Test 
@@ -112,7 +124,8 @@ public final class DataServletTest {
     dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
-    assertThat(stringWriter.toString()).contains("Test Comment #1");
+    String[] comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments[0]).isEqualTo("Test Comment #1");
   }
   
   @Test
@@ -155,8 +168,10 @@ public final class DataServletTest {
     dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
-    assertThat(stringWriter.toString()).contains("Test Comment #1");
-    assertThat(stringWriter.toString()).contains("Test Comment #2");  
+    String[] comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments[0]).isEqualTo("Test Comment #1");
+    assertThat(comments[1]).isEqualTo("Test Comment #2");  
+    assertThat(comments.length).isEqualTo(2);
   }
 
   @Test
@@ -188,9 +203,12 @@ public final class DataServletTest {
     dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
-    assertThat(stringWriter.toString()).contains("Test Comment #1");
-    assertThat(stringWriter.toString()).contains("Test Comment #2");
-    assertThat(stringWriter.toString()).contains("Test Comment #3");
+    String responseOutput = stringWriter.toString();
+    String[] comments = convertStringToArray(responseOutput);
+    assertThat(comments[0]).isEqualTo("Test Comment #1");
+    assertThat(comments[1]).isEqualTo("Test Comment #2");
+    assertThat(comments[2]).isEqualTo("Test Comment #3"); 
+    assertThat(comments.length).isEqualTo(3);
   }
 
   @Test
@@ -217,7 +235,9 @@ public final class DataServletTest {
     dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
-    assertThat(stringWriter.toString()).contains("Test Comment #1");
+    String[] comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments[0]).isEqualTo("Test Comment #1");
+    assertThat(comments.length).isEqualTo(1);
   }
   
   @Test
@@ -242,8 +262,10 @@ public final class DataServletTest {
     dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
-    assertThat(stringWriter.toString()).contains("Test Comment #1");
-    assertThat(stringWriter.toString()).contains("Test Comment #2");  
+    String[] comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments[0]).isEqualTo("Test Comment #1");
+    assertThat(comments[1]).isEqualTo("Test Comment #2");
+    assertThat(comments.length).isEqualTo(2);
   }
 
   @Test
@@ -264,9 +286,11 @@ public final class DataServletTest {
     dataServelet.doGet(getRequest, getResponse);
 
     printWriter.flush(); //may not have flushed yet
-    assertThat(stringWriter.toString()).contains("Test Comment #1");
-    assertThat(stringWriter.toString()).contains("Test Comment #2");
-    assertThat(stringWriter.toString()).contains("Test Comment #3");
+    String[] comments = convertStringToArray(stringWriter.toString());
+    assertThat(comments[0]).isEqualTo("Test Comment #1");
+    assertThat(comments[1]).isEqualTo("Test Comment #2");
+    assertThat(comments[2]).isEqualTo("Test Comment #3");
+    assertThat(comments.length).isEqualTo(3);
   }
 
 //   @Test 
