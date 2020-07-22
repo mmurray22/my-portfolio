@@ -95,7 +95,7 @@ public final class DataServletTest {
       return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
   }
 
-  private void addEntityToDatastore(String comment_text, long timestamp) {
+  private void addEntityToDatastore(String commentText, long timestamp) {
     Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
     comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, comment_text);
     comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
