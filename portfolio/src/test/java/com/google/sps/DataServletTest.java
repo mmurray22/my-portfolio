@@ -83,12 +83,8 @@ public final class DataServletTest {
                                      .replace("]", "")
                                      .replace("\"", "");
       // Parse by commas
-      List<String> commentsList = new ArrayList<>();
-      String[] commentsArray = (responseOutput.trim()).split(",");
-      for(String comment : commentsArray) {
-          commentsList.add(comment);
-      }
-      return commentsList;
+      String[] comments = (responseOutput.trim()).split(",");
+      return Arrays.asList(comments);
   }
   
   private int getNumberOfEntiresInDatastore() {
