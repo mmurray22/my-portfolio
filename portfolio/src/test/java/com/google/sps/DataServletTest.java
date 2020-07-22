@@ -77,7 +77,7 @@ public final class DataServletTest {
     helper.tearDown();
   }
 
-  private List<String> convertStringToList(String responseOutput) {
+  private static List<String> convertStringToList(String responseOutput) {
       // Gets rid of brackets
       responseOutput = responseOutput.replace("[", "")
                                      .replace("]", "")
@@ -102,7 +102,7 @@ public final class DataServletTest {
     ds.put(comment);
   }
 
-  private void verifyReturnedComments(StringWriter writer, String[] expectedComments) {
+  private static void verifyReturnedComments(StringWriter writer, String[] expectedComments) {
     List<String> comments = convertStringToList(writer.toString());
     assertThat(comments).containsExactlyElementsIn(expectedComments);
   }
