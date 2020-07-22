@@ -15,26 +15,38 @@
 package com.google.sps;
 // import com.google.common.collect.Sets;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    Collection<TimeRange> validCalendarTimes = new ArrayList<>();
-    /*Find the time ranges everyone else is not available*/
-    // Collection<TimeRange> forbiddenTimes = new ArrayList<>();
-    // for (Event event : events) {
-    //     if ((Sets.intersection(event.getAttendees(), request.getAttendees())).size() == 0) {
-    //         continue;
-    //     }
-    //     forbiddenTimes.add(event.getWhen());
-    // }
     if (events.size() == 0) {
-        validCalendarTimes.add(TimeRange.WHOLE_DAY);
-        return validCalendarTimes;
+        return Array.asList(TimeRange.WHOLE_DAY);
     }
-    Collection.sort(events, TimeRange.ORDER_BY_START);
+    if (request.getDuration() > TimeRange.WHOLE_DAY) { 
+        return Array.asList(); //check syntax
+    }
+    List<Event> eventsList = sortEventsByTime(events);
+    removeExtraneousEvents(eventsList, request.getAttendees());
+    return bestMeetingTimes(eventsList, request.getDuration());
+  }
+
+  private List<Event> sortEventsByTime(Collection<Event> events) {
+      //sort :) 
+  }
+
+  private void removeExtraneousEvents(List<Event> events, Collection<String> attendees) {
+      for (Event event : events) {
+        if (Set.intersection(attendees, event.getAttendees()).isEmpty()) {
+            events.remove(event);
+        }
+      }
+      return events;
+  }
+
+  private Collection<TimeRange> bestMeetingTimes() {
     int start = TimeRange.START_OF_DAY;
     for (int i = 0; i < events.size(); i++) {
         if (start == events.get(i).getWhen().start()) { /*Time is occupied*/
@@ -57,3 +69,5 @@ public final class FindMeetingQuery {
     }
   }
 }
+
+
