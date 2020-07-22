@@ -26,7 +26,7 @@ public final class FindMeetingQuery {
         return Array.asList(TimeRange.WHOLE_DAY);
     }
     if (request.getDuration() > TimeRange.WHOLE_DAY) { 
-        return Array.asList(); //check syntax
+        return Array.asList();
     }
     List<Event> eventsList = sortEventsByTime(events);
     removeExtraneousEvents(eventsList, request.getAttendees());
@@ -46,7 +46,7 @@ public final class FindMeetingQuery {
       return events;
   }
 
-  private Collection<TimeRange> bestMeetingTimes() {
+  private Collection<TimeRange> bestMeetingTimes(List<Event> eventsList, long duration) {
     int start = TimeRange.START_OF_DAY;
     for (int i = 0; i < events.size(); i++) {
         if (start == events.get(i).getWhen().start()) { /*Time is occupied*/
