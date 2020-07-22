@@ -16,8 +16,9 @@ package com.google.sps.servlets;
 
 import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -27,22 +28,15 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.mockito.Mockito;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 
 @RunWith(JUnit4.class)
 public final class DataServletTest {
@@ -78,44 +72,42 @@ public final class DataServletTest {
   }
 
   private static List<String> convertStringToList(String responseOutput) {
-      // Gets rid of brackets
-      responseOutput = responseOutput.replace("[", "")
-                                     .replace("]", "")
-                                     .replace("\"", "");
-      // Parse by commas
-      String[] comments = (responseOutput.trim()).split(",");
-      return Arrays.asList(comments);
+    // Gets rid of brackets
+    responseOutput = responseOutput.replace("[", "").replace("]", "").replace("\"", "");
+    // Parse by commas
+    String[] comments = (responseOutput.trim()).split(",");
+    return Arrays.asList(comments);
   }
-  
+
   private int getNumberOfEntriesInDatastore() {
-      return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
+    return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
   }
 
   private void addEntityToDatastore(String commentText, long timestamp) {
     Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, comment_text);
+    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, commentText);
     comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
     ds.put(comment);
   }
 
-  private static void verifyReturnedComments(StringWriter writer, String[] expectedComments) {
+  private static void verifyReturnedComments(StringWriter writer, String... expectedComments) {
     List<String> comments = convertStringToList(writer.toString());
     assertThat(comments).containsExactlyElementsIn(expectedComments);
   }
 
-  @Test 
+  @Test
   public void testPostSingleComment() throws Exception {
-    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
+    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(0);
 
     when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
-    
-    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(1);
+
+    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(1);
   }
 
-  @Test 
+  @Test
   public void testPostMultipleComments() throws Exception {
-    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
+    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(0);
 
     when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_ONE);
     dataServlet.doPost(postRequest, postResponse);
@@ -123,18 +115,18 @@ public final class DataServletTest {
     dataServlet.doPost(postRequest, postResponse);
     when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(COMMENT_THREE);
     dataServlet.doPost(postRequest, postResponse);
-    
-    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(3);
+
+    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(3);
   }
 
-  @Test 
+  @Test
   public void testPostNull() throws Exception {
-    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
+    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(0);
 
     when(postRequest.getParameter(COMMENT_PARAMETER)).thenReturn(null);
     dataServlet.doPost(postRequest, postResponse);
-    
-    assertThat(getNumberOfEntiresInDatastore()).isEqualTo(0);
+
+    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(0);
   }
 
   @Test
@@ -147,10 +139,9 @@ public final class DataServletTest {
 
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] expectedComments = {COMMENT_ONE};
-    verifyReturnedComments(stringWriter, expectedComments);
+    verifyReturnedComments(stringWriter, COMMENT_ONE);
   }
-  
+
   @Test
   public void testGetSomeComments() throws Exception {
     int numCommentsToDisplay = 2;
@@ -164,11 +155,11 @@ public final class DataServletTest {
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
-    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(numCommentsToDisplay));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER))
+        .thenReturn(Integer.toString(numCommentsToDisplay));
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] expectedComments = {COMMENT_ONE, COMMENT_TWO};
-    verifyReturnedComments(stringWriter, expectedComments);
+    verifyReturnedComments(stringWriter, COMMENT_ONE, COMMENT_TWO);
   }
 
   @Test
@@ -182,20 +173,20 @@ public final class DataServletTest {
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER)).thenReturn(Integer.toString(numCommentsToDisplay));
+    when(getRequest.getParameter(NUMBER_COMMENTS_DISPLAYED_PARAMETER))
+        .thenReturn(Integer.toString(numCommentsToDisplay));
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] expectedComments = {COMMENT_ONE, COMMENT_TWO, COMMENT_THREE};
-    verifyReturnedComments(stringWriter, expectedComments);
+    verifyReturnedComments(stringWriter, COMMENT_ONE, COMMENT_TWO, COMMENT_THREE);
   }
 
   @Test
   public void testGetEmptyDataStore() throws Exception {
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
-    when(getResponse.getWriter()).thenReturn(printWriter);  
+    when(getResponse.getWriter()).thenReturn(printWriter);
 
-    dataServlet.doGet(getRequest, getResponse); 
+    dataServlet.doGet(getRequest, getResponse);
 
     assertThat(stringWriter.toString().trim()).isEqualTo("[]");
   }
@@ -211,17 +202,16 @@ public final class DataServletTest {
     dataServlet.doPost(postRequest, postResponse);
     dataServlet.doGet(getRequest, getResponse);
 
-    String[] expectedComments = {COMMENT_ONE};
-    verifyReturnedComments(stringWriter, expectedComments);
+    verifyReturnedComments(stringWriter, COMMENT_ONE);
   }
 
-  @Test 
+  @Test
   public void testGetContentType() throws Exception {
     StringWriter stringWriter = new StringWriter();
     PrintWriter printWriter = new PrintWriter(stringWriter);
     when(getResponse.getWriter()).thenReturn(printWriter);
 
-    dataServlet.doGet(getRequest, getResponse); 
-    verify(getResponse).setContentType("application/json"); 
+    dataServlet.doGet(getRequest, getResponse);
+    verify(getResponse).setContentType("application/json");
   }
 }
