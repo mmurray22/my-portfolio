@@ -87,7 +87,7 @@ public final class DataServletTest {
       return Arrays.asList(comments);
   }
   
-  private int getNumberOfEntiresInDatastore() {
+  private int getNumberOfEntriesInDatastore() {
       return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
   }
 
