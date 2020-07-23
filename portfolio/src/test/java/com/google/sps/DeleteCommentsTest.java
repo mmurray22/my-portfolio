@@ -85,9 +85,8 @@ public final class DeleteCommentsTest {
         
     try {
         deleteComments.doPost(postRequest, postResponse);
-    } catch(Exception e) {
-        System.out.println("Error caught!");
-        System.out.println(e);
+    } catch(IOException e) {
+        fail("IOException thrown in testDeleteSomeComments!");
     }
 
     assertThat(getNumberOfEntriesInDatastore()).isEqualTo(1);
