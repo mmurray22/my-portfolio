@@ -63,17 +63,6 @@ public final class DeleteCommentsTest {
   public void tearDown() {
     helper.tearDown();
   }
-  
-//   private int getNumberOfEntriesInDatastore() {
-//     return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
-//   }
-
-//   private void addEntityToDatastore(String commentText, long timestamp) {
-//     Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-//     comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, commentText);
-//     comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
-//     ds.put(comment);
-//   }
 
   @Test
   public void testDeleteSomeComments() throws Exception {
@@ -137,5 +126,4 @@ public final class DeleteCommentsTest {
 
     assertThat(dataServletTest.getNumberOfEntriesInDatastore()).isEqualTo(0);
   }
-  
 }
