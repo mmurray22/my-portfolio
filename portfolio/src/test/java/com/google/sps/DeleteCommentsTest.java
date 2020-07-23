@@ -44,6 +44,7 @@ public final class DeleteCommentsTest {
   private final HttpServletResponse postResponse = mock(HttpServletResponse.class);
   private final DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
   private final DataServlet dataServlet = new DataServlet();
+  private final DataServletTest dataServletTest = new DataServletTest();
   private final DeleteComments deleteComments = new DeleteComments();
   private static final String COMMENT_ONE = "Test Comment #1";
   private static final String COMMENT_TWO = "Test Comment #2";
@@ -63,65 +64,65 @@ public final class DeleteCommentsTest {
     helper.tearDown();
   }
   
-  private int getNumberOfEntriesInDatastore() {
-    return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
-  }
+//   private int getNumberOfEntriesInDatastore() {
+//     return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
+//   }
 
-  private void addEntityToDatastore(String commentText, long timestamp) {
-    Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
-    comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, commentText);
-    comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
-    ds.put(comment);
-  }
+//   private void addEntityToDatastore(String commentText, long timestamp) {
+//     Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
+//     comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, commentText);
+//     comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
+//     ds.put(comment);
+//   }
 
   @Test
   public void testDeleteSomeComments() throws Exception {
-    addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
-    addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
+    dataServletTest.addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
+    dataServletTest.addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
         .thenReturn("1");
 
     deleteComments.doPost(postRequest, postResponse);
-    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(1);
+    assertThat(dataServletTest.getNumberOfEntriesInDatastore()).isEqualTo(1);
   }
 
   @Test
   public void testDeleteAllComments() throws Exception {
-    addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
-    addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
+    dataServletTest.addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
+    dataServletTest.addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
         .thenReturn("2");
 
     deleteComments.doPost(postRequest, postResponse);
 
-    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(0);
+    assertThat(dataServletTest.getNumberOfEntriesInDatastore()).isEqualTo(0);
   }
 
   @Test
   public void testDeleteNoComments() throws Exception {
-    addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
-    addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
+    dataServletTest.addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
+    dataServletTest.addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
         .thenReturn("0");
 
     deleteComments.doPost(postRequest, postResponse);
 
-    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(2);
+    assertThat(dataServletTest.getNumberOfEntriesInDatastore()).isEqualTo(2);
   }
   
   @Test
   public void testDeleteNullComments() throws Exception{
-    addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
-    addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
+    dataServletTest.addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
+    dataServletTest.addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
         .thenReturn(null);
 
     deleteComments.doPost(postRequest, postResponse);
 
-    assertThat(getNumberOfEntriesInDatastore()).isEqualTo(2);
+    assertThat(dataServletTest.getNumberOfEntriesInDatastore()).isEqualTo(2);
   }
 }
