@@ -125,4 +125,17 @@ public final class DeleteCommentsTest {
 
     assertThat(dataServletTest.getNumberOfEntriesInDatastore()).isEqualTo(2);
   }
+
+  public void testDeleteTooManyComments() throws Exception{
+    dataServletTest.addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
+    dataServletTest.addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
+
+    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
+        .thenReturn("3");
+
+    deleteComments.doPost(postRequest, postResponse);
+
+    assertThat(dataServletTest.getNumberOfEntriesInDatastore()).isEqualTo(0);
+  }
+  
 }
