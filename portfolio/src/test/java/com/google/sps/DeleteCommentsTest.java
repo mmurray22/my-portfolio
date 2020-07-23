@@ -28,6 +28,7 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -75,20 +76,15 @@ public final class DeleteCommentsTest {
   }
 
   @Test
-  public void testDeleteSomeComments() {
+  public void testDeleteSomeComments() throws IOException {
     int numCommentsToDelete = 1;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
         .thenReturn(Integer.toString(numCommentsToDelete));
-        
-    try {
-        deleteComments.doPost(postRequest, postResponse);
-    } catch(IOException e) {
-        fail("IOException thrown in testDeleteSomeComments!");
-    }
 
+    deleteComments.doPost(postRequest, postResponse);
     assertThat(getNumberOfEntriesInDatastore()).isEqualTo(1);
   }
 
@@ -101,18 +97,13 @@ public final class DeleteCommentsTest {
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
         .thenReturn(Integer.toString(numCommentsToDelete));
 
-    try {
-        deleteComments.doPost(postRequest, postResponse);
-    } catch(Exception e) {
-        System.out.println("Error caught!");
-        System.out.println(e);
-    }
+    deleteComments.doPost(postRequest, postResponse);
 
     assertThat(getNumberOfEntriesInDatastore()).isEqualTo(0);
   }
 
   @Test
-  public void testDeleteNoComments() {
+  public void testDeleteNoComments() throws IOException {
     int numCommentsToDelete = 0;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
@@ -120,30 +111,20 @@ public final class DeleteCommentsTest {
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
         .thenReturn(Integer.toString(numCommentsToDelete));
 
-    try {
-        deleteComments.doPost(postRequest, postResponse);
-    } catch(Exception e) {
-        System.out.println("Error caught!");
-        System.out.println(e);
-    }
+    deleteComments.doPost(postRequest, postResponse);
 
     assertThat(getNumberOfEntriesInDatastore()).isEqualTo(2);
   }
   
   @Test
-  public void testDeleteNullComments() {
+  public void testDeleteNullComments() throws IOException{
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
     when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
         .thenReturn(null);
 
-    try {
-        deleteComments.doPost(postRequest, postResponse);
-    } catch(Exception e) {
-        System.out.println("Error caught!");
-        System.out.println(e);
-    }
+    deleteComments.doPost(postRequest, postResponse);
 
     assertThat(getNumberOfEntriesInDatastore()).isEqualTo(2);
   }
