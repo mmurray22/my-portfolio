@@ -93,7 +93,7 @@ public final class DeleteCommentsTest {
   }
 
   @Test
-  public void testDeleteAllComments() {
+  public void testDeleteAllComments() throws IOException {
     int numCommentsToDelete = 2;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
