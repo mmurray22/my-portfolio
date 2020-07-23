@@ -49,7 +49,7 @@ public final class DeleteCommentsTest {
   private static final String COMMENT_TWO = "Test Comment #2";
   private static final long TIMESTAMP_ONE = 0;
   private static final long TIMESTAMP_TWO = 1;
-  private static final String NUM_COMMENTS_TO_DELETE = "delete-num";
+  private static final String NUM_COMMENTS_TO_DELETE_PARAM = "delete-num";
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
@@ -76,12 +76,11 @@ public final class DeleteCommentsTest {
 
   @Test
   public void testDeleteSomeComments() throws Exception {
-    int numCommentsToDelete = 1;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
-    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
-        .thenReturn(Integer.toString(numCommentsToDelete));
+    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
+        .thenReturn("1");
 
     deleteComments.doPost(postRequest, postResponse);
     assertThat(getNumberOfEntriesInDatastore()).isEqualTo(1);
@@ -89,12 +88,11 @@ public final class DeleteCommentsTest {
 
   @Test
   public void testDeleteAllComments() throws Exception {
-    int numCommentsToDelete = 2;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
-    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
-        .thenReturn(Integer.toString(numCommentsToDelete));
+    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
+        .thenReturn("2");
 
     deleteComments.doPost(postRequest, postResponse);
 
@@ -103,12 +101,11 @@ public final class DeleteCommentsTest {
 
   @Test
   public void testDeleteNoComments() throws Exception {
-    int numCommentsToDelete = 0;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
-    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
-        .thenReturn(Integer.toString(numCommentsToDelete));
+    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
+        .thenReturn("0");
 
     deleteComments.doPost(postRequest, postResponse);
 
@@ -120,7 +117,7 @@ public final class DeleteCommentsTest {
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
-    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE))
+    when(postRequest.getParameter(NUM_COMMENTS_TO_DELETE_PARAM))
         .thenReturn(null);
 
     deleteComments.doPost(postRequest, postResponse);
