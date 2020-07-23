@@ -28,7 +28,6 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +75,7 @@ public final class DeleteCommentsTest {
   }
 
   @Test
-  public void testDeleteSomeComments() throws IOException {
+  public void testDeleteSomeComments() throws Exception {
     int numCommentsToDelete = 1;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
@@ -89,7 +88,7 @@ public final class DeleteCommentsTest {
   }
 
   @Test
-  public void testDeleteAllComments() throws IOException {
+  public void testDeleteAllComments() throws Exception {
     int numCommentsToDelete = 2;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
@@ -103,7 +102,7 @@ public final class DeleteCommentsTest {
   }
 
   @Test
-  public void testDeleteNoComments() throws IOException {
+  public void testDeleteNoComments() throws Exception {
     int numCommentsToDelete = 0;
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
@@ -117,7 +116,7 @@ public final class DeleteCommentsTest {
   }
   
   @Test
-  public void testDeleteNullComments() throws IOException{
+  public void testDeleteNullComments() throws Exception{
     addEntityToDatastore(COMMENT_ONE, TIMESTAMP_ONE);
     addEntityToDatastore(COMMENT_TWO, TIMESTAMP_TWO);
 
