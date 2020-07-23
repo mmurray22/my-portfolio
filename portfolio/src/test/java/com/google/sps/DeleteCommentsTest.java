@@ -47,8 +47,8 @@ public final class DeleteCommentsTest {
   private final DeleteComments deleteComments = new DeleteComments();
   private static final String COMMENT_ONE = "Test Comment #1";
   private static final String COMMENT_TWO = "Test Comment #2";
-  private static final long TIMESTAMP_ONE = 0;
-  private static final long TIMESTAMP_TWO = 1;
+  private static final long TIMESTAMP_ONE = 0L;
+  private static final long TIMESTAMP_TWO = 1L;
   private static final String NUM_COMMENTS_TO_DELETE = "delete-num";
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
