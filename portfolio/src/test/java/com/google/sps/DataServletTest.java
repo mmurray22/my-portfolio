@@ -79,11 +79,11 @@ public final class DataServletTest {
     return Arrays.asList(comments);
   }
 
-  private int getNumberOfEntriesInDatastore() {
+  int getNumberOfEntriesInDatastore() {
     return ds.prepare(new Query(dataServlet.COMMENT_TABLE_NAME)).countEntities(withLimit(10));
   }
 
-  private void addEntityToDatastore(String commentText, long timestamp) {
+  void addEntityToDatastore(String commentText, long timestamp) {
     Entity comment = new Entity(dataServlet.COMMENT_TABLE_NAME);
     comment.setProperty(dataServlet.COMMENT_COLUMN_NAME, commentText);
     comment.setProperty(dataServlet.TIMESTAMP_COLUMN_NAME, timestamp);
