@@ -55,7 +55,7 @@ public class DataServlet extends HttpServlet {
 
     // Send JSON as the response
     String commentJSON = convertToJson(myComments);
-    response.setContentType("application/json;");
+    response.setContentType("application/json");
     response.getWriter().println(commentJSON);
   }
 
